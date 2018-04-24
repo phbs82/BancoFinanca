@@ -20,14 +20,14 @@ public interface ItemDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertCompra(Item... item);
+    public void insert(Item... item);
 
 
     @Update
-    public void updateUsers(Item... item);
+    public void update(Item... item);
 
     @Delete
-    public void deleteUsers(Item... item);
+    public void delete(Item... item);
 
 
 

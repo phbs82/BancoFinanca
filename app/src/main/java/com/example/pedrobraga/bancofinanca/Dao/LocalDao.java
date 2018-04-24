@@ -1,5 +1,6 @@
 package com.example.pedrobraga.bancofinanca.Dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -9,6 +10,8 @@ import android.arch.persistence.room.Update;
 
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
+
+import java.util.List;
 
 /**
  * Created by pedro.braga on 19/04/2018.
@@ -20,19 +23,19 @@ public interface LocalDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertCompra(Local... local);
+    public void insert(Local... local);
 
 
     @Update
-    public void updateUsers(Local... local);
+    public void update(Local... local);
 
     @Delete
-    public void deleteUsers(Local... local);
+    public void delete(Local... local);
 
 
 
     @Query("SELECT * FROM Local")
-    public Local[] loadAllLocal();
+    public LiveData<List<Local>> loadAllLocal();
 
 
 }

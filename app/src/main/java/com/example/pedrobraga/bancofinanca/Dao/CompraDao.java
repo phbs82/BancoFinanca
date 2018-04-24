@@ -19,14 +19,14 @@ public interface CompraDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertCompra(Compra... compra);
+    public void insert(Compra... compra);
 
 
     @Update
-    public void updateUsers(Compra... compra);
+    public void update(Compra... compra);
 
     @Delete
-    public void deleteUsers(Compra... compra);
+    public void delete(Compra... compra);
 
 
 

@@ -19,14 +19,14 @@ public interface ProdutoDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertCompra(Produto... produto);
+    public void insert(Produto... produto);
 
 
     @Update
-    public void updateUsers(Produto... produto);
+    public void update(Produto... produto);
 
     @Delete
-    public void deleteUsers(Produto... produto);
+    public void delete(Produto... produto);
 
 
 
