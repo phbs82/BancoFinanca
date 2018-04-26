@@ -1,5 +1,6 @@
 package com.example.pedrobraga.bancofinanca.Dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -8,6 +9,8 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
+
+import java.util.List;
 
 /**
  * Created by pedro.braga on 19/04/2018.
@@ -31,7 +34,7 @@ public interface CompraDao {
 
 
     @Query("SELECT * FROM Compra")
-    public Compra[] loadAllCompra();
+    public LiveData<List<Compra>> loadAllCompra();
 
 
 

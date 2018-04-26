@@ -52,6 +52,48 @@ public class LocalRepository {
     }
 
 
+    public void update (Local local) {
+        new updateAsyncTask(localDao).execute(local);
+    }
+
+    private static class updateAsyncTask extends AsyncTask<Local, Void, Void> {
+
+        private LocalDao asyncLocalDao;
+
+        updateAsyncTask(LocalDao dao) {
+            asyncLocalDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Local... params) {
+            asyncLocalDao.update(params[0]);
+            return null;
+        }
+    }
+
+
+
+    public void deelte (Local local) {
+        new deleteAsyncTask(localDao).execute(local);
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Local, Void, Void> {
+
+        private LocalDao asyncLocalDao;
+
+        deleteAsyncTask(LocalDao dao) {
+            asyncLocalDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Local... params) {
+            asyncLocalDao.delete(params[0]);
+            return null;
+        }
+    }
+
+
+
 
 
 }

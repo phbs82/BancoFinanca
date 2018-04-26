@@ -1,5 +1,6 @@
 package com.example.pedrobraga.bancofinanca.Dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -9,6 +10,8 @@ import android.arch.persistence.room.Update;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
+
+import java.util.List;
 
 /**
  * Created by pedro.braga on 19/04/2018.
@@ -32,7 +35,7 @@ public interface ItemDao {
 
 
     @Query("SELECT * FROM Item")
-    public Item[] loadallItem();
+    public LiveData<List<Item>> loadallItem();
 
 
 }
