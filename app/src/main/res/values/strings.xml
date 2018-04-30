@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BancoFinanca</string>
     <string name="title_activity_compra">Compra</string>
+    <string name="title_activity_compra_crud">CompraCRUD</string>
 </resources>

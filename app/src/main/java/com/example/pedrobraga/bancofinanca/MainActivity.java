@@ -15,14 +15,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button b = (Button) findViewById(R.id.floatingActionButton);
+        Button b = (Button) findViewById(R.id.button);
 
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),Compra.class);
+                Intent intent;
+                intent = new Intent(getApplicationContext(),CompraCRUD.class);
 
                 startActivity(intent);
 

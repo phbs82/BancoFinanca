@@ -21,10 +21,11 @@ import com.example.pedrobraga.bancofinanca.Entity.Compra;
                         childColumns = "codigoproduto")
 
         },
-        indices = {@Index(value = {"codigocompra"},@Index(value = {"codigoproduto"}))
+        indices = { @Index("codigocompra"),
+                    @Index("codigoproduto")}
 
 
-        })
+        )
 public class Item {
 
 

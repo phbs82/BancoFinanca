@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Compra"
-            android:label="@string/title_activity_compra"
+            android:name=".CompraCRUD"
+            android:label="@string/title_activity_compra_crud"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
