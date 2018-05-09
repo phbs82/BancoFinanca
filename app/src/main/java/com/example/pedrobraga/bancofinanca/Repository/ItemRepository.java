@@ -21,14 +21,14 @@ public class ItemRepository {
     private ItemDao itemDao;
     private LiveData<List<Item>> itemAll;
 
-    ItemRepository(Application application) {
+    public ItemRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         itemDao = db.itemDao();
         itemAll = itemDao.loadallItem();
 
     }
 
-    LiveData<List<Item>> getItemAll() {
+    public LiveData<List<Item>> getItemAll() {
         return itemAll;
     }
 

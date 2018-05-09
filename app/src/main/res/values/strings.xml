@@ -2,4 +2,5 @@
     <string name="app_name">BancoFinanca</string>
     <string name="title_activity_compra">Compra</string>
     <string name="title_activity_compra_crud">CompraCRUD</string>
+    <string name="title_activity_recyclerview_items">recyclerview_items</string>
 </resources>

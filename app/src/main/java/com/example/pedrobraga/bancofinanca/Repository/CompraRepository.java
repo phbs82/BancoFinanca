@@ -21,14 +21,14 @@ public class CompraRepository    {
     private CompraDao compraDao;
     private LiveData<List<Compra>> compraAll;
 
-    CompraRepository(Application application) {
+    public CompraRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         compraDao = db.compraDao();
         compraAll = compraDao.loadAllCompra();
 
     }
 
-    LiveData<List<Compra>> getCompraAll() {
+   public  LiveData<List<Compra>> getCompraAll() {
         return compraAll;
     }
 

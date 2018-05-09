@@ -21,14 +21,14 @@ public class ProdutoRepository {
     private ProdutoDao produtoDao;
     private LiveData<List<Produto>> produtoAll;
 
-    ProdutoRepository(Application application) {
+    public ProdutoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         produtoDao = db.produtoDao();
         produtoAll = produtoDao.loadallProduto();
 
     }
 
-    LiveData<List<Produto>> getProdutoAll() {
+    public LiveData<List<Produto>> getProdutoAll() {
         return produtoAll;
     }
 

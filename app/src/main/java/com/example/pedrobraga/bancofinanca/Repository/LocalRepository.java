@@ -20,14 +20,14 @@ public class LocalRepository {
     private LocalDao localDao;
     private LiveData<List<Local>> localAll;
 
-    LocalRepository(Application application) {
+    public LocalRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         localDao = db.localDao();
         localAll = localDao.loadAllLocal();
 
     }
 
-    LiveData<List<Local>> getLocalAll() {
+    public LiveData<List<Local>> getLocalAll() {
         return localAll;
     }
 
@@ -73,7 +73,7 @@ public class LocalRepository {
 
 
 
-    public void deelte (Local local) {
+    public void delete (Local local) {
         new deleteAsyncTask(localDao).execute(local);
     }
 

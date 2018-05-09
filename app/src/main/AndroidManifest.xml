@@ -19,6 +19,10 @@
         <activity
             android:name=".CompraCRUD"
             android:label="@string/title_activity_compra_crud"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".recyclerview_items"
+            android:label="@string/title_activity_recyclerview_items"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
