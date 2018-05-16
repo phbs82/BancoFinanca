@@ -28,6 +28,38 @@ public class CompraRepository    {
 
     }
 
+
+
+    public int getcodigoCompra() {
+
+        return new getCodigoCompra().getcodigo();
+    }
+
+    private static  class getCodigoCompra extends AsyncTask<Void, Void, Integer> {
+
+        private CompraDao asyncCompraDao;
+        private int codigo;
+
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            codigo = asyncCompraDao.getCodigoCompra();
+            return codigo;
+        }
+
+
+        public int getcodigo() {
+
+            return this.codigo;
+
+        }
+    }
+
+
+
+
+
+
    public  LiveData<List<Compra>> getCompraAll() {
         return compraAll;
     }

@@ -25,39 +25,48 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
         private final TextView valor;
 
 
-        private ItemViewHolder(View itemView, TextView descricao, TextView quantidade, TextView valor) {
+        private ItemViewHolder(View itemView) {
             super(itemView);
-            this.descricao = descricao;
-            this.quantidade = quantidade;
-            this.valor = valor;
-            wordItemView = itemView.findViewById(R.id.textView);
+
+            descricao = itemView.findViewById(R.id.txtDescricao);
+            quantidade = itemView.findViewById(R.id.txtQuantidade);
+            valor = itemView.findViewById(R.id.txtValor);
         }
     }
 
     private final LayoutInflater mInflater;
     private List<Item> itens; // Cached copy of words
 
-    public ItemListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public ItemListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.activity_recyclerview_items, parent, false);
-        return new ItemViewHolder(itemView, descricao, quantidade, valor);
+        return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        if (mWords != null) {
-            Word current = mWords.get(position);
-            holder.wordItemView.setText(current.getWord());
+        if (itens != null) {
+            Item current = itens.get(position);
+            holder.descricao.setText(current.getDescricao());
+            holder.quantidade.setText(current.getQuantidade());
+            holder.valor.setText((int) current.getValor());
+
+
         } else {
             // Covers the case of data not being ready yet.
-            holder.wordItemView.setText("No Word");
+            holder.descricao.setText("Vazio");
+            holder.quantidade.setText(0);
+            holder.valor.setText(0);
+
         }
     }
 
-    void setWords(List<Word> words){
-        mWords = words;
+    public void insertItem(Item item) {
+        this.itens.add(item);
         notifyDataSetChanged();
     }
 
@@ -65,7 +74,10 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
     // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (mWords != null)
-            return mWords.size();
+        if (itens != null)
+            return itens.size();
         else return 0;
     }
+
+
+}

@@ -38,4 +38,8 @@ public interface ItemDao {
     public LiveData<List<Item>> loadallItem();
 
 
+    @Query("Select descproduto d from produto d, item i where d.codigoproduto = i.codigoproduto")
+    public String getDescProduto();
+
+
 }

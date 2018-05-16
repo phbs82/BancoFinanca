@@ -37,5 +37,9 @@ public interface CompraDao {
     public LiveData<List<Compra>> loadAllCompra();
 
 
+    @Query("Select coalesce(max(codigocompra) + 1,1) from Compra ")
+    public int getCodigoCompra();
+
+
 
 }

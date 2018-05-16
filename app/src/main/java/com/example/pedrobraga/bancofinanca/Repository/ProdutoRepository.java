@@ -20,6 +20,7 @@ public class ProdutoRepository {
 
     private ProdutoDao produtoDao;
     private LiveData<List<Produto>> produtoAll;
+    private int codigoproduto;
 
     public ProdutoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -28,9 +29,40 @@ public class ProdutoRepository {
 
     }
 
+
+    public Integer getcodigoProduto() {
+
+        return new getCodigoProduto().getcodigo();
+
+    }
+
     public LiveData<List<Produto>> getProdutoAll() {
+
         return produtoAll;
     }
+
+
+    private static  class getCodigoProduto extends AsyncTask<Void, Void, Integer> {
+
+        private ProdutoDao asyncProdutoDao;
+        private Integer codigo;
+
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            codigo = asyncProdutoDao.getCodigoProduto();
+            return codigo;
+        }
+
+
+        public int getcodigo() {
+
+            return this.codigo;
+
+        }
+
+    }
+
 
 
     public void insert (Produto produto) {

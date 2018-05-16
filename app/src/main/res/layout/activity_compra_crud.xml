@@ -84,7 +84,7 @@
             android:text="Descrição" />
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView4"
+            android:id="@+id/edtDescricao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -100,7 +100,7 @@
             android:text="Quantidade" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/edtQuantidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
@@ -117,7 +117,7 @@
             android:text="Valor" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/edtValor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"

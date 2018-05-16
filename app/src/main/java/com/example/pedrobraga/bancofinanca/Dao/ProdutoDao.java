@@ -32,6 +32,11 @@ public interface ProdutoDao {
     public void delete(Produto... produto);
 
 
+    @Query("Select coalesce(max(codigoproduto) + 1,1) + 1 from Produto ")
+    public int getCodigoProduto();
+
+
+
 
     @Query("SELECT * FROM Produto")
     public LiveData<List<Produto>> loadallProduto();

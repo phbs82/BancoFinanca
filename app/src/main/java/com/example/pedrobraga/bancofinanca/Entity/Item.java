@@ -6,8 +6,10 @@ package com.example.pedrobraga.bancofinanca.Entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.widget.EditText;
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 
@@ -34,14 +36,37 @@ public class Item {
 
     private int codigoproduto;
 
-
-
-
     @PrimaryKey(autoGenerate = true)
     private int codigoitem;
 
+
+    private int quantidade;
+
     private float valor;
 
+
+    @Ignore
+    private String descricao;
+
+
+
+
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public int getCodigocompra() {
         return codigocompra;
@@ -68,6 +93,8 @@ public class Item {
     }
 
 
+
+
     public int getCodigoitem() {
         return codigoitem;
     }
@@ -83,6 +110,8 @@ public class Item {
     public void setValor(float valor) {
         this.valor = valor;
     }
+
+
 
 
 
