@@ -18,7 +18,7 @@ public class ProdutoViewModel extends AndroidViewModel {
 
     private ProdutoRepository produtoRepository;
 
-    private LiveData<List<Produto>> ProdutoAll;
+    private LiveData<List<String>> ProdutoAll;
 
     public ProdutoViewModel(Application application) {
         super(application);
@@ -26,7 +26,7 @@ public class ProdutoViewModel extends AndroidViewModel {
         ProdutoAll = produtoRepository.getProdutoAll();
     }
 
-    LiveData<List<Produto>> getProdutoAll() {
+    LiveData<List<String>> getProdutoAll() {
         return ProdutoAll;
     }
 

@@ -38,8 +38,8 @@ public interface ProdutoDao {
 
 
 
-    @Query("SELECT * FROM Produto")
-    public LiveData<List<Produto>> loadallProduto();
+    @Query("SELECT descproduto FROM Produto")
+    public LiveData<List<String>> loadallProduto();
 
 
 }

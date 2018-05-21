@@ -19,7 +19,7 @@ import java.util.List;
 public class ProdutoRepository {
 
     private ProdutoDao produtoDao;
-    private LiveData<List<Produto>> produtoAll;
+    private LiveData<List<String>> produtoAll;
     private int codigoproduto;
 
     public ProdutoRepository(Application application) {
@@ -36,7 +36,7 @@ public class ProdutoRepository {
 
     }
 
-    public LiveData<List<Produto>> getProdutoAll() {
+    public LiveData<List<String>> getProdutoAll() {
 
         return produtoAll;
     }

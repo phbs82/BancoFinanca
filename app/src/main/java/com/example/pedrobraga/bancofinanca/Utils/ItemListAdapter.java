@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
     }
 
     private final LayoutInflater mInflater;
-    private List<Item> itens; // Cached copy of words
+    private List<Item> itens = new ArrayList<Item>(0); // Cached copy of words
 
     public ItemListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -49,11 +50,13 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        if (itens != null) {
-            Item current = itens.get(position);
+        if (this.itens != null) {
+
+
+            Item current = this.itens.get(position);
             holder.descricao.setText(current.getDescricao());
-            holder.quantidade.setText(current.getQuantidade());
-            holder.valor.setText((int) current.getValor());
+            holder.quantidade.setText(String.valueOf(current.getQuantidade()));
+            holder.valor.setText(String.valueOf((int) current.getValor()));
 
 
         } else {
@@ -67,7 +70,12 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
 
     public void insertItem(Item item) {
         this.itens.add(item);
-        notifyDataSetChanged();
+        notifyItemInserted(getItemCount()+1);
+
+
+
+
+
     }
 
     // getItemCount() is called many times, and when it is first called,
@@ -77,6 +85,8 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
         if (itens != null)
             return itens.size();
         else return 0;
+
+
     }
 
 
