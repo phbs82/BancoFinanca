@@ -21,18 +21,25 @@ public class ProdutoRepository {
     private ProdutoDao produtoDao;
     private LiveData<List<String>> produtoAll;
     private int codigoproduto;
+    private List<String> produtos;
 
     public ProdutoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         produtoDao = db.produtoDao();
         produtoAll = produtoDao.loadallProduto();
-
+        produtos = produtoDao.loadProdutos();
     }
 
 
     public Integer getcodigoProduto() {
 
         return new getCodigoProduto().getcodigo();
+
+    }
+
+    public List<String> getProdutos() {
+
+        return produtos;
 
     }
 
@@ -62,6 +69,8 @@ public class ProdutoRepository {
         }
 
     }
+
+
 
 
 

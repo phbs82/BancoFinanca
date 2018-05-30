@@ -42,4 +42,9 @@ public interface ProdutoDao {
     public LiveData<List<String>> loadallProduto();
 
 
+    @Query("SELECT descproduto FROM Produto")
+    public List<String> loadProdutos();
+
+
+
 }
