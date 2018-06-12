@@ -20,11 +20,7 @@ public class ProdutoViewModel extends AndroidViewModel {
 
     private ProdutoRepository produtoRepository;
 
-    private LiveData<List<String>> ProdutoAll;
-
-
-    private MutableLiveData<List<String>> userLiveData =
-            new MutableLiveData<>();
+    private MutableLiveData<List<String>> ProdutoAll;
 
     public ProdutoViewModel(Application application) {
         super(application);
@@ -32,19 +28,25 @@ public class ProdutoViewModel extends AndroidViewModel {
         ProdutoAll = produtoRepository.getProdutoAll();
     }
 
-    public MutableLiveData<List<String>> getProdutoAll() {
 
-        if(userLiveData==null) {
 
-            userLiveData = new MutableLiveData<List<String>>();
-            List<String> produtos = new ArrayList<String>();
-            produtos.add("Refrigerante");
+    public LiveData<List<String>> getProdutoAll() {
+
+        if(ProdutoAll==null) {
+
+            ProdutoAll = new MutableLiveData<List<String>>();
+
+            List<String> produtos = new ArrayList<String>(0);
             produtos.add("Leite");
-            userLiveData.setValue(produtos);
+            produtos.add("Refrigerante");
+            ProdutoAll.setValue(produtos);
 
         }
-        return userLiveData;
+
+        return ProdutoAll;
+
     }
+
 
     public void insert(Produto produto) {
         produtoRepository.insert(produto);

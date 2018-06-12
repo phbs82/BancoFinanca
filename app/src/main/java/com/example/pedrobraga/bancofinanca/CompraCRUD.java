@@ -2,30 +2,29 @@ package com.example.pedrobraga.bancofinanca;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
+import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import static android.R.layout.simple_dropdown_item_1line;
 
 public class CompraCRUD extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class CompraCRUD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_crud);
 
-        final List<String> PRODUTOS = new ArrayList<String>();
+      //  final List<String> PRODUTOS = new ArrayList<String>();
 
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final ItemListAdapter adapter = new ItemListAdapter(this);
@@ -43,49 +42,59 @@ public class CompraCRUD extends AppCompatActivity {
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbuttonItem);
 
-//        final ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
-//
-//        PRODUTOS.addAll((Collection<? extends String>) mModel.getProdutoAll());
-
-
-
-
+       //  ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
 
         final CompraRepository compraRepository = new CompraRepository(getApplication());
         final ProdutoRepository produtoRepository = new ProdutoRepository(getApplication());
 
-        final int codigocompra; //= compraRepository.getcodigoCompra();
-        final int codigoproduto; //= produtoRepository.getcodigoProduto();
+        final int codigocompra = compraRepository.getcodigoCompra();
+        final int codigoproduto = produtoRepository.getcodigoProduto();
 
-
-          class getProdutos extends  AsyncTask<Void,Void,Void> {
-
-
-              @Override
-              protected Void doInBackground(Void... voids) {
-                  codigocompra = compraRepository.getcodigoCompra();
-                  codigoproduto = = produtoRepository.getcodigoProduto();
-              }
-          }
-
-
-
-
-
-
-
-    //    PRODUTOS.addAll(produtoRepository.getProdutos());
-
-
-        final ArrayAdapter<String> adaptertxtproduto = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, PRODUTOS);
 
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.edtDescricao);
 
-        textproduto.setAdapter(adaptertxtproduto);
+        List<String> teste = new  ArrayList<String>(0);
 
 
+
+
+      // final List<String> produtos = new ArrayList<String>(0);
+
+
+        final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
+                android.R.layout.simple_expandable_list_item_1);
+
+        ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
+
+
+
+        mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(@Nullable final List<String> listaprodutos) {
+                // Update the cached copy of the words in the adapter.
+
+              /*  Iterator<String> s = listaprodutos.iterator();
+                for (int i=0; i < listaprodutos.size(); i++) {
+
+                    System.out.println("_________________________________________");
+                    System.out.println(listaprodutos.get(i).toString());
+                    System.out.println("_________________________________________");
+                }*/
+
+
+                produtosadapter.add(listaprodutos);
+                textproduto.setAdapter(produtosadapter);
+
+            }
+        });
+
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+     //   mModel.getProdutoAll().observe(this, nameObserver);
+
+
+      // produtos =  mModel.getProdutoAll().getValue();
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {

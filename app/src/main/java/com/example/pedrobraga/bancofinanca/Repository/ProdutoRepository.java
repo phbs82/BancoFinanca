@@ -2,12 +2,11 @@ package com.example.pedrobraga.bancofinanca.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import com.example.pedrobraga.bancofinanca.Dao.ProdutoDao;
-import com.example.pedrobraga.bancofinanca.Dao.ProdutoDao;
 import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
-import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 
 import java.util.List;
@@ -26,8 +25,8 @@ public class ProdutoRepository {
     public ProdutoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         produtoDao = db.produtoDao();
-        produtoAll = produtoDao.loadallProduto();
-        produtos = produtoDao.loadProdutos();
+
+
     }
 
 
@@ -37,27 +36,59 @@ public class ProdutoRepository {
 
     }
 
-    public List<String> getProdutos() {
+    public MutableLiveData<List<String>> getProdutoAll() {
 
-        return produtos;
+        return new getProdutoAll().getprodutos();
+    }
+
+    private static  class getProdutoAll extends AsyncTask<Void, Void, MutableLiveData<List<String>>> {
+
+        private ProdutoDao asyncProdutoDao;
+        private MutableLiveData<List<String>> produtos;
+
+        @Override
+        protected MutableLiveData<List<String>> doInBackground(Void... voids) {
+
+            produtos.setValue(asyncProdutoDao.loadallProduto().getValue());
+
+            if (produtos==null) {
+
+                produtos = new MutableLiveData<List<String>>();
+
+            }
+
+            return produtos;
+        }
+
+
+        public MutableLiveData<List<String>> getprodutos() {
+
+            return this.produtos;
+
+        }
 
     }
 
-    public LiveData<List<String>> getProdutoAll() {
 
-        return produtoAll;
-    }
+
 
 
     private static  class getCodigoProduto extends AsyncTask<Void, Void, Integer> {
 
         private ProdutoDao asyncProdutoDao;
-        private Integer codigo;
+        private Integer codigo=1;
 
 
         @Override
         protected Integer doInBackground(Void... voids) {
             codigo = asyncProdutoDao.getCodigoProduto();
+
+            if (codigo==null || codigo==0) {
+
+                codigo = 1;
+
+            }
+
             return codigo;
         }
 
@@ -91,7 +122,7 @@ public class ProdutoRepository {
             asyncProdutoDao.insert(params[0]);
             return null;
         }
-    }
+    };
 
 
     public void update (Produto produto) {
@@ -115,7 +146,7 @@ public class ProdutoRepository {
 
 
 
-    public void deelte (Produto produto) {
+    public void delete (Produto produto) {
         new ProdutoRepository.deleteAsyncTask(produtoDao).execute(produto);
     }
 

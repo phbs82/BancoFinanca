@@ -14,6 +14,7 @@ import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
+import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 
 /**
@@ -45,6 +46,10 @@ public abstract class AppDatabase extends RoomDatabase {
             }
             return INSTANCE;
         }
+
+
+
+
 
 }
 
