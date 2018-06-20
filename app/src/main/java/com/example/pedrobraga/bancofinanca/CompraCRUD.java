@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
@@ -33,16 +35,15 @@ public class CompraCRUD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_crud);
 
-      //  final List<String> PRODUTOS = new ArrayList<String>();
 
-        final RecyclerView recyclerView = findViewById(R.id.recyclerview);
+
+
+        final RecyclerView recyclerView = findViewById(R.id.rvItens);
         final ItemListAdapter adapter = new ItemListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbuttonItem);
-
-       //  ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
+        FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbaddItem);
 
         final CompraRepository compraRepository = new CompraRepository(getApplication());
         final ProdutoRepository produtoRepository = new ProdutoRepository(getApplication());
@@ -52,36 +53,18 @@ public class CompraCRUD extends AppCompatActivity {
 
 
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
-                findViewById(R.id.edtDescricao);
+                findViewById(R.id.txtproduto);
 
         List<String> teste = new  ArrayList<String>(0);
-
-
-
-
-      // final List<String> produtos = new ArrayList<String>(0);
-
 
         final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
                 android.R.layout.simple_expandable_list_item_1);
 
         ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
 
-
-
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
-                // Update the cached copy of the words in the adapter.
-
-              /*  Iterator<String> s = listaprodutos.iterator();
-                for (int i=0; i < listaprodutos.size(); i++) {
-
-                    System.out.println("_________________________________________");
-                    System.out.println(listaprodutos.get(i).toString());
-                    System.out.println("_________________________________________");
-                }*/
-
 
                 produtosadapter.add(listaprodutos);
                 textproduto.setAdapter(produtosadapter);
@@ -89,21 +72,13 @@ public class CompraCRUD extends AppCompatActivity {
             }
         });
 
-
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-     //   mModel.getProdutoAll().observe(this, nameObserver);
-
-
-      // produtos =  mModel.getProdutoAll().getValue();
-
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText editDescricao = (EditText) findViewById(R.id.edtDescricao);
-                EditText editValor = (EditText) findViewById(R.id.edtValor);
-                EditText editQuantidade = (EditText) findViewById(R.id.edtQuantidade);
+                EditText editDescricao = (EditText) findViewById(R.id.txtproduto);
+                EditText editValor = (EditText) findViewById(R.id.txtValor);
+                EditText editQuantidade = (EditText) findViewById(R.id.txtquantidade);
 
 
                 Item item = new Item(codigocompra,codigoproduto);
@@ -115,6 +90,24 @@ public class CompraCRUD extends AppCompatActivity {
 
                 adapter.insertItem(item);
 
+            }
+        });
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        ArrayAdapter<CharSequence> adaptersp = ArrayAdapter.createFromResource(this,
+                R.array.categorias_array, android.R.layout.simple_spinner_item);
+
+        adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adaptersp);
+
+
+        Button btncadastra = (Button) findViewById(R.id.btnCadastra);
+
+        btncadastra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
 

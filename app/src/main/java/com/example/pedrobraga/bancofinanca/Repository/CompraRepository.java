@@ -79,7 +79,16 @@ public class CompraRepository    {
 
         @Override
         protected Void doInBackground(final Compra... params) {
+
+
+
+
+
             asyncCompraDao.insert(params[0]);
+
+
+
+
             return null;
         }
     }

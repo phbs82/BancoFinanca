@@ -5,200 +5,164 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#272A73"
+    android:visibility="visible"
+
     tools:context="com.example.pedrobraga.bancofinanca.CompraCRUD"
     tools:layout_editor_absoluteY="25dp">
 
 
-    <GridLayout
-        android:id="@+id/gridLayout"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="0dp"
-        android:layout_height="103dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/txtdata"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Local"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            android:hint="Data"
+            android:inputType="date"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="281dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="21dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <AutoCompleteTextView
-            android:id="@+id/atxtLocal"
-            android:layout_width="246dp"
+            android:id="@+id/txtlocal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="0" />
+            android:hint="Local"
+            android:textColor="@color/cardview_light_background" />
+    </android.support.design.widget.TextInputLayout>
 
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:text="Data"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
-
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="235dp"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="1"
-            android:ems="10"
-            android:inputType="date"
-            tools:layout_editor_absoluteX="288dp"
-            tools:layout_editor_absoluteY="63dp" />
-
-    </GridLayout>
-
-    <GridLayout
-        android:id="@+id/gridLayout2"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="219dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout">
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:text="Descrição"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <AutoCompleteTextView
-            android:id="@+id/edtDescricao"
-            style="@style/Widget.AppCompat.AutoCompleteTextView"
-            android:layout_width="207dp"
+            android:id="@+id/txtproduto"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="1" />
+            android:hint="Produto"
+            android:textColor="@color/cardview_light_background" />
+    </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout5">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/txtquantidade"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="2"
-            android:text="Quantidade"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            android:hint="Quantidade"
+            android:textColor="@color/cardview_light_background" />
+    </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edtQuantidade"
-            android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="68dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/txtValor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="2"
-            android:ems="10"
-            android:inputType="number" />
+            android:hint="Valor"
+            android:textColor="@color/cardview_light_background" />
+    </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="3"
-            android:text="Valor"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
-
-        <EditText
-            android:id="@+id/edtValor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="3"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="0"
-            android:text="Itens da Compra"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="?android:attr/colorActivatedHighlight" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fbuttonItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="4"
-            android:layout_row="4"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="4"
-            android:text="Categoria"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="209dp"
-            android:layout_height="35dp"
-            android:layout_column="1"
-            android:layout_row="4"
-            android:visibility="visible" />
-
-    </GridLayout>
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fbaddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="285dp"
+        android:background="#28448E"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/rvItens"
+        tools:listitem="@layout/activity_recyclerview_items"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/rvItens"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="356dp"
-        android:background="@android:color/holo_green_dark"
-        android:clipToPadding="true"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/btnCompra"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="89dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="28dp"
+        android:background="@android:color/holo_blue_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fbaddItem"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activity_recyclerview_items" />
+        app:layout_constraintTop_toBottomOf="@+id/fbaddItem" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvItens"
+        app:layout_constraintEnd_toStartOf="@+id/fbaddItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
     <Button
-        android:id="@+id/btnCompra"
-        style="@android:style/Widget.Material.Button.Inset"
-        android:layout_width="106dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="260dp"
-        android:layout_marginStart="8dp"
-        android:text="Cadastra"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@android:color/black"
-        android:textSize="12sp"
+        android:id="@+id/btnCadastra"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="91dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="28dp"
+        android:background="#28828E"
+        android:text="Cadastrar"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridItems" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/rvItens"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

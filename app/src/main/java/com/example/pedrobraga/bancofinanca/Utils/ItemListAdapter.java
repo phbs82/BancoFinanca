@@ -70,7 +70,7 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
 
     public void insertItem(Item item) {
         this.itens.add(item);
-        notifyItemInserted(getItemCount()+1);
+        notifyItemInserted(getItemCount());
 
 
 

@@ -3,4 +3,37 @@
     <string name="title_activity_compra">Compra</string>
     <string name="title_activity_compra_crud">CompraCRUD</string>
     <string name="title_activity_recyclerview_items">recyclerview_items</string>
+    <string name="valor">Valor</string>
+    <string name="quantidade">Quantidade</string>
+    <string name="local">Local</string>
+    <string name="data">Data</string>
+
+    <string-array name="categorias_array">
+        <item>Alimentação</item>
+        <item>Bebidas</item>
+        <item>Luz</item>
+        <item>Água</item>
+        <item>Telefone</item>
+        <item>Crédito Celular</item>
+        <item>Internet</item>
+        <item>Parcela Carro</item>
+        <item>Remédio</item>
+        <item>Ônibus</item>
+        <item>IPVA</item>
+        <item>IPTU</item>
+        <item>Oficina</item>
+        <item>Taxi</item>
+        <item>Estacionamento</item>
+        <item>Gás</item>
+        <item>Tv por Assinatura</item>
+        <item>Serviços</item>
+        <item>Restaurante</item>
+        <item>Mensalidade Escola</item>
+        <item>Livro</item>
+        <item>Materiais Escola</item>
+        <item>Material Escritório</item>
+        <item>Presente</item>
+        <item>Cabeleireiro</item>
+        <item>Produto Higiene</item>
+    </string-array>
 </resources>
