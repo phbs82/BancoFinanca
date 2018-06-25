@@ -26,7 +26,7 @@ public class Compra {
     private int codigolocal;
 
 
-
+    @TypeConverters({DateTypeConverter.class})
     private Date data;
 
 

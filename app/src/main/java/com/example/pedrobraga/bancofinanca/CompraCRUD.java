@@ -14,11 +14,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
+import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
@@ -62,6 +66,11 @@ public class CompraCRUD extends AppCompatActivity {
 
         ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
 
+        final List<Item> itens = new ArrayList<Item>(0);
+
+
+        final float[] total = {0};
+
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
@@ -87,8 +96,16 @@ public class CompraCRUD extends AppCompatActivity {
                 item.setValor(Float.parseFloat(String.valueOf(editValor.getText())));
                 item.setQuantidade(Integer.parseInt(editQuantidade.getText().toString()));
 
-
+                itens.add(item);
                 adapter.insertItem(item);
+
+                total[0] = total[0] + Float.parseFloat(String.valueOf(editValor.getText()));
+
+
+                TextView txttotal = (TextView) findViewById(R.id.txtTotal);
+
+                txttotal.setText("Total R$: " + txttotal);
+
 
             }
         });
@@ -109,16 +126,30 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Compra compra = new Compra();
+
+                compra.setCodigocompra(codigocompra);
+                Toast.makeText(getApplication(),String.valueOf(codigocompra),Toast.LENGTH_LONG).show();
+
+                EditText edtdata = (EditText) findViewById(R.id.txtdata);
+                compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
+
+                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
+             //   compra.setCodigolocal();
+
 
 
             }
         });
 
 
+    } // fim do OnCreate
 
+    public void LimpaCampos() {
 
 
 
     }
+
 
 }
