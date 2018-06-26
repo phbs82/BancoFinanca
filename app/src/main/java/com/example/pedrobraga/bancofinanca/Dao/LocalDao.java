@@ -1,6 +1,7 @@
 package com.example.pedrobraga.bancofinanca.Dao;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -11,6 +12,7 @@ import android.arch.persistence.room.Update;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 
+import java.util.Dictionary;
 import java.util.List;
 
 /**
@@ -37,5 +39,8 @@ public interface LocalDao {
     @Query("SELECT * FROM Local")
     public LiveData<List<Local>> loadAllLocal();
 
+
+    @Query("SELECT * FROM Local")
+    public LiveData<Local> loadLocal();
 
 }

@@ -2,12 +2,14 @@ package com.example.pedrobraga.bancofinanca.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import com.example.pedrobraga.bancofinanca.Dao.LocalDao;
 import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 
+import java.util.Dictionary;
 import java.util.List;
 
 /**
@@ -23,12 +25,45 @@ public class LocalRepository {
     public LocalRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         localDao = db.localDao();
-        localAll = localDao.loadAllLocal();
+      //  localAll = localDao.loadAllLocal();
 
     }
 
     public LiveData<List<Local>> getLocalAll() {
         return localAll;
+    }
+
+    public MutableLiveData<Local> getProdutoAll() {
+
+        return new getLocalAll().getlocais();
+    }
+
+    private static  class getLocalAll extends AsyncTask<Void, Void, MutableLiveData<Local>> {
+
+        private LocalDao asyncLocalDao;
+        private MutableLiveData<Local> locais;
+
+        @Override
+        protected MutableLiveData<Local> doInBackground(Void... voids) {
+
+            locais.setValue(asyncLocalDao.loadLocal().getValue());
+
+            if (locais==null) {
+
+                locais = new MutableLiveData<Local>();
+
+            }
+
+            return locais;
+        }
+
+
+        public MutableLiveData<Local> getlocais() {
+
+            return this.locais;
+
+        }
+
     }
 
 

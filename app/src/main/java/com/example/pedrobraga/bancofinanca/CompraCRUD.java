@@ -24,6 +24,7 @@ import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
+import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
 import java.util.ArrayList;
@@ -71,6 +72,8 @@ public class CompraCRUD extends AppCompatActivity {
 
         final float[] total = {0};
 
+
+
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
@@ -80,6 +83,14 @@ public class CompraCRUD extends AppCompatActivity {
 
             }
         });
+
+
+        LocalViewModel localViewModel = ViewModelProviders.of(this).get(LocalViewModel.class);
+
+        localViewModel.getLocalAll().observe(this,adapter);
+
+
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
