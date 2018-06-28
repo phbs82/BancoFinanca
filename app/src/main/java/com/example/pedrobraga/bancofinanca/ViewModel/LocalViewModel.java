@@ -3,6 +3,7 @@ package com.example.pedrobraga.bancofinanca.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Repository.LocalRepository;
@@ -26,6 +27,15 @@ public class LocalViewModel     extends AndroidViewModel {
     }
 
     public LiveData<List<Local>> getLocalAll() {
+
+        if (LocalAll==null) {
+
+
+            LocalAll =  new MutableLiveData<List<Local>>();
+
+
+        }
+
         return LocalAll;
     }
 

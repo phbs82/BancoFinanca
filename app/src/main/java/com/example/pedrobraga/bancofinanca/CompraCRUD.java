@@ -19,11 +19,13 @@ import android.widget.Toast;
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
+import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
+import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
@@ -50,22 +52,26 @@ public class CompraCRUD extends AppCompatActivity {
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbaddItem);
 
-        final CompraRepository compraRepository = new CompraRepository(getApplication());
-        final ProdutoRepository produtoRepository = new ProdutoRepository(getApplication());
+//        final CompraRepository compraRepository = new CompraRepository(getApplication());
+//        final ProdutoRepository produtoRepository = new ProdutoRepository(getApplication());
 
-        final int codigocompra = compraRepository.getcodigoCompra();
-        final int codigoproduto = produtoRepository.getcodigoProduto();
+        ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
+        CompraViewModel compraModel = ViewModelProviders.of(this).get(CompraViewModel.class);
+
+
+
+        final int codigocompra = mModel.getCodigo();
+        final int codigoproduto = compraModel.getCodigo();
 
 
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.txtproduto);
 
-        List<String> teste = new  ArrayList<String>(0);
+     //   List<String> teste = new  ArrayList<String>(0);
 
         final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
                 android.R.layout.simple_expandable_list_item_1);
 
-        ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
 
         final List<Item> itens = new ArrayList<Item>(0);
 
@@ -87,9 +93,30 @@ public class CompraCRUD extends AppCompatActivity {
 
         LocalViewModel localViewModel = ViewModelProviders.of(this).get(LocalViewModel.class);
 
-        localViewModel.getLocalAll().observe(this,adapter);
+        final AutoCompleteTextView txtlocal = (AutoCompleteTextView)
+                findViewById(R.id.txtlocal);
 
+//        final ArrayAdapter<List<String>> localadapter = new ArrayAdapter<List<String>>(this,
+//                android.R.layout.simple_expandable_list_item_1);
 
+        localViewModel.getLocalAll().observe(this, new Observer<List<Local>>() {
+            @Override
+            public void onChanged(@Nullable List<Local> locals) {
+
+               ArrayAdapter<List<String>> localadapter = new ArrayAdapter<List<String>>(getApplication(),
+              android.R.layout.simple_expandable_list_item_1);
+              List<String> listalocal = new ArrayList<>(0);
+                for(int i =0; i < locals.size(); i++ ) {
+
+                    listalocal.add(locals.get(i).getDesclocal().toString());
+
+                }
+
+                localadapter.add(listalocal);
+                txtlocal.setAdapter(localadapter);
+
+            }
+        });
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +142,7 @@ public class CompraCRUD extends AppCompatActivity {
 
                 TextView txttotal = (TextView) findViewById(R.id.txtTotal);
 
-                txttotal.setText("Total R$: " + txttotal);
+                txttotal.setText("Total R$: " + total[0]);
 
 
             }

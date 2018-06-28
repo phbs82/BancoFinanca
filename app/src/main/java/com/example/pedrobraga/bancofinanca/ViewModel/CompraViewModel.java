@@ -17,13 +17,23 @@ import java.util.List;
 public class CompraViewModel  extends AndroidViewModel {
 
     private CompraRepository CompraRepository;
-
+    private int codigo;
     private LiveData<List<Compra>> CompraAll;
 
     public CompraViewModel(Application application) {
         super(application);
         CompraRepository = new CompraRepository(application);
         CompraAll = CompraRepository.getCompraAll();
+        codigo = CompraRepository.getcodigoCompra();
+
+    }
+
+
+    public int getCodigo() {
+
+        return this.codigo;
+
+
     }
 
     LiveData<List<Compra>> getCompraAll() {

@@ -19,6 +19,7 @@ import java.util.List;
 public class ProdutoViewModel extends AndroidViewModel {
 
     private ProdutoRepository produtoRepository;
+    private int codigo;
 
     private MutableLiveData<List<String>> ProdutoAll;
 
@@ -26,8 +27,16 @@ public class ProdutoViewModel extends AndroidViewModel {
         super(application);
         produtoRepository = new ProdutoRepository(application);
         ProdutoAll = produtoRepository.getProdutoAll();
+        codigo = produtoRepository.getcodigoProduto();
     }
 
+
+    public int getCodigo() {
+
+
+        return this.codigo;
+
+    }
 
 
     public LiveData<List<String>> getProdutoAll() {
