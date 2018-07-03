@@ -9,7 +9,6 @@ import com.example.pedrobraga.bancofinanca.Dao.LocalDao;
 import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 
-import java.util.Dictionary;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ import java.util.List;
 public class LocalRepository {
 
 
-    private LocalDao localDao;
+    final private LocalDao localDao;
     private LiveData<List<Local>> localAll;
 
     public LocalRepository(Application application) {
@@ -37,6 +36,44 @@ public class LocalRepository {
 
         return new getLocalAll().getlocais();
     }
+
+    public int getCodigo(String... local) {
+
+        GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
+        getCodigoLocal.execute(local[0]);
+
+        return getCodigoLocal.getCodigo();
+
+    }
+
+    private  class GetCodigoLocal  extends AsyncTask<String, Void, Integer> {
+
+        LocalDao localDao;
+        int codigo=0;
+
+        @Override
+        protected Integer doInBackground(String... local) {
+            try {
+                codigo = localDao.getCodigo(local[0]);
+
+            }
+            catch (Exception e){
+
+                codigo = 1;
+            }
+                return codigo;
+        }
+
+        public int getCodigo() {
+
+            return this.codigo;
+
+        }
+
+
+    }
+
+
 
     private static  class getLocalAll extends AsyncTask<Void, Void, MutableLiveData<Local>> {
 
@@ -126,6 +163,11 @@ public class LocalRepository {
             return null;
         }
     }
+
+
+
+
+
 
 
 

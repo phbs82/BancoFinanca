@@ -21,18 +21,33 @@ public class ProdutoViewModel extends AndroidViewModel {
     private ProdutoRepository produtoRepository;
     private int codigo;
 
-    private MutableLiveData<List<String>> ProdutoAll;
+    private LiveData<List<String>> ProdutoAll;
 
     public ProdutoViewModel(Application application) {
         super(application);
         produtoRepository = new ProdutoRepository(application);
         ProdutoAll = produtoRepository.getProdutoAll();
         codigo = produtoRepository.getcodigoProduto();
+
+
+        Produto produto1 = new Produto();
+        produto1.setDescproduto("Leite");
+
+
+        Produto produto2 = new Produto();
+        produto2.setDescproduto("Leite");
+
+
+        insert(produto1);
+        insert(produto2);
+
+
+
+
     }
 
 
     public int getCodigo() {
-
 
         return this.codigo;
 
@@ -40,17 +55,6 @@ public class ProdutoViewModel extends AndroidViewModel {
 
 
     public LiveData<List<String>> getProdutoAll() {
-
-        if(ProdutoAll==null) {
-
-            ProdutoAll = new MutableLiveData<List<String>>();
-
-            List<String> produtos = new ArrayList<String>(0);
-            produtos.add("Leite");
-            produtos.add("Refrigerante");
-            ProdutoAll.setValue(produtos);
-
-        }
 
         return ProdutoAll;
 

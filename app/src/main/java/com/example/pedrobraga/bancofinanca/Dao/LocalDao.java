@@ -43,4 +43,9 @@ public interface LocalDao {
     @Query("SELECT * FROM Local")
     public LiveData<Local> loadLocal();
 
+    @Query("SELECT coalesce(codigolocal,1) FROM local WHERE desclocal = :local")
+    public int getCodigo(String local);
+
+
+
 }

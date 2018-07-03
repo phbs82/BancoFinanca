@@ -24,6 +24,17 @@ public class LocalViewModel     extends AndroidViewModel {
         super(application);
         localRepository = new LocalRepository(application);
         LocalAll = localRepository.getLocalAll();
+
+    }
+
+
+
+
+    public int getCodigo(String local) {
+
+
+        return localRepository.getCodigo(local);
+
     }
 
     public LiveData<List<Local>> getLocalAll() {

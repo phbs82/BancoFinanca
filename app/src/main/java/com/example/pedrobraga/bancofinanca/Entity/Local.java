@@ -17,35 +17,6 @@ public class Local {
 
     private String desclocal;
 
-    private float latitude;
-    private float longitude;
-    private String endereco;
-
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
-
-    public float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public int getCodigolocal() {
         return codigolocal;
     }

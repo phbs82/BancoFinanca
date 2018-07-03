@@ -25,7 +25,7 @@ public class ProdutoRepository {
     public ProdutoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         produtoDao = db.produtoDao();
-
+        produtoAll = new MutableLiveData<List<String>>();
 
     }
 
@@ -36,12 +36,15 @@ public class ProdutoRepository {
 
     }
 
-    public MutableLiveData<List<String>> getProdutoAll() {
+    public LiveData<List<String>> getProdutoAll() {
 
-        return new getProdutoAll().getprodutos();
+        produtoAll = produtoDao.loadallProduto();
+
+        return  produtoAll;
+
     }
 
-    private static  class getProdutoAll extends AsyncTask<Void, Void, MutableLiveData<List<String>>> {
+  /*  private static  class getProdutoAll extends AsyncTask<Void, Void, MutableLiveData<List<String>>> {
 
         private ProdutoDao asyncProdutoDao;
         private MutableLiveData<List<String>> produtos;
@@ -58,16 +61,16 @@ public class ProdutoRepository {
             }
 
             return produtos;
-        }
+        }*/
 
 
-        public MutableLiveData<List<String>> getprodutos() {
-
-            return this.produtos;
-
-        }
-
-    }
+//        public MutableLiveData<List<String>> getprodutos() {
+//
+//            return this.produtos;
+//
+//        }
+//
+//    }
 
 
 

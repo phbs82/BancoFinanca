@@ -26,6 +26,7 @@ import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
+import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
@@ -42,9 +43,6 @@ public class CompraCRUD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_crud);
 
-
-
-
         final RecyclerView recyclerView = findViewById(R.id.rvItens);
         final ItemListAdapter adapter = new ItemListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -52,24 +50,16 @@ public class CompraCRUD extends AppCompatActivity {
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbaddItem);
 
-//        final CompraRepository compraRepository = new CompraRepository(getApplication());
-//        final ProdutoRepository produtoRepository = new ProdutoRepository(getApplication());
-
         ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
         CompraViewModel compraModel = ViewModelProviders.of(this).get(CompraViewModel.class);
-
-
 
         final int codigocompra = mModel.getCodigo();
         final int codigoproduto = compraModel.getCodigo();
 
-
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.txtproduto);
 
-     //   List<String> teste = new  ArrayList<String>(0);
-
-        final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
+         final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
                 android.R.layout.simple_expandable_list_item_1);
 
 
@@ -91,13 +81,14 @@ public class CompraCRUD extends AppCompatActivity {
         });
 
 
-        LocalViewModel localViewModel = ViewModelProviders.of(this).get(LocalViewModel.class);
+        final LocalViewModel localViewModel = ViewModelProviders.of(this).get(LocalViewModel.class);
 
         final AutoCompleteTextView txtlocal = (AutoCompleteTextView)
                 findViewById(R.id.txtlocal);
 
-//        final ArrayAdapter<List<String>> localadapter = new ArrayAdapter<List<String>>(this,
-//                android.R.layout.simple_expandable_list_item_1);
+
+
+
 
         localViewModel.getLocalAll().observe(this, new Observer<List<Local>>() {
             @Override
@@ -160,20 +151,39 @@ public class CompraCRUD extends AppCompatActivity {
 
         Button btncadastra = (Button) findViewById(R.id.btnCadastra);
 
+       final ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+       final CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
+
+
         btncadastra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Compra compra = new Compra();
+                try {
+                    Compra compra = new Compra();
 
-                compra.setCodigocompra(codigocompra);
-                Toast.makeText(getApplication(),String.valueOf(codigocompra),Toast.LENGTH_LONG).show();
+                    EditText edtdata = (EditText) findViewById(R.id.txtdata);
+                    compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
+                    EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
 
-                EditText edtdata = (EditText) findViewById(R.id.txtdata);
-                compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
+                    int codigo = localViewModel.getCodigo(edtlocal.getText().toString());
+                    compra.setCodigolocal(codigo);
 
-                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
-             //   compra.setCodigolocal();
+
+                    compraViewModel.insert(compra);
+                }
+                catch (Exception e) {
+
+                    System.out.println(e.getMessage());
+                }
+
+
+                for (int i=0;i< itens.size(); i++) {
+
+                    itemViewModel.insert(itens.get(i));
+
+                }
+
 
 
 
