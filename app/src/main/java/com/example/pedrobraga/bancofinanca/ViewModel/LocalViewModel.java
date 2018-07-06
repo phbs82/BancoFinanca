@@ -33,7 +33,9 @@ public class LocalViewModel     extends AndroidViewModel {
     public int getCodigo(String local) {
 
 
-        return localRepository.getCodigo(local);
+        Integer codigo = localRepository.getCodigo(local);
+
+        return codigo;
 
     }
 

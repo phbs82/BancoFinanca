@@ -167,7 +167,6 @@ public class CompraCRUD extends AppCompatActivity {
                     EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
 
                     int codigo = localViewModel.getCodigo(edtlocal.getText().toString());
-                    compra.setCodigolocal(codigo);
 
 
                     compraViewModel.insert(compra);

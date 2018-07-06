@@ -37,34 +37,45 @@ public class LocalRepository {
         return new getLocalAll().getlocais();
     }
 
-    public int getCodigo(String... local) {
+    public Integer getCodigo(String... local) {
 
         GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
-        getCodigoLocal.execute(local[0]);
+         getCodigoLocal.execute(local[0]);
 
-        return getCodigoLocal.getCodigo();
+        Integer codigo =getCodigoLocal.getCodigo();
+
+
+
+
+        return codigo;
 
     }
 
     private  class GetCodigoLocal  extends AsyncTask<String, Void, Integer> {
 
         LocalDao localDao;
-        int codigo=0;
+        Integer codigo  = 0;
 
         @Override
         protected Integer doInBackground(String... local) {
-            try {
-                codigo = localDao.getCodigo(local[0]);
 
-            }
-            catch (Exception e){
+                try {
+                    codigo = localDao.getCodigo(local[0]);
+                }
+                catch (Exception e ) {
 
-                codigo = 1;
-            }
+                    if (codigo == null) {
+
+                        Local localidade = new Local();
+                        localidade.setDesclocal(local[0]);
+                        insert(localidade);
+
+                    }
+                }
                 return codigo;
         }
 
-        public int getCodigo() {
+        public Integer getCodigo() {
 
             return this.codigo;
 
