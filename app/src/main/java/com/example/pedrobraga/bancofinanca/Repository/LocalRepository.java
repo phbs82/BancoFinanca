@@ -19,35 +19,33 @@ public class LocalRepository {
 
 
     final private LocalDao localDao;
-    private LiveData<List<Local>> localAll;
+    private MutableLiveData<List<Local>> localAll;
 
     public LocalRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         localDao = db.localDao();
-      //  localAll = localDao.loadAllLocal();
+        localAll = getLocalAll();
+
 
     }
 
-    public LiveData<List<Local>> getLocalAll() {
+
+    public MutableLiveData<List<Local>> getLocalAll() {
+
         return localAll;
     }
 
-    public MutableLiveData<Local> getProdutoAll() {
 
-        return new getLocalAll().getlocais();
-    }
+
 
     public Integer getCodigo(String... local) {
 
         GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
-         getCodigoLocal.execute(local[0]);
+         getCodigoLocal.execute(local[0].toString());
 
         Integer codigo =getCodigoLocal.getCodigo();
 
-
-
-
-        return codigo;
+       return codigo;
 
     }
 
@@ -59,7 +57,23 @@ public class LocalRepository {
         @Override
         protected Integer doInBackground(String... local) {
 
-                try {
+
+            if (localDao.getCodigo(local[0].toString()).equals(null) ) {
+
+                System.out.println("TESTE******************");
+
+            }
+
+
+         /*   if (localDao.getCodigo(local[0].toString())== null) {
+
+                Local localidade = new Local();
+                localidade.setDesclocal(local[0]);
+                insert(localidade);
+
+            }*/
+
+           /* try {
                     codigo = localDao.getCodigo(local[0]);
                 }
                 catch (Exception e ) {
@@ -70,8 +84,10 @@ public class LocalRepository {
                         localidade.setDesclocal(local[0]);
                         insert(localidade);
 
+
                     }
                 }
+*/
                 return codigo;
         }
 

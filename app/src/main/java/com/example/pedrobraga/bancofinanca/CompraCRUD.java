@@ -1,6 +1,7 @@
 package com.example.pedrobraga.bancofinanca;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static android.R.layout.simple_dropdown_item_1line;
 
@@ -87,8 +89,7 @@ public class CompraCRUD extends AppCompatActivity {
                 findViewById(R.id.txtlocal);
 
 
-
-
+        final Map locais = localViewModel.getMapLocais().getValue();
 
         localViewModel.getLocalAll().observe(this, new Observer<List<Local>>() {
             @Override
@@ -96,6 +97,7 @@ public class CompraCRUD extends AppCompatActivity {
 
                ArrayAdapter<List<String>> localadapter = new ArrayAdapter<List<String>>(getApplication(),
               android.R.layout.simple_expandable_list_item_1);
+
               List<String> listalocal = new ArrayList<>(0);
                 for(int i =0; i < locals.size(); i++ ) {
 
@@ -159,29 +161,65 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                try {
+
+                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
+
+
+
+                if ( locais.get(0).toString().equals(null)) {
+
+
+                    Local local = new Local();
+                    local.setDesclocal(edtlocal.toString());
+                    localViewModel.insert(local);
+                }
+
+                else {
+
+                    Toast toast =  Toast.makeText(getApplicationContext(),locais.get(0).toString(),Toast.LENGTH_LONG);
+                    toast.show();
+
+
+                }
+/*                try {
                     Compra compra = new Compra();
 
                     EditText edtdata = (EditText) findViewById(R.id.txtdata);
                     compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
                     EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
 
-                    int codigo = localViewModel.getCodigo(edtlocal.getText().toString());
+                    Integer codigo = localViewModel.getCodigo(edtlocal.getText().toString());
 
 
-                    compraViewModel.insert(compra);
+                    if (codigo == null) {
+
+                        Local local = new Local();
+                        local.setDesclocal(edtlocal.getText().toString());
+                        localViewModel.insert(local);
+                        Integer codigo2 = localViewModel.getCodigo(edtlocal.getText().toString());
+
+                        System.out.println("***********************************************");
+                        System.out.println("#############" + codigo2);
+                    }*/
+
+
+
+
+                  /*  compraViewModel.insert(compra);
+
+                    for (int i=0;i< itens.size(); i++) {
+
+                        itemViewModel.insert(itens.get(i));
+
+                    }
                 }
                 catch (Exception e) {
 
                     System.out.println(e.getMessage());
-                }
+                }*/
 
 
-                for (int i=0;i< itens.size(); i++) {
 
-                    itemViewModel.insert(itens.get(i));
-
-                }
 
 
 

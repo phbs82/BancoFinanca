@@ -75,10 +75,7 @@ public class CompraRepository    {
         @Override
         protected Void doInBackground(final Compra... params) {
 
-            System.out.println("********************************");
-            System.out.println(params[0]);
-            System.out.println(params[0].getCodigolocal());
-            System.out.println(params[0].getCodigocompra());
+
 
 
             asyncCompraDao.insert(params[0]);
