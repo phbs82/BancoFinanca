@@ -44,37 +44,6 @@ public class ProdutoRepository {
 
     }
 
-  /*  private static  class getProdutoAll extends AsyncTask<Void, Void, MutableLiveData<List<String>>> {
-
-        private ProdutoDao asyncProdutoDao;
-        private MutableLiveData<List<String>> produtos;
-
-        @Override
-        protected MutableLiveData<List<String>> doInBackground(Void... voids) {
-
-            produtos.setValue(asyncProdutoDao.loadallProduto().getValue());
-
-            if (produtos==null) {
-
-                produtos = new MutableLiveData<List<String>>();
-
-            }
-
-            return produtos;
-        }*/
-
-
-//        public MutableLiveData<List<String>> getprodutos() {
-//
-//            return this.produtos;
-//
-//        }
-//
-//    }
-
-
-
-
 
     private static  class getCodigoProduto extends AsyncTask<Void, Void, Integer> {
 

@@ -23,6 +23,7 @@ import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
+import com.example.pedrobraga.bancofinanca.Repository.LocalRepository;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
@@ -32,6 +33,7 @@ import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -89,9 +91,8 @@ public class CompraCRUD extends AppCompatActivity {
                 findViewById(R.id.txtlocal);
 
 
-        final Map locais = localViewModel.getMapLocais().getValue();
-
         localViewModel.getLocalAll().observe(this, new Observer<List<Local>>() {
+
             @Override
             public void onChanged(@Nullable List<Local> locals) {
 
@@ -104,6 +105,8 @@ public class CompraCRUD extends AppCompatActivity {
                     listalocal.add(locals.get(i).getDesclocal().toString());
 
                 }
+
+
 
                 localadapter.add(listalocal);
                 txtlocal.setAdapter(localadapter);
@@ -156,22 +159,34 @@ public class CompraCRUD extends AppCompatActivity {
        final ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
        final CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
+        final  Map locais = new HashMap();
+        if (!(localViewModel.getMapLocais().getValue() == null)) {
+
+            locais.putAll(localViewModel.getMapLocais().getValue());
+        }
 
         btncadastra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
+
+               EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
 
 
 
-                if ( locais.get(0).toString().equals(null)) {
+                if ( ! locais.containsValue(edtlocal.getText().toString())) {
 
 
-                    Local local = new Local();
-                    local.setDesclocal(edtlocal.toString());
-                    localViewModel.insert(local);
+                    Local local2 = new Local();
+                    local2.setDesclocal(edtlocal.getText().toString());
+
+                    localViewModel.insert(local2);
+
+                    String teste = String.valueOf(locais.size());
+                    Toast toast =  Toast.makeText(getApplicationContext(),teste,Toast.LENGTH_LONG);
+                    toast.show();
+
                 }
 
                 else {
@@ -179,33 +194,24 @@ public class CompraCRUD extends AppCompatActivity {
                     Toast toast =  Toast.makeText(getApplicationContext(),locais.get(0).toString(),Toast.LENGTH_LONG);
                     toast.show();
 
-
                 }
-/*                try {
+
+
+
+              /*  try {
                     Compra compra = new Compra();
 
                     EditText edtdata = (EditText) findViewById(R.id.txtdata);
                     compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
-                    EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
 
                     Integer codigo = localViewModel.getCodigo(edtlocal.getText().toString());
 
-
-                    if (codigo == null) {
-
-                        Local local = new Local();
-                        local.setDesclocal(edtlocal.getText().toString());
-                        localViewModel.insert(local);
-                        Integer codigo2 = localViewModel.getCodigo(edtlocal.getText().toString());
-
-                        System.out.println("***********************************************");
-                        System.out.println("#############" + codigo2);
-                    }*/
+                    System.out.println("***********************************");
+                    System.out.println(String.valueOf(codigo));
 
 
 
-
-                  /*  compraViewModel.insert(compra);
+                   compraViewModel.insert(compra);
 
                     for (int i=0;i< itens.size(); i++) {
 

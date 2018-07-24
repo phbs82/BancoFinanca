@@ -12,7 +12,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class Local {
 
     @PrimaryKey(autoGenerate = true)
-    private int codigolocal=0;
+    private int codigolocal;
 
 
     private String desclocal;

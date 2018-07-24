@@ -22,12 +22,13 @@ public class LocalViewModel     extends AndroidViewModel {
 
     private LocalRepository localRepository;
 
-    private MutableLiveData<List<Local>> localAll;
+    private LiveData<List<Local>> localAll;
 
     public LocalViewModel (Application application) {
         super(application);
         localRepository = new LocalRepository(application);
-        localAll = localRepository.getLocalAll();
+        localAll = new MutableLiveData<List<Local>>();
+
     }
 
 
@@ -37,6 +38,8 @@ public class LocalViewModel     extends AndroidViewModel {
                         public Map apply(List<Local> input) {
 
                             Map mapLocais = new HashMap();
+                            System.out.println("*****************************");
+                            System.out.println(String.valueOf(localAll.getValue().size()));
 
                             for(int i =0; i < input.size(); i++) {
 
@@ -54,31 +57,36 @@ public class LocalViewModel     extends AndroidViewModel {
 
     public LiveData<Map> getMapLocais() {
 
+        if (this.locais.equals(null) ) {
+
+           this.locais = new MutableLiveData<Map>();
+
+        }
+
 
         return this.locais;
 
     }
 
-    public int getCodigo(String local) {
+   /* public int getCodigo(String local) {
 
 
         Integer codigo = localRepository.getCodigo(local);
 
         return codigo;
 
-    }
+    }*/
 
-    public MutableLiveData<List<Local>> getLocalAll() {
+    public LiveData<List<Local>> getLocalAll() {
 
-        if (localAll==null) {
 
-            localAll =  new MutableLiveData<List<Local>>();
-     }
+            this.localAll = localRepository.getLocalAll();
 
-        return  localAll;
+            return  this.localAll;
     }
 
     public void insert(Local local) {
+
         localRepository.insert(local);
     }
 

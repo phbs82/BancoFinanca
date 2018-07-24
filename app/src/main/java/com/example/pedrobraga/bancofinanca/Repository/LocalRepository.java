@@ -19,119 +19,47 @@ public class LocalRepository {
 
 
     final private LocalDao localDao;
-    private MutableLiveData<List<Local>> localAll;
+    private LiveData<List<Local>> localAll;
 
     public LocalRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         localDao = db.localDao();
-        localAll = getLocalAll();
-
-
-    }
-
-
-    public MutableLiveData<List<Local>> getLocalAll() {
-
-        return localAll;
-    }
-
-
-
-
-    public Integer getCodigo(String... local) {
-
-        GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
-         getCodigoLocal.execute(local[0].toString());
-
-        Integer codigo =getCodigoLocal.getCodigo();
-
-       return codigo;
+        localAll = new MutableLiveData<List<Local>>();
 
     }
 
-    private  class GetCodigoLocal  extends AsyncTask<String, Void, Integer> {
+    public LiveData<List<Local>> getLocalAll() {
 
-        LocalDao localDao;
-        Integer codigo  = 0;
-
-        @Override
-        protected Integer doInBackground(String... local) {
-
-
-            if (localDao.getCodigo(local[0].toString()).equals(null) ) {
-
-                System.out.println("TESTE******************");
-
-            }
-
-
-         /*   if (localDao.getCodigo(local[0].toString())== null) {
-
-                Local localidade = new Local();
-                localidade.setDesclocal(local[0]);
-                insert(localidade);
-
-            }*/
-
-           /* try {
-                    codigo = localDao.getCodigo(local[0]);
-                }
-                catch (Exception e ) {
-
-                    if (codigo == null) {
-
-                        Local localidade = new Local();
-                        localidade.setDesclocal(local[0]);
-                        insert(localidade);
-
-
-                    }
-                }
-*/
-                return codigo;
-        }
-
-        public Integer getCodigo() {
-
-            return this.codigo;
-
-        }
-
-
+        return localDao.loadAllLocal();
     }
 
-
-
-    private static  class getLocalAll extends AsyncTask<Void, Void, MutableLiveData<Local>> {
+    private static  class getLocalAll extends AsyncTask<Void, Void, LiveData<List<Local>>> {
 
         private LocalDao asyncLocalDao;
-        private MutableLiveData<Local> locais;
+        private LiveData<List<Local>> locais;
+
+        public getLocalAll(LocalDao localDao) {
+            this.asyncLocalDao = localDao;
+        }
 
         @Override
-        protected MutableLiveData<Local> doInBackground(Void... voids) {
+        protected LiveData<List<Local>> doInBackground(Void... voids) {
 
-            locais.setValue(asyncLocalDao.loadLocal().getValue());
-
+            locais = asyncLocalDao.loadAllLocal();
             if (locais==null) {
-
-                locais = new MutableLiveData<Local>();
-
+                locais = new MutableLiveData<List<Local>>();
             }
-
             return locais;
         }
 
-
-        public MutableLiveData<Local> getlocais() {
-
+        public LiveData<List<Local>> getlocais() {
             return this.locais;
 
         }
-
     }
 
-
     public void insert (Local local) {
+
         new insertAsyncTask(localDao).execute(local);
     }
 
@@ -145,7 +73,10 @@ public class LocalRepository {
 
         @Override
         protected Void doInBackground(final Local... params) {
+
             asyncLocalDao.insert(params[0]);
+
+
             return null;
         }
     }
@@ -193,7 +124,44 @@ public class LocalRepository {
 
 
 
+/*
 
+    public Integer getCodigo(String... local) {
+
+        GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
+         getCodigoLocal.execute(local[0].toString());
+
+        Integer codigo =getCodigoLocal.getCodigo();
+
+       return codigo;
+
+    }
+
+    private  class GetCodigoLocal  extends AsyncTask<String, Void, Integer> {
+
+        LocalDao localDao;
+        Integer codigo  = 0;
+
+        @Override
+        protected Integer doInBackground(String... local) {
+
+
+            localDao.getCodigo(local[0]);
+
+            return codigo;
+        }
+
+        public Integer getCodigo() {
+
+            return this.codigo;
+
+        }
+
+
+    }
+
+
+ */
 
 
 

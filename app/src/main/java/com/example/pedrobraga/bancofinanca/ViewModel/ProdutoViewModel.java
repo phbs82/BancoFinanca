@@ -29,21 +29,6 @@ public class ProdutoViewModel extends AndroidViewModel {
         ProdutoAll = produtoRepository.getProdutoAll();
         codigo = produtoRepository.getcodigoProduto();
 
-
-        Produto produto1 = new Produto();
-        produto1.setDescproduto("Leite");
-
-
-        Produto produto2 = new Produto();
-        produto2.setDescproduto("Leite");
-
-
-        insert(produto1);
-        insert(produto2);
-
-
-
-
     }
 
 
