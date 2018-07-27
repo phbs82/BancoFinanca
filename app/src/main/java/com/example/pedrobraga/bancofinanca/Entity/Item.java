@@ -84,14 +84,14 @@ public class Item {
         this.codigoproduto = codigoproduto;
     }
 
-    public Item(final int codigocompra, final int codigoproduto) {
+   /* public Item(final int codigocompra, final int codigoproduto) {
 
         this.codigocompra = codigocompra;
         this.codigoproduto = codigoproduto;
 
 
     }
-
+*/
 
 
 

@@ -24,14 +24,14 @@ public interface ProdutoDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insert(Produto... produto);
+    public Long insert(Produto produto);
 
 
     @Update
-    public void update(Produto... produto);
+    public void update(Produto produto);
 
     @Delete
-    public void delete(Produto... produto);
+    public void delete(Produto produto);
 
 
     @Query("Select coalesce(max(codigoproduto) + 1,1) + 1 from Produto ")
@@ -46,6 +46,10 @@ public interface ProdutoDao {
 
     @Query("SELECT descproduto FROM Produto")
     public List<String> loadProdutos();
+
+    @Query("SELECT codigoproduto FROM Produto WHERE descproduto = :produto")
+    public Integer getCodigo(String produto);
+
 
 
 

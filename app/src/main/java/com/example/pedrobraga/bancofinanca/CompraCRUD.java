@@ -54,11 +54,11 @@ public class CompraCRUD extends AppCompatActivity {
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbaddItem);
 
-        ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
-        CompraViewModel compraModel = ViewModelProviders.of(this).get(CompraViewModel.class);
+        final ProdutoViewModel mModel = ViewModelProviders.of(this).get(ProdutoViewModel.class);
+        final CompraViewModel compraModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
-        final int codigocompra = mModel.getCodigo();
-        final int codigoproduto = compraModel.getCodigo();
+        final int codigocompra = compraModel.getCodigo();
+  //      final int codigoproduto = compraModel.getCodigo();
 
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.txtproduto);
@@ -68,6 +68,8 @@ public class CompraCRUD extends AppCompatActivity {
 
 
         final List<Item> itens = new ArrayList<Item>(0);
+        final List<Produto> produtos = new ArrayList<Produto>(0);
+
 
 
         final float[] total = {0};
@@ -106,8 +108,6 @@ public class CompraCRUD extends AppCompatActivity {
 
                 }
 
-
-
                 localadapter.add(listalocal);
                 txtlocal.setAdapter(localadapter);
 
@@ -122,9 +122,26 @@ public class CompraCRUD extends AppCompatActivity {
                 EditText editDescricao = (EditText) findViewById(R.id.txtproduto);
                 EditText editValor = (EditText) findViewById(R.id.txtValor);
                 EditText editQuantidade = (EditText) findViewById(R.id.txtquantidade);
+                Item item = new Item();
+                Integer codigoproduto = null;
 
+                if       (mModel.getCodigo(editDescricao.getText().toString()) ==  0) {
 
-                Item item = new Item(codigocompra,codigoproduto);
+                    Produto produto = new Produto();
+                    produto.setDescproduto(editDescricao.getText().toString());
+                    codigoproduto = (int) (long) mModel.insert(produto);
+
+                   // final int codigoproduto = mModel.getCodigo(editDescricao.getText().toString());
+
+                    item.setCodigoproduto(codigoproduto);
+
+                }
+
+                else {
+
+                        item.setCodigoproduto(mModel.getProdutoAll().getValue().indexOf(editDescricao.getText().toString()));
+                }
+
 
                 item.setDescricao(String.valueOf(editDescricao.getText()));
                 item.setValor(Float.parseFloat(String.valueOf(editValor.getText())));
@@ -135,11 +152,9 @@ public class CompraCRUD extends AppCompatActivity {
 
                 total[0] = total[0] + Float.parseFloat(String.valueOf(editValor.getText()));
 
-
                 TextView txttotal = (TextView) findViewById(R.id.txtTotal);
 
                 txttotal.setText("Total R$: " + total[0]);
-
 
             }
         });
@@ -169,65 +184,53 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-
                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
+                try {
 
 
-
-                if ( ! locais.containsValue(edtlocal.getText().toString())) {
-
-
-                    Local local2 = new Local();
-                    local2.setDesclocal(edtlocal.getText().toString());
-
-                    localViewModel.insert(local2);
-
-                    String teste = String.valueOf(locais.size());
-                    Toast toast =  Toast.makeText(getApplicationContext(),teste,Toast.LENGTH_LONG);
-                    toast.show();
-
-                }
-
-                else {
-
-                    Toast toast =  Toast.makeText(getApplicationContext(),locais.get(0).toString(),Toast.LENGTH_LONG);
-                    toast.show();
-
-                }
+                    if (!locais.containsValue(edtlocal.getText().toString())) {
 
 
+                        Local local2 = new Local();
+                        local2.setDesclocal(edtlocal.getText().toString());
 
-              /*  try {
+                        localViewModel.insert(local2);
+
+                        String teste = String.valueOf(locais.size());
+                        Toast toast = Toast.makeText(getApplicationContext(), teste, Toast.LENGTH_LONG);
+                        toast.show();
+
+                    }
+
                     Compra compra = new Compra();
 
                     EditText edtdata = (EditText) findViewById(R.id.txtdata);
                     compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
 
-                    Integer codigo = localViewModel.getCodigo(edtlocal.getText().toString());
+                    Integer codigolocal = localViewModel.getCodigo(edtlocal.getText().toString());
 
-                    System.out.println("***********************************");
-                    System.out.println(String.valueOf(codigo));
+                    compra.setCodigolocal(codigolocal);
+
+                    //  CompraRepository compraRepository = new CompraRepository(getApplication());
+                    Long codcompra = compraViewModel.insert(compra);
+
+                    //    Long codigocompra = compraRepository.insert(compra);
+                    Integer codigocompra = (int) (long) codcompra;
 
 
+                    for (int i = 0; i < itens.size(); i++) {
 
-                   compraViewModel.insert(compra);
-
-                    for (int i=0;i< itens.size(); i++) {
+                        itens.get(i).setCodigocompra(codigocompra);
 
                         itemViewModel.insert(itens.get(i));
 
                     }
                 }
+
                 catch (Exception e) {
 
                     System.out.println(e.getMessage());
-                }*/
-
-
-
-
-
+                }
 
 
             }

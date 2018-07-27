@@ -68,14 +68,14 @@ public class LocalViewModel     extends AndroidViewModel {
 
     }
 
-   /* public int getCodigo(String local) {
+    public int getCodigo(String local) {
 
 
         Integer codigo = localRepository.getCodigo(local);
 
         return codigo;
 
-    }*/
+    }
 
     public LiveData<List<Local>> getLocalAll() {
 

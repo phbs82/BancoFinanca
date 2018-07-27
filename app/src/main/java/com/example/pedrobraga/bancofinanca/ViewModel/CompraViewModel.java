@@ -24,7 +24,7 @@ public class CompraViewModel  extends AndroidViewModel {
         super(application);
         CompraRepository = new CompraRepository(application);
         CompraAll = CompraRepository.getCompraAll();
-        codigo = CompraRepository.getcodigoCompra();
+     //   codigo = CompraRepository.getcodigoCompra();
 
     }
 
@@ -40,8 +40,15 @@ public class CompraViewModel  extends AndroidViewModel {
         return CompraAll;
     }
 
-    public void insert(Compra Compra) {
-        CompraRepository.insert(Compra);
+    public Long insert(Compra compra) {
+        Long codigocompra;
+        return CompraRepository.insert(compra);
+    }
+
+    public void delete(Compra compra) {
+
+        CompraRepository.delete(compra);
+
     }
 
 

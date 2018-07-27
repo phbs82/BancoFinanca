@@ -27,14 +27,14 @@ public class ProdutoViewModel extends AndroidViewModel {
         super(application);
         produtoRepository = new ProdutoRepository(application);
         ProdutoAll = produtoRepository.getProdutoAll();
-        codigo = produtoRepository.getcodigoProduto();
+    //    codigo = produtoRepository.getCodigo();
 
     }
 
 
-    public int getCodigo() {
+    public int getCodigo(String descricao) {
 
-        return this.codigo;
+        return produtoRepository.getcodigoProduto(descricao);
 
     }
 
@@ -46,8 +46,8 @@ public class ProdutoViewModel extends AndroidViewModel {
     }
 
 
-    public void insert(Produto produto) {
-        produtoRepository.insert(produto);
+    public Long insert(Produto produto) {
+        return produtoRepository.insert(produto);
     }
 
 

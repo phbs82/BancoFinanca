@@ -10,6 +10,7 @@ import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by pedro.braga on 19/04/2018.
@@ -30,9 +31,12 @@ public class ProdutoRepository {
     }
 
 
-    public Integer getcodigoProduto() {
+    public Integer getcodigoProduto(String descricao) {
 
-        return new getCodigoProduto().getcodigo();
+        getCodigoProduto getCode  = new getCodigoProduto(produtoDao);
+        getCode.execute(descricao);
+
+        return getCode.getcodigo()  ;
 
     }
 
@@ -44,44 +48,63 @@ public class ProdutoRepository {
 
     }
 
-
-    private static  class getCodigoProduto extends AsyncTask<Void, Void, Integer> {
+    private static  class getCodigoProduto extends AsyncTask<String, Void, Integer> {
 
         private ProdutoDao asyncProdutoDao;
-        private Integer codigo=1;
+        private Integer codigo=0;
 
 
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            codigo = asyncProdutoDao.getCodigoProduto();
-
-            if (codigo==null || codigo==0) {
-
-                codigo = 1;
-
-            }
-
-            return codigo;
+        private getCodigoProduto(ProdutoDao dao) {
+            asyncProdutoDao = dao;
         }
 
+        @Override
+        protected Integer doInBackground(String... strings) {
 
-        public int getcodigo() {
+            if (asyncProdutoDao.getCodigo(strings[0])==null) {
+
+                this.codigo=1;
+
+            }
+            else {
+
+                this.codigo = asyncProdutoDao.getCodigo(strings[0]);
+            }
+
+            return this.codigo;
+
+
+        }
+
+        public Integer getcodigo() {
 
             return this.codigo;
 
         }
 
+
+
     }
 
 
+    public Long insert (Produto produto) {
+
+        Long codigoproduto = null;
+
+        try {
+            codigoproduto = new ProdutoRepository.insertAsyncTask(produtoDao).execute(produto).get().longValue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return codigoproduto;
 
 
-
-    public void insert (Produto produto) {
-        new ProdutoRepository.insertAsyncTask(produtoDao).execute(produto);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Produto, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<Produto, Void, Long> {
 
         private ProdutoDao asyncProdutoDao;
 
@@ -90,9 +113,9 @@ public class ProdutoRepository {
         }
 
         @Override
-        protected Void doInBackground(final Produto... params) {
-            asyncProdutoDao.insert(params[0]);
-            return null;
+        protected Long doInBackground(final Produto... params) {
+
+            return asyncProdutoDao.insert(params[0]).longValue();
         }
     };
 

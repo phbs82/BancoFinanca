@@ -22,7 +22,7 @@ public interface CompraDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insert(Compra compra);
+    public Long insert(Compra compra);
 
 
     @Update

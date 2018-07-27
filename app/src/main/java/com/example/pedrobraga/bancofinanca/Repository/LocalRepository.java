@@ -124,11 +124,11 @@ public class LocalRepository {
 
 
 
-/*
+
 
     public Integer getCodigo(String... local) {
 
-        GetCodigoLocal getCodigoLocal = new GetCodigoLocal();
+        GetCodigoLocal getCodigoLocal = new GetCodigoLocal(localDao);
          getCodigoLocal.execute(local[0].toString());
 
         Integer codigo =getCodigoLocal.getCodigo();
@@ -139,16 +139,22 @@ public class LocalRepository {
 
     private  class GetCodigoLocal  extends AsyncTask<String, Void, Integer> {
 
-        LocalDao localDao;
-        Integer codigo  = 0;
-
+        LocalDao asyncLocalDao;
+        Integer codigo  = 1;
+            GetCodigoLocal (LocalDao dao) {
+            asyncLocalDao = dao;
+        }
         @Override
         protected Integer doInBackground(String... local) {
 
+            if (asyncLocalDao.getCodigo(local[0]) != null ) {
 
-            localDao.getCodigo(local[0]);
+                this.codigo = asyncLocalDao.getCodigo(local[0]);
 
-            return codigo;
+            }
+
+
+            return this.codigo;
         }
 
         public Integer getCodigo() {
@@ -161,7 +167,7 @@ public class LocalRepository {
     }
 
 
- */
+
 
 
 
