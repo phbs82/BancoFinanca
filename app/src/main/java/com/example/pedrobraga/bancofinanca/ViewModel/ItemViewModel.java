@@ -29,6 +29,8 @@ public class ItemViewModel extends AndroidViewModel {
         return ItemAll;
     }
 
+  // LiveData<Item> getItem(Integer codigocompra) { return ItemRepository.getCompraItem(codigocompra);}
+
     public void insert(Item Item) {
         ItemRepository.insert(Item);
     }

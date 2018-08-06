@@ -131,9 +131,7 @@ public class CompraCRUD extends AppCompatActivity {
                     produto.setDescproduto(editDescricao.getText().toString());
                     codigoproduto = (int) (long) mModel.insert(produto);
 
-                   // final int codigoproduto = mModel.getCodigo(editDescricao.getText().toString());
-
-                    item.setCodigoproduto(codigoproduto);
+                     item.setCodigoproduto(codigoproduto);
 
                 }
 

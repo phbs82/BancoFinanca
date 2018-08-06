@@ -32,44 +32,13 @@ public class LocalViewModel     extends AndroidViewModel {
     }
 
 
-    private LiveData<Map> locais =
-            Transformations.map(localAll, new Function<List<Local>, Map>() {
-                        @Override
-                        public Map apply(List<Local> input) {
-
-                            Map mapLocais = new HashMap();
-                            System.out.println("*****************************");
-                            System.out.println(String.valueOf(localAll.getValue().size()));
-
-                            for(int i =0; i < input.size(); i++) {
-
-                                mapLocais.put(input.get(i).getCodigolocal(),input.get(i).getDesclocal());
-
-                            }
-
-
-                            return mapLocais;
-                        }
-                    });
-                    // (locals) -> {   locals.get(0).getDesclocal().toString() });
-
-
-
     public LiveData<Map> getMapLocais() {
 
-        if (this.locais.equals(null) ) {
-
-           this.locais = new MutableLiveData<Map>();
-
-        }
-
-
-        return this.locais;
+        return localRepository.getMapLocais();
 
     }
 
     public int getCodigo(String local) {
-
 
         Integer codigo = localRepository.getCodigo(local);
 
@@ -89,6 +58,30 @@ public class LocalViewModel     extends AndroidViewModel {
 
         localRepository.insert(local);
     }
+
+
+    /*  private LiveData<Map> locais =
+            Transformations.map(localAll, new Function<List<Local>, Map>() {
+                        @Override
+                        public Map apply(List<Local> input) {
+
+                            Map mapLocais = new HashMap();
+                            System.out.println("*****************************");
+                            System.out.println(String.valueOf(localAll.getValue().size()));
+
+                            for(int i =0; i < input.size(); i++) {
+
+                                mapLocais.put(input.get(i).getCodigolocal(),input.get(i).getDesclocal());
+
+                            }
+
+
+                            return mapLocais;
+                        }
+                    });
+                    // (locals) -> {   locals.get(0).getDesclocal().toString() });
+*/
+
 
 
 }

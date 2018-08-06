@@ -32,6 +32,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        Button  compras = (Button) findViewById(R.id.btnlistaCompras);
+        compras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent;
+                intent = new Intent(getApplicationContext(),ListaCompras.class);
+
+                startActivity(intent);
+
+
+
+            }
+        });
+
+
 
     }
 }

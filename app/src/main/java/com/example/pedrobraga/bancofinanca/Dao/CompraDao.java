@@ -9,7 +9,6 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
-
 import java.util.List;
 
 /**
@@ -39,7 +38,6 @@ public interface CompraDao {
 
     @Query("Select coalesce(max(codigocompra) + 1,1) from Compra ")
     public int getCodigoCompra();
-
 
 
 }

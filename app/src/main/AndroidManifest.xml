@@ -24,7 +24,9 @@
             android:name=".recyclerview_items"
             android:label="@string/title_activity_recyclerview_items"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListaCompras"></activity>
+        <activity android:name=".ListaCompras" />
+        <activity android:name=".lista_compras_grupo" />
+        <activity android:name=".lista_compras_itens"></activity>
     </application>
 
 </manifest>
