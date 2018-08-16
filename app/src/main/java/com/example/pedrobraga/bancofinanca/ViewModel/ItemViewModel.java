@@ -25,7 +25,7 @@ public class ItemViewModel extends AndroidViewModel {
         ItemAll = ItemRepository.getItemAll();
     }
 
-    LiveData<List<Item>> getItemAll() {
+    public LiveData<List<Item>> getItemAll() {
         return ItemAll;
     }
 

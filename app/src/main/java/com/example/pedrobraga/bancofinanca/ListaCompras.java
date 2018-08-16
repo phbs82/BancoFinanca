@@ -8,6 +8,8 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pedrobraga.bancofinanca.Entity.Compra;
+import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Utils.ExpandableListViewAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
@@ -15,6 +17,8 @@ import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter.toStringFDate;
 
 public class ListaCompras extends AppCompatActivity {
 
@@ -31,6 +35,10 @@ public class ListaCompras extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_compras);
+
+
+
+        initObjects();
 
     }
 
@@ -101,11 +109,14 @@ public class ListaCompras extends AppCompatActivity {
             // initializing the list of child
             listDataChild = new HashMap<>();
 
+
+            initListData();
             // initializing the adapter object
             expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
 
             // setting list adapter
-            expandableListView.setAdapter(expandableListViewAdapter);
+            if (!expandableListViewAdapter.isEmpty())
+                expandableListView.setAdapter(expandableListViewAdapter);
 
         }
 
@@ -122,11 +133,59 @@ public class ListaCompras extends AppCompatActivity {
             final CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
 
+            List<Compra> compras = new ArrayList<Compra>();
 
 
-            // notify the adapter
-            expandableListViewAdapter.notifyDataSetChanged();
+            if (compraViewModel.getCompraAll().getValue() != null ) {
+                compras.addAll(compraViewModel.getCompraAll().getValue());
 
+
+            }
+
+
+
+            List<Item> itens = new ArrayList<Item>();
+            if (itemViewModel.getItemAll().getValue()!= null) {
+
+                itens.addAll(itemViewModel.getItemAll().getValue());
+
+
+            }
+
+
+            if (compras.size()> 0 ) {
+
+                for (int i=0;i< compras.size();i++) {
+
+                    String descricao =
+                            String.valueOf(compras.get(i).getCodigocompra()) +
+                                    " " +
+                                     toStringFDate(compras.get(i).getData());
+
+                    listDataGroup.add(descricao);
+
+                    List<String> itemlista = new ArrayList<>(0);
+
+                    for (Item item: itens) {
+
+                        if (item.getCodigocompra()==compras.get(i).getCodigocompra()) {
+
+                            itemlista.add("Produto: " + item.getDescricao() +
+                            " Quantidade: " + String.valueOf(item.getQuantidade()) + " Valor: " +
+                            String.valueOf(item.getValor()));
+
+                        }
+
+                    }
+
+                    listDataChild.put(descricao,itemlista);
+                }
+
+
+                // notify the adapter
+                expandableListViewAdapter.notifyDataSetChanged();
+
+            }
 
 
 /*

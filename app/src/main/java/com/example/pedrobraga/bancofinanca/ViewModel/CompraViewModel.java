@@ -3,6 +3,7 @@ package com.example.pedrobraga.bancofinanca.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
@@ -23,7 +24,7 @@ public class CompraViewModel  extends AndroidViewModel {
     public CompraViewModel(Application application) {
         super(application);
         CompraRepository = new CompraRepository(application);
-        CompraAll = CompraRepository.getCompraAll();
+        this.CompraAll =  new MutableLiveData<List<Compra>>();
      //   codigo = CompraRepository.getcodigoCompra();
 
     }
@@ -36,8 +37,10 @@ public class CompraViewModel  extends AndroidViewModel {
 
     }
 
-    LiveData<List<Compra>> getCompraAll() {
-        return CompraAll;
+    public LiveData<List<Compra>> getCompraAll() {
+
+        return CompraRepository.getCompraAll();
+
     }
 
     public Long insert(Compra compra) {

@@ -34,7 +34,7 @@ public interface ItemDao {
 
 
 
-    @Query("SELECT * FROM Item")
+    @Query("SELECT * FROM Item order by codigocompra")
     public LiveData<List<Item>> loadallItem();
 
 

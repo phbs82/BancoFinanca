@@ -17,7 +17,7 @@ public class DateTypeConverter {
     }
 
     @TypeConverter
-    public static String toString(Date value) {
+    public static String toStringFDate(Date value) {
         return value == null ? null : String.valueOf(value.getTime());
     }
 

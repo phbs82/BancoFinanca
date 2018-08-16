@@ -2,6 +2,7 @@ package com.example.pedrobraga.bancofinanca.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import com.example.pedrobraga.bancofinanca.Dao.CompraDao;
@@ -23,13 +24,15 @@ public class CompraRepository    {
     public CompraRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         compraDao = db.compraDao();
-        compraAll = compraDao.loadAllCompra();
+        compraAll = new MutableLiveData<List<Compra>>();
 
     }
 
 
    public  LiveData<List<Compra>> getCompraAll() {
-        return compraAll;
+
+       return compraDao.loadAllCompra();
+
     }
 
 
