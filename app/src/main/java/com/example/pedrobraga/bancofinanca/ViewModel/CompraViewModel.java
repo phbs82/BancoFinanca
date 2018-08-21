@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
+import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
 
 import java.util.List;
@@ -37,11 +38,20 @@ public class CompraViewModel  extends AndroidViewModel {
 
     }
 
-    public LiveData<List<Compra>> getCompraAll() {
+   /* public LiveData<List<Compra>> getCompraAll() {
 
         return CompraRepository.getCompraAll();
 
-    }
+    }*/
+
+
+   public List<ComprasItems> getComprasAll() {
+
+
+       return CompraRepository.getCompraAll();
+
+   }
+
 
     public Long insert(Compra compra) {
         Long codigocompra;

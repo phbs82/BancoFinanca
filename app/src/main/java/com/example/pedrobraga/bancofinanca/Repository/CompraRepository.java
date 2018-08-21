@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import com.example.pedrobraga.bancofinanca.Dao.CompraDao;
 import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
+import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -29,17 +31,44 @@ public class CompraRepository    {
     }
 
 
-   public  LiveData<List<Compra>> getCompraAll() {
 
-       return compraDao.loadAllCompra();
 
+   public  List<ComprasItems> getCompraAll() {
+
+       List<ComprasItems> compras = new ArrayList<ComprasItems>();
+
+       try {
+           compras =  new getCompras(compraDao).execute().get();
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       } catch (ExecutionException e) {
+           e.printStackTrace();
+       }
+
+       return compras;
+
+   }
+
+
+
+    private static class getCompras extends AsyncTask<Void,Void,List<ComprasItems>>  {
+
+        private CompraDao asyncCompraDao;
+
+        private getCompras(CompraDao dao) {
+            asyncCompraDao = dao;
+        }
+
+        @Override
+        protected List<ComprasItems> doInBackground(Void... voids) {
+            return asyncCompraDao.getComprasItens();
+        }
     }
 
-
     public Long insert (Compra compra) {
-        
+
         Long codigocompra = null;
-        
+
         try {
             codigocompra = new insertAsyncTask(compraDao).execute(compra).get().longValue();
         } catch (InterruptedException e) {
@@ -47,9 +76,17 @@ public class CompraRepository    {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        
+
         return codigocompra;
     }
+
+
+
+
+
+
+
+
 
     private static class insertAsyncTask extends AsyncTask<Compra, Void, Long> {
 
@@ -111,7 +148,81 @@ public class CompraRepository    {
     }
 
 
-/*  public int getcodigoCompra() {
+    /*
+   public  LiveData<List<Compra>> getCompraAll() {
+
+
+
+       try {
+           this.compraAll =  new getCompras(compraDao).execute().get();
+       } catch (InterruptedException e) {
+           e.printStackTrace();
+       } catch (ExecutionException e) {
+           e.printStackTrace();
+       }
+
+       return this.compraAll;
+   }
+
+
+
+    private static class getCompras extends AsyncTask<Void,Void,LiveData<List<Compra>>>  {
+
+        private CompraDao asyncCompraDao;
+
+        private getCompras(CompraDao dao) {
+            asyncCompraDao = dao;
+        }
+
+        @Override
+        protected LiveData<List<Compra>> doInBackground(Void... voids) {
+            return asyncCompraDao.loadAllCompra();
+        }
+    }
+
+    public Long insert (Compra compra) {
+
+        Long codigocompra = null;
+
+        try {
+            codigocompra = new insertAsyncTask(compraDao).execute(compra).get().longValue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return codigocompra;
+    }
+*/
+
+
+/*
+
+
+
+
+
+    public List<Compra> getComprasAll() {
+
+        List<Compra> compras = new ArrayList<Compra>();
+
+        try {
+            compras =  new getCompras(compraDao).execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return compras;
+
+    }
+
+
+
+
+ public int getcodigoCompra() {
 
         return new getCodigoCompra().getcodigo();
     }
