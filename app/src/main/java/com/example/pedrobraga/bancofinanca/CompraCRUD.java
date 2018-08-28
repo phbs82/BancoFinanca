@@ -1,9 +1,11 @@
 package com.example.pedrobraga.bancofinanca;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,10 +35,15 @@ import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.R.layout.simple_dropdown_item_1line;
@@ -178,6 +186,40 @@ public class CompraCRUD extends AppCompatActivity {
             locais.putAll(localViewModel.getMapLocais().getValue());
         }
 
+
+        final EditText edtdata = (EditText) findViewById(R.id.txtdata);
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                edtdata.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        edtdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                  new DatePickerDialog(CompraCRUD.this, datePickerListener, myCalendar
+                                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+
+            }
+        });
+
+
+
         btncadastra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,16 +245,22 @@ public class CompraCRUD extends AppCompatActivity {
                     Compra compra = new Compra();
 
                     EditText edtdata = (EditText) findViewById(R.id.txtdata);
-                    compra.setData(DateTypeConverter.toDate(edtdata.getText().toString()));
+
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+                    compra.setData(df.parse(edtdata.getText().toString()));
+
+
+
+
+
 
                     Integer codigolocal = localViewModel.getCodigo(edtlocal.getText().toString());
 
                     compra.setCodigolocal(codigolocal);
 
-                    //  CompraRepository compraRepository = new CompraRepository(getApplication());
                     Long codcompra = compraViewModel.insert(compra);
 
-                    //    Long codigocompra = compraRepository.insert(compra);
                     Integer codigocompra = (int) (long) codcompra;
 
 

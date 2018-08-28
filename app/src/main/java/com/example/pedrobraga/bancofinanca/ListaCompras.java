@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +18,13 @@ import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
+import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ExpandableListViewAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,18 +46,7 @@ public class ListaCompras extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_compras);
 
-
-
         initObjects();
-
-        //CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
-
-        //CompraRepository compra = new CompraRepository(getApplication());
-        //List<Compra> compras = new ArrayList<Compra>();
-        //compras.addAll(compra.getCompraAll().getValue());
-        //compras.addAll(compra.getComprasAll());
-
-
 
     }
 
@@ -66,57 +58,6 @@ public class ListaCompras extends AppCompatActivity {
 
         }
 
-        /**
-         * method to initialize the listeners
-         */
-      /*  private void initListeners() {
-
-            // ExpandableListView on child click listener
-            expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v,
-                                            int groupPosition, int childPosition, long id) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            listDataGroup.get(groupPosition)
-                                    + " : "
-                                    + listDataChild.get(
-                                    listDataGroup.get(groupPosition)).get(
-                                    childPosition), Toast.LENGTH_SHORT)
-                            .show();
-                    return false;
-                }
-            });}
-
-            // ExpandableListView Group expanded listener
-           expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-                @Override
-                public void onGroupExpand(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            listDataGroup.get(groupPosition) + " " + getString(R.string.text_collapsed),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            // ExpandableListView Group collapsed listener
-            expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-                @Override
-                public void onGroupCollapse(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            listDataGroup.get(groupPosition) + " " + getString(R.string.text_collapsed),
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-        }*/
-
-        /**
-         * method to initialize the objects
-         */
         private void initObjects() {
 
             // initializing the list of groups
@@ -125,25 +66,22 @@ public class ListaCompras extends AppCompatActivity {
             // initializing the list of child
             listDataChild = new HashMap<>();
 
-
             initListData();
             // initializing the adapter object
             expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
+            expandableListView = findViewById(R.id.expandableListView);
 
             // setting list adapter
-            if (!expandableListViewAdapter.isEmpty())
+            if (!expandableListViewAdapter.isEmpty()) {
                 expandableListView.setAdapter(expandableListViewAdapter);
+                expandableListViewAdapter.notifyDataSetChanged();
+
+
+            }
 
         }
 
-    /*
-     * Preparing the list data
-     *
-     * Dummy Items
-     */
         private void initListData() {
-
-
 
            // final ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
             final CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
@@ -154,8 +92,20 @@ public class ListaCompras extends AppCompatActivity {
 
             for (int i=0; i < compras.size(); i++ ) {
 
-                listDataGroup.add(compras.get(i).compra.getData())
+                Date datacompra = compras.get(i).compra.getData();
 
+                listDataGroup.add(String.valueOf(datacompra) + "  " +
+                        compras.get(i).local.get(0).getDesclocal()
+                   );
+
+                List<String> itens  = new ArrayList<>(0);
+                for (int j = 0; j < compras.get(i).itens.size(); j++) {
+
+                       itens.add(compras.get(i).itens.get(j).getDescricao() + " " +
+                               String.valueOf(compras.get(i).itens.get(j).getValor()));
+
+                }
+                listDataChild.put(listDataGroup.get(i),itens);
 
             }
 
@@ -163,7 +113,13 @@ public class ListaCompras extends AppCompatActivity {
 
 
 
-          //  LiveData<List<Compra>> comp = new MutableLiveData<List<Compra>>();
+        }
+
+
+ }
+
+
+//  LiveData<List<Compra>> comp = new MutableLiveData<List<Compra>>();
 
           /*  compraViewModel.getCompraAll().observe(this, new Observer<List<Compra>>() {
                 @Override
@@ -239,7 +195,8 @@ public class ListaCompras extends AppCompatActivity {
                 // notify the adapter
                 expandableListViewAdapter.notifyDataSetChanged();*/
 
-            }
+
+
 
 
 /*
@@ -286,12 +243,6 @@ public class ListaCompras extends AppCompatActivity {
             listDataChild.put(listDataGroup.get(2), pastaList);
             listDataChild.put(listDataGroup.get(3), coldDrinkList);
 */
-
-
-        }
-
-
-
 
 
 

@@ -33,6 +33,11 @@
             android:textColor="@color/colorPrimaryDark"
             android:textColorHighlight="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
+
+
+
+
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

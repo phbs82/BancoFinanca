@@ -114,7 +114,7 @@ public class ItemRepository {
 
 
 
-    public void deelte (Item item) {
+    public void delete (Item item) {
         new ItemRepository.deleteAsyncTask(itemDao).execute(item);
     }
 

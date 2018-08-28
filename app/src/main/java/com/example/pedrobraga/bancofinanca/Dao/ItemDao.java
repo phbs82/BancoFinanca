@@ -42,8 +42,6 @@ public interface ItemDao {
     public String getDescProduto();
 
 
-//    @Query("Select descproduto,quantidade,valor from Item  where a.codigocompra = :codigcompra")
-//    public  LiveData<Item> getCompraItem(Integer codigocompra);
 
 
 }

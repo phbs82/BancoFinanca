@@ -12,13 +12,13 @@ public class DateTypeConverter {
 
 
     @TypeConverter
-    public static Date toDate(String value) {
+    public static Date toDate(Long value) {
         return value == null ? null : new Date(value);
     }
 
     @TypeConverter
-    public static String toStringFDate(Date value) {
-        return value == null ? null : String.valueOf(value.getTime());
+    public static Long toStringFDate(Date value) {
+        return value == null ? null : value.getTime();
     }
 
 
