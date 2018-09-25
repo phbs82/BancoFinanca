@@ -31,6 +31,43 @@ public class CompraRepository    {
     }
 
 
+    public  LiveData<List<ComprasItems>> getComprasItens() {
+
+        LiveData<List<ComprasItems>> compras = new MutableLiveData<List<ComprasItems>>();
+
+        try {
+            compras =  new getComprasItens(compraDao).execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return compras;
+
+    }
+
+
+    private static class getComprasItens extends AsyncTask<Void,Void,LiveData<List<ComprasItems>>>  {
+
+        private CompraDao asyncCompraDao;
+
+        private getComprasItens(CompraDao dao) {
+            asyncCompraDao = dao;
+        }
+
+        @Override
+        protected LiveData<List<ComprasItems>> doInBackground(Void... voids) {
+            return asyncCompraDao.ComprasItens();
+        }
+    }
+
+
+
+
+
+
+
 
 
    public  List<ComprasItems> getCompraAll() {

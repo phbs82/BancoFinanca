@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF32D"
+    android:background="@color/cardview_shadow_start_color"
     android:visibility="visible"
 
     tools:context="com.example.pedrobraga.bancofinanca.CompraCRUD"
@@ -21,6 +21,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,17 +36,14 @@
             android:textColorHint="@color/colorAccent" />
 
 
-
-
-
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout2"
         android:layout_width="281dp"
-        android:layout_height="0dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="21dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
@@ -55,8 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Local"
-            android:textColor="@color/colorPrimaryDark"
-            />
+            android:textColor="@color/colorPrimaryDark" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -105,7 +102,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="68dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spcategoria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -129,11 +126,11 @@
         android:background="#28448E"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/rvItens"
-        tools:listitem="@layout/activity_recyclerview_items"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/spcategoria"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:listitem="@layout/activity_recyclerview_items" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItens"
@@ -142,15 +139,16 @@
         android:layout_marginBottom="89dp"
         android:layout_marginEnd="36dp"
         android:layout_marginStart="28dp"
-        tools:listitem="@layout/activity_recyclerview_items"
-        android:background="@android:color/holo_blue_dark"
+
+        android:background="?attr/actionModeSplitBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/fbaddItem"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fbaddItem" />
+        app:layout_constraintTop_toBottomOf="@+id/fbaddItem"
+        tools:listitem="@layout/activity_recyclerview_items" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spcategoria"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="17dp"
@@ -192,4 +190,5 @@
         app:layout_constraintStart_toEndOf="@+id/btnCadastra"
         app:layout_constraintTop_toBottomOf="@+id/rvItens"
         app:layout_constraintVertical_bias="1.0" />
+
 </android.support.constraint.ConstraintLayout>

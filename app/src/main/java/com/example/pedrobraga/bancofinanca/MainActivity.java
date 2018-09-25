@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Button b = (Button) findViewById(R.id.button);
+        ImageButton b = (ImageButton) findViewById(R.id.btncompra);
 
 
         b.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button  compras = (Button) findViewById(R.id.btnlistaCompras);
+        ImageButton  compras = (ImageButton) findViewById(R.id.btnlistaCompras);
         compras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by pedro.braga on 05/08/2018.
@@ -32,6 +33,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
+
+
+
+
+
     }
 
     @Override
@@ -61,6 +67,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.textViewChild);
 
         textViewChild.setText(childText);
+
+
+
         return convertView;
     }
 

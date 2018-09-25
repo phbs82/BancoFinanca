@@ -47,6 +47,12 @@ public interface CompraDao {
     public List<ComprasItems> getComprasItens();
 
 
+    @Transaction
+    @Query("SELECT * from Compra")
+    public LiveData<List<ComprasItems>> ComprasItens();
+
+
+
 
 
 }

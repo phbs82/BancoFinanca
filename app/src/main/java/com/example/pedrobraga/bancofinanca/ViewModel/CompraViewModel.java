@@ -38,11 +38,11 @@ public class CompraViewModel  extends AndroidViewModel {
 
     }
 
-   /* public LiveData<List<Compra>> getCompraAll() {
+    public LiveData<List<ComprasItems>> getCompraItens() {
 
-        return CompraRepository.getCompraAll();
+        return CompraRepository.getComprasItens();
 
-    }*/
+    }
 
 
    public List<ComprasItems> getComprasAll() {

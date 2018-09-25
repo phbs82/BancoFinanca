@@ -2,10 +2,8 @@ package com.example.pedrobraga.bancofinanca;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -25,28 +23,20 @@ import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
-import com.example.pedrobraga.bancofinanca.Repository.CompraRepository;
-import com.example.pedrobraga.bancofinanca.Repository.LocalRepository;
-import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
-import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 import com.example.pedrobraga.bancofinanca.Utils.ItemListAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.ProdutoViewModel;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import static android.R.layout.simple_dropdown_item_1line;
 
 public class CompraCRUD extends AppCompatActivity {
 
@@ -77,6 +67,14 @@ public class CompraCRUD extends AppCompatActivity {
 
         final List<Item> itens = new ArrayList<Item>(0);
         final List<Produto> produtos = new ArrayList<Produto>(0);
+
+        final Spinner spinner = (Spinner) findViewById(R.id.spcategoria);
+
+        ArrayAdapter<CharSequence> adaptersp = ArrayAdapter.createFromResource(this,
+                R.array.categorias_array, android.R.layout.simple_spinner_item);
+
+        adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adaptersp);
 
 
 
@@ -140,6 +138,8 @@ public class CompraCRUD extends AppCompatActivity {
                     codigoproduto = (int) (long) mModel.insert(produto);
 
                      item.setCodigoproduto(codigoproduto);
+                     item.setDescricao(editDescricao.getText().toString());
+                     item.setCategoria(spinner.getSelectedItem().toString());
 
                 }
 
@@ -156,7 +156,8 @@ public class CompraCRUD extends AppCompatActivity {
                 itens.add(item);
                 adapter.insertItem(item);
 
-                total[0] = total[0] + Float.parseFloat(String.valueOf(editValor.getText()));
+                total[0] = total[0] *   Integer.parseInt(editQuantidade.getText().toString()) +
+                        Float.parseFloat(String.valueOf(editValor.getText()));
 
                 TextView txttotal = (TextView) findViewById(R.id.txtTotal);
 
@@ -165,14 +166,6 @@ public class CompraCRUD extends AppCompatActivity {
             }
         });
 
-
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-
-        ArrayAdapter<CharSequence> adaptersp = ArrayAdapter.createFromResource(this,
-                R.array.categorias_array, android.R.layout.simple_spinner_item);
-
-        adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adaptersp);
 
 
         Button btncadastra = (Button) findViewById(R.id.btnCadastra);
@@ -250,11 +243,6 @@ public class CompraCRUD extends AppCompatActivity {
 
                     compra.setData(df.parse(edtdata.getText().toString()));
 
-
-
-
-
-
                     Integer codigolocal = localViewModel.getCodigo(edtlocal.getText().toString());
 
                     compra.setCodigolocal(codigolocal);
@@ -267,6 +255,7 @@ public class CompraCRUD extends AppCompatActivity {
                     for (int i = 0; i < itens.size(); i++) {
 
                         itens.get(i).setCodigocompra(codigocompra);
+
 
                         itemViewModel.insert(itens.get(i));
 

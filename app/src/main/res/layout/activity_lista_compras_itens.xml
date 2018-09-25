@@ -7,15 +7,15 @@
     tools:context="com.example.pedrobraga.bancofinanca.lista_compras_itens">
 
 
-
-
     <TextView
         android:id="@+id/textViewChild"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:layout_height="28dp"
+        android:background="@android:color/holo_green_light"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textSize="17dp" />
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="17dp"
+        android:typeface="serif" />
 
 
 </android.support.constraint.ConstraintLayout>

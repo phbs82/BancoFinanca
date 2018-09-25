@@ -32,6 +32,7 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
             descricao = itemView.findViewById(R.id.txtDescricao);
             quantidade = itemView.findViewById(R.id.txtQuantidade);
             valor = itemView.findViewById(R.id.txtValor);
+
         }
     }
 
@@ -45,11 +46,15 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.activity_recyclerview_items, parent, false);
+
+
+
         return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+
         if (this.itens != null) {
 
 
