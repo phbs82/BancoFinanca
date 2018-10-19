@@ -11,9 +11,12 @@
         android:id="@+id/textViewGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffcc0000"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textColor="@color/cardview_light_background"
         android:textSize="17dp" />
+
+
 
 
 

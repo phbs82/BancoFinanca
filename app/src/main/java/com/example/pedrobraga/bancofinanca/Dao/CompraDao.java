@@ -51,6 +51,9 @@ public interface CompraDao {
     @Query("SELECT * from Compra")
     public LiveData<List<ComprasItems>> ComprasItens();
 
+    @Transaction
+    @Query("SELECT * from Compra where strftime('%m-%Y') =  :mesano  ")
+    public LiveData<List<ComprasItems>> ComprasItensByDate(String mesano);
 
 
 

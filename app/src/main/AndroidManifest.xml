@@ -19,6 +19,7 @@
         <activity
             android:name=".CompraCRUD"
             android:label="@string/title_activity_compra_crud"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".recyclerview_items"
@@ -26,7 +27,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListaCompras" />
         <activity android:name=".lista_compras_grupo" />
-        <activity android:name=".lista_compras_itens"></activity>
+        <activity android:name=".lista_compras_itens" />
+        <activity
+            android:name=".gridview_items"
+            android:label="@string/title_activity_gridview_items"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

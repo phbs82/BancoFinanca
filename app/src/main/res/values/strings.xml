@@ -36,4 +36,5 @@
         <item>Cabeleireiro</item>
         <item>Produto Higiene</item>
     </string-array>
+    <string name="title_activity_gridview_items">gridview_items</string>
 </resources>

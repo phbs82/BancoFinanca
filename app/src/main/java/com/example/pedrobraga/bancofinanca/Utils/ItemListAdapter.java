@@ -61,7 +61,9 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
             Item current = this.itens.get(position);
             holder.descricao.setText(current.getDescricao());
             holder.quantidade.setText(String.valueOf(current.getQuantidade()));
-            holder.valor.setText(String.valueOf((int) current.getValor()));
+           // holder.valor.setText(String.valueOf((int) current.getValor()));
+
+            holder.valor.setText(String.valueOf(current.getValor()));
 
 
         } else {

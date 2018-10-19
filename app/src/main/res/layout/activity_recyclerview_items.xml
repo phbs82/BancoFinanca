@@ -45,6 +45,7 @@
             android:id="@+id/txtValor"
             android:layout_width="68dp"
             android:layout_height="match_parent"
+            android:inputType="numberDecimal"
             android:layout_weight="2"
             android:shadowColor="#000"
             android:shadowDx="0"

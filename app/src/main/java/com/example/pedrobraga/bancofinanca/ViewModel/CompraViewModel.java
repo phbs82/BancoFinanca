@@ -45,6 +45,12 @@ public class CompraViewModel  extends AndroidViewModel {
     }
 
 
+    public LiveData<List<ComprasItems>> getCompraItensByDate(String mesano) {
+
+        return CompraRepository.getComprasItensByDate(mesano);
+
+    }
+
    public List<ComprasItems> getComprasAll() {
 
 

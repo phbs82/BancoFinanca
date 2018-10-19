@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,13 +45,47 @@ public class ListaCompras extends AppCompatActivity {
 
     private HashMap<String, List<String>> listDataChild;
 
-    @Override
+    private ComprasItems comprasitems;
+    private CompraViewModel compraViewModel;
 
+    List<ComprasItems> comprasitenstotal = new ArrayList<ComprasItems>();
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_compras);
 
         initObjects();
+
+
+        Button btn = (Button) findViewById(R.id.button);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<ComprasItems> comprasitensfiltro = new ArrayList<ComprasItems>(0);
+
+                for (int i=0; i < comprasitenstotal.size(); i++) {
+
+                    if (DateFormat.getDateInstance().format(comprasitenstotal.get(i).compra.getData()).toString().contains("Sep") )
+                        comprasitensfiltro.add(comprasitenstotal.get(i));
+
+                    c
+
+
+                }
+
+
+
+
+
+            }
+        });
+
+
 
     }
 
@@ -68,30 +103,24 @@ public class ListaCompras extends AppCompatActivity {
             expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
             expandableListView = findViewById(R.id.expandableListView);
 
-            // setting list adapter
-        //    if (!expandableListViewAdapter.isEmpty()) {
-                expandableListView.setAdapter(expandableListViewAdapter);
-                expandableListViewAdapter.notifyDataSetChanged();
+            expandableListView.setAdapter(expandableListViewAdapter);
+            expandableListViewAdapter.notifyDataSetChanged();
 
-
-//            int i = expandableListView.getCount();
-//            Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_LONG);
-//            toast.show();
-
-
-
-            ///  }
 
         }
 
         private void initListData() {
 
-            final CompraViewModel compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
+            compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
             compraViewModel.getCompraItens().observe(this, new Observer<List<ComprasItems>>() {
+
                 @Override
                 public void onChanged(@Nullable List<ComprasItems> compras) {
+
+
+                    comprasitenstotal.addAll(compras);
 
                     for (int i=0; i < compras.size(); i++ ) {
 
@@ -101,12 +130,16 @@ public class ListaCompras extends AppCompatActivity {
                         );
 
                         List<String> itens  = new ArrayList<>(0);
+                        float total = 0;
+
                         for (int j = 0; j < compras.get(i).itens.size(); j++) {
 
                             itens.add(compras.get(i).itens.get(j).getDescricao() + " " +
                                     String.valueOf(compras.get(i).itens.get(j).getValor()));
+                            total += compras.get(i).itens.get(j).getValor();
 
                         }
+                        itens.add("Total: R$" + String.valueOf(total));
                         listDataChild.put(listDataGroup.get(i),itens);
 
                     }
@@ -114,11 +147,6 @@ public class ListaCompras extends AppCompatActivity {
 
                 }
             });
-
-//            List<ComprasItems> compras = new ArrayList<ComprasItems>();
-//
-//            compras.addAll(compraViewModel.getComprasAll());
-
 
         }
 
