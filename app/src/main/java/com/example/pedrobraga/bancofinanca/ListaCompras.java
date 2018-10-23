@@ -28,10 +28,13 @@ import com.example.pedrobraga.bancofinanca.ViewModel.ItemViewModel;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter.toStringFDate;
 
@@ -48,7 +51,6 @@ public class ListaCompras extends AppCompatActivity {
     private ComprasItems comprasitems;
     private CompraViewModel compraViewModel;
 
-    List<ComprasItems> comprasitenstotal = new ArrayList<ComprasItems>();
 
 
 
@@ -66,23 +68,22 @@ public class ListaCompras extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 List<ComprasItems> comprasitensfiltro = new ArrayList<ComprasItems>(0);
 
-                for (int i=0; i < comprasitenstotal.size(); i++) {
+                expandableListViewAdapter = new ExpandableListViewAdapter(getApplicationContext(), listDataGroup, listDataChild);
+                expandableListView = findViewById(R.id.expandableListView);
 
-                    if (DateFormat.getDateInstance().format(comprasitenstotal.get(i).compra.getData()).toString().contains("Sep") )
-                        comprasitensfiltro.add(comprasitenstotal.get(i));
+                expandableListView.setFilterText("Sep");
 
-                    c
+//                    expandableListView.setAdapter(expandableListViewAdapter);
+//                    expandableListViewAdapter.notifyDataSetChanged();
 
 
                 }
 
 
 
-
-
-            }
         });
 
 
@@ -98,7 +99,7 @@ public class ListaCompras extends AppCompatActivity {
             // initializing the list of child
             listDataChild = new HashMap<>();
 
-            initListData();
+            initListData("Todos");
             // initializing the adapter object
             expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
             expandableListView = findViewById(R.id.expandableListView);
@@ -109,7 +110,7 @@ public class ListaCompras extends AppCompatActivity {
 
         }
 
-        private void initListData() {
+    private void initListData(String filtro) {
 
 
             compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
@@ -117,26 +118,29 @@ public class ListaCompras extends AppCompatActivity {
             compraViewModel.getCompraItens().observe(this, new Observer<List<ComprasItems>>() {
 
                 @Override
-                public void onChanged(@Nullable List<ComprasItems> compras) {
+                public void onChanged(@Nullable final List<ComprasItems> compras) {
 
 
-                    comprasitenstotal.addAll(compras);
+                    List<ComprasItems> comprasitenstotal = compras.stream()
+                            .filter(c -> c.compra.getData().toString().contains("Sep"))
+                            .collect(Collectors.toList());
 
-                    for (int i=0; i < compras.size(); i++ ) {
 
-                        String datacompra = DateFormat.getDateInstance().format(compras.get(i).compra.getData());
+                    for (int i = 0; i < comprasitenstotal.size(); i++) {
+
+                        String datacompra = DateFormat.getDateInstance().format(comprasitenstotal.get(i).compra.getData());
                         listDataGroup.add(String.valueOf(datacompra) + "  " +
-                                compras.get(i).local.get(0).getDesclocal()
+                                comprasitenstotal.get(i).local.get(0).getDesclocal()
                         );
 
                         List<String> itens  = new ArrayList<>(0);
                         float total = 0;
 
-                        for (int j = 0; j < compras.get(i).itens.size(); j++) {
+                        for (int j = 0; j < comprasitenstotal.get(i).itens.size(); j++) {
 
-                            itens.add(compras.get(i).itens.get(j).getDescricao() + " " +
-                                    String.valueOf(compras.get(i).itens.get(j).getValor()));
-                            total += compras.get(i).itens.get(j).getValor();
+                            itens.add(comprasitenstotal.get(i).itens.get(j).getDescricao() + " " +
+                                    String.valueOf(comprasitenstotal.get(i).itens.get(j).getValor()));
+                            total += comprasitenstotal.get(i).itens.get(j).getValor();
 
                         }
                         itens.add("Total: R$" + String.valueOf(total));
