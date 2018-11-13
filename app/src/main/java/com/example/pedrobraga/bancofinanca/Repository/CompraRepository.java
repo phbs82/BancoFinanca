@@ -31,42 +31,6 @@ public class CompraRepository    {
     }
 
 
-
-    public  LiveData<List<ComprasItems>> getComprasItensByDate(String mesano) {
-
-        LiveData<List<ComprasItems>> compras = new MutableLiveData<List<ComprasItems>>();
-
-        try {
-            compras =  new getComprasItensByDate(compraDao).execute(mesano).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return compras;
-
-    }
-
-
-    private static class getComprasItensByDate extends AsyncTask<String,Void,LiveData<List<ComprasItems>>>  {
-
-        private CompraDao asyncCompraDao;
-
-        private getComprasItensByDate(CompraDao dao) {
-            asyncCompraDao = dao;
-        }
-
-        @Override
-        protected LiveData<List<ComprasItems>> doInBackground(String...  mesano) {
-            return asyncCompraDao.ComprasItensByDate(mesano[0]);
-        }
-
-
-
-    }
-
-
     public  LiveData<List<ComprasItems>> getComprasItens() {
 
         LiveData<List<ComprasItems>> compras = new MutableLiveData<List<ComprasItems>>();
@@ -99,45 +63,6 @@ public class CompraRepository    {
     }
 
 
-
-
-
-
-
-
-
-   public  List<ComprasItems> getCompraAll() {
-
-       List<ComprasItems> compras = new ArrayList<ComprasItems>();
-
-       try {
-           compras =  new getCompras(compraDao).execute().get();
-       } catch (InterruptedException e) {
-           e.printStackTrace();
-       } catch (ExecutionException e) {
-           e.printStackTrace();
-       }
-
-       return compras;
-
-   }
-
-
-
-    private static class getCompras extends AsyncTask<Void,Void,List<ComprasItems>>  {
-
-        private CompraDao asyncCompraDao;
-
-        private getCompras(CompraDao dao) {
-            asyncCompraDao = dao;
-        }
-
-        @Override
-        protected List<ComprasItems> doInBackground(Void... voids) {
-            return asyncCompraDao.getComprasItens();
-        }
-    }
-
     public Long insert (Compra compra) {
 
         Long codigocompra = null;
@@ -152,13 +77,6 @@ public class CompraRepository    {
 
         return codigocompra;
     }
-
-
-
-
-
-
-
 
 
     private static class insertAsyncTask extends AsyncTask<Compra, Void, Long> {
@@ -219,106 +137,6 @@ public class CompraRepository    {
             return null;
         }
     }
-
-
-    /*
-   public  LiveData<List<Compra>> getCompraAll() {
-
-
-
-       try {
-           this.compraAll =  new getCompras(compraDao).execute().get();
-       } catch (InterruptedException e) {
-           e.printStackTrace();
-       } catch (ExecutionException e) {
-           e.printStackTrace();
-       }
-
-       return this.compraAll;
-   }
-
-
-
-    private static class getCompras extends AsyncTask<Void,Void,LiveData<List<Compra>>>  {
-
-        private CompraDao asyncCompraDao;
-
-        private getCompras(CompraDao dao) {
-            asyncCompraDao = dao;
-        }
-
-        @Override
-        protected LiveData<List<Compra>> doInBackground(Void... voids) {
-            return asyncCompraDao.loadAllCompra();
-        }
-    }
-
-    public Long insert (Compra compra) {
-
-        Long codigocompra = null;
-
-        try {
-            codigocompra = new insertAsyncTask(compraDao).execute(compra).get().longValue();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return codigocompra;
-    }
-*/
-
-
-/*
-
-
-
-
-
-    public List<Compra> getComprasAll() {
-
-        List<Compra> compras = new ArrayList<Compra>();
-
-        try {
-            compras =  new getCompras(compraDao).execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return compras;
-
-    }
-
-
-
-
- public int getcodigoCompra() {
-
-        return new getCodigoCompra().getcodigo();
-    }
-
-    private static  class getCodigoCompra extends AsyncTask<Void, Void, Integer> {
-
-        private CompraDao asyncCompraDao;
-        private int codigo;
-
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            codigo = asyncCompraDao.getCodigoCompra();
-            return codigo;
-        }
-
-
-        public int getcodigo() {
-
-            return this.codigo;
-
-        }
-    }*/
 
 
 

@@ -34,6 +34,10 @@
         <activity
             android:name=".Grafico"
             android:label="@string/title_activity_grafico"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CadastroCompra"
+            android:label="@string/title_activity_cadastro_compra"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -45,22 +45,7 @@ public class CompraViewModel  extends AndroidViewModel {
     }
 
 
-    public LiveData<List<ComprasItems>> getCompraItensByDate(String mesano) {
-
-        return CompraRepository.getComprasItensByDate(mesano);
-
-    }
-
-   public List<ComprasItems> getComprasAll() {
-
-
-       return CompraRepository.getCompraAll();
-
-   }
-
-
     public Long insert(Compra compra) {
-        Long codigocompra;
         return CompraRepository.insert(compra);
     }
 

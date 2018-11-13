@@ -61,32 +61,29 @@ public class CompraCRUD extends AppCompatActivity {
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.txtproduto);
 
-         final ArrayAdapter<List<String>> produtosadapter = new ArrayAdapter<List<String>>(this,
-                android.R.layout.simple_expandable_list_item_1);
+         final ArrayAdapter<String> produtosadapter = new ArrayAdapter<String>(this,
+                android.R.layout.select_dialog_item);
 
 
         final List<Item> itens = new ArrayList<Item>(0);
         final List<Produto> produtos = new ArrayList<Produto>(0);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.spcategoria);
+      /*  final Spinner spinner = (Spinner) findViewById(R.id.spcategoria);
 
         ArrayAdapter<CharSequence> adaptersp = ArrayAdapter.createFromResource(this,
                 R.array.categorias_array, android.R.layout.simple_spinner_item);
 
         adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adaptersp);
-
-
+        spinner.setAdapter(adaptersp);*/
 
         final float[] total = {0};
-
-
 
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
 
-                produtosadapter.add(listaprodutos);
+//                produtosadapter.add(listaprodutos);
+                produtosadapter.addAll(listaprodutos);
                 textproduto.setAdapter(produtosadapter);
 
             }
@@ -104,7 +101,7 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Local> locals) {
 
-               ArrayAdapter<List<String>> localadapter = new ArrayAdapter<List<String>>(getApplication(),
+               ArrayAdapter<String> localadapter = new ArrayAdapter<String>(getApplication(),
               android.R.layout.simple_expandable_list_item_1);
 
               List<String> listalocal = new ArrayList<>(0);
@@ -114,7 +111,7 @@ public class CompraCRUD extends AppCompatActivity {
 
                 }
 
-                localadapter.add(listalocal);
+                localadapter.addAll(listalocal);
                 txtlocal.setAdapter(localadapter);
 
             }
@@ -139,7 +136,7 @@ public class CompraCRUD extends AppCompatActivity {
 
                      item.setCodigoproduto(codigoproduto);
                      item.setDescricao(editDescricao.getText().toString());
-                     item.setCategoria(spinner.getSelectedItem().toString());
+              //       item.setCategoria(spinner.getSelectedItem().toString());
 
                 }
 

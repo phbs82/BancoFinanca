@@ -38,4 +38,5 @@
     </string-array>
     <string name="title_activity_gridview_items">gridview_items</string>
     <string name="title_activity_grafico">Grafico</string>
+    <string name="title_activity_cadastro_compra">CadastroCompra</string>
 </resources>

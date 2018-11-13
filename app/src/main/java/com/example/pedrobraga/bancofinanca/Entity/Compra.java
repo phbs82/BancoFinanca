@@ -53,4 +53,16 @@ public class Compra {
     public void setData(Date data) {
         this.data = data;
     }
+
+
+    public String getMesAno() {
+
+        return String.valueOf(this.data.getMonth()) + "/" + String.valueOf(this.data.getYear());
+
+    }
+
+
+
+
+
 }

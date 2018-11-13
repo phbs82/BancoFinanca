@@ -67,26 +67,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
+                //Intent intent;
 
-                switch (position) {
+                switch (((int) id)) {
 
                     case 0:
-                        intent = new Intent(getApplicationContext(),CompraCRUD.class);
+                        Intent intent = new Intent(getBaseContext(),CompraCRUD.class);
                         startActivity(intent);
 
                     case 1:
 
-                        intent = new Intent(getApplicationContext(),ListaCompras.class);
-                        startActivity(intent);
+                       Intent intent2 = new Intent(getBaseContext(),ListaCompras.class);
+                        startActivity(intent2);
+
+                    default:
+                        int i =1;
 
                 }
+               }
 
 
 
-            }
+
         });
 
     }

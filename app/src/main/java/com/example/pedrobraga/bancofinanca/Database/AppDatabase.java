@@ -9,7 +9,6 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
 import com.example.pedrobraga.bancofinanca.Dao.CompraDao;
-import com.example.pedrobraga.bancofinanca.Dao.CompraItensDao;
 import com.example.pedrobraga.bancofinanca.Dao.ItemDao;
 import com.example.pedrobraga.bancofinanca.Dao.LocalDao;
 import com.example.pedrobraga.bancofinanca.Dao.ProdutoDao;
@@ -17,7 +16,6 @@ import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
-import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 
 /**
@@ -31,7 +29,6 @@ public abstract class AppDatabase extends RoomDatabase {
         public abstract ItemDao itemDao();
         public abstract ProdutoDao produtoDao();
         public abstract LocalDao localDao();
-        public abstract CompraItensDao compraItensDao();
 
 
         private static AppDatabase INSTANCE;

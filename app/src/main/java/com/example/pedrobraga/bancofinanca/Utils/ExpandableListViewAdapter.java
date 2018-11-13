@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,26 +18,33 @@ import com.example.pedrobraga.bancofinanca.R;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
-public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
+public class ExpandableListViewAdapter extends BaseExpandableListAdapter
+             {
 
     private Context context;
 
     // group titles
     private List<String> listDataGroup;
+    private List<String> listDataGroupOriginal;
 
-    // child data
+
+                 // child data
     private HashMap<String, List<String>> listDataChild;
+    private HashMap<String, List<String>> listDataChildOriginal;
+
 
     public ExpandableListViewAdapter(Context context, List<String> listDataGroup,
                                      HashMap<String, List<String>> listChildData) {
         this.context = context;
         this.listDataGroup = listDataGroup;
+        this.listDataGroupOriginal = listDataGroup;
         this.listDataChild = listChildData;
-
-
-
+        this.listDataChildOriginal = listChildData;
 
 
     }
@@ -123,7 +132,37 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
 
+    public void filterData(String query){
+
+        List<String> comprasitenstotal;
+
+        comprasitenstotal = listDataGroup.stream()
+                .filter(c -> c.toString().contains(query))
+                .filter(c -> c.toString().contains("2018"))
+                .collect(Collectors.toList());
+
+
+        listDataGroup.clear();
+        listDataGroup.addAll(comprasitenstotal);
+
+
+
+        notifyDataSetChanged();
+
+    }
+
+
+
+
+
+
+
+
 }
+
+
+
+
 
 
 
