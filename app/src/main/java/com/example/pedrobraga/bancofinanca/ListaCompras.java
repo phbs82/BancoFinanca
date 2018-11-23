@@ -71,7 +71,7 @@ public class ListaCompras extends AppCompatActivity {
                 comprasitenstotal.addAll(compras);
 
                 final Spinner SpinnerMesAno = (Spinner) findViewById(R.id.spinner);
-
+                mesano.add("Todos");
 
                 for (int i = 0; i < comprasitenstotal.size(); i++) {
 
@@ -83,7 +83,11 @@ public class ListaCompras extends AppCompatActivity {
                             comprasitenstotal.get(i).local.get(0).getDesclocal()
                     );
 
-                    mesano.add(comprasitenstotal.get(i).compra.getMesAno());
+                   // mesano.add(comprasitenstotal.get(i).compra.getMesAno());
+
+                    mesano.add(datacompra.substring(0,3) + "/" + datacompra.substring(8,12));
+
+
 
                     List<String> itens  = new ArrayList<>(0);
                     float total = 0;
@@ -119,14 +123,32 @@ public class ListaCompras extends AppCompatActivity {
         Spinner SpinnerMesAno = (Spinner) findViewById(R.id.spinner);
 
 
-        SpinnerMesAno.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        SpinnerMesAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                int mes = Integer.valueOf(SpinnerMesAno.toString().getChars(1,2));
-                String month;
-                String year = SpinnerMesAno.toString().getChars(4,7);
-                
+
+
+                expandableListViewAdapter.getFilter()
+                        .filter(SpinnerMesAno.getSelectedItem().toString());
+/*
+                if (SpinnerMesAno.getSelectedItem().toString()!="Todos") {
+
+//                    int mes = Integer.valueOf(SpinnerMesAno.getSelectedItem().toString().trim().substring(0, 2));
+
+
+                    String month = SpinnerMesAno.getSelectedItem().toString().trim().substring(0, 2);
+                    String year = SpinnerMesAno.getSelectedItem().toString().trim().substring(4, 7);
+
+
+
+                int mes = Integer.valueOf(SpinnerMesAno.getSelectedItem().toString().substring(0,1));
+
+
+                String month = "";
+                String year = SpinnerMesAno.getSelectedItem().toString().substring(4,7);
+
+
                 switch(mes) {
 
                     case 1 :  month ="Jan";
@@ -140,31 +162,37 @@ public class ListaCompras extends AppCompatActivity {
                     case 9 :  month ="Sep";
                     case 10 :  month ="Oct";
                     case 11 :  month ="Nov";
-                    case 12 :  month ="Dec";
-
-
-
+                    default :  month ="Dec";
 
                 }
 
-                expandableListViewAdapter.filterData("Sep");
 
 
+                    expandableListViewAdapter.filterData(month, year);
 
+                }
+*/
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
 
+
+/*
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-            //   expandableListViewAdapter.filterData("Sep");
+               expandableListViewAdapter.ClearFilter();
 
 
             }
         });
+*/
 
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

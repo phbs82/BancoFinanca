@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter
-             {
+         implements Filterable    {
 
     private Context context;
 
@@ -36,6 +36,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
                  // child data
     private HashMap<String, List<String>> listDataChild;
     private HashMap<String, List<String>> listDataChildOriginal;
+    private FiltroCompras filtroCompras;
 
 
     public ExpandableListViewAdapter(Context context, List<String> listDataGroup,
@@ -131,14 +132,80 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         return true;
     }
 
+    @Override
+    public Filter getFilter() {
 
-    public void filterData(String query){
+        if (filtroCompras == null) {
+            filtroCompras = new FiltroCompras();
+        }
+        return filtroCompras;
+
+    }
+
+    public class FiltroCompras extends Filter {
+
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            FilterResults results = new FilterResults();
+
+
+            if (constraint.toString()!="Todos") {
+
+                String mes = constraint.toString().split("/")[0];
+                String ano = constraint.toString().split("/")[1];
+
+
+                List<String> comprasitenstotal;
+
+                comprasitenstotal = listDataGroupOriginal.stream()
+                        .filter(c -> c.toString().contains(mes))
+                        .filter(c -> c.toString().contains(ano))
+                        .collect(Collectors.toList());
+
+                results.values = comprasitenstotal;
+                results.count = comprasitenstotal.size();
+
+
+            } else {
+
+                results.count = listDataGroup.size();
+                results.values = listDataGroup;
+
+            }
+
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            listDataGroup = (List<String>)results.values;
+            notifyDataSetChanged();
+
+        }
+    }
+
+}
+
+
+/*
+
+
+
+
+  public void filterData(String mes,String ano){
 
         List<String> comprasitenstotal;
 
-        comprasitenstotal = listDataGroup.stream()
-                .filter(c -> c.toString().contains(query))
-                .filter(c -> c.toString().contains("2018"))
+        listDataGroupOriginal.clear();
+        listDataGroupOriginal.addAll(listDataGroup);
+
+        comprasitenstotal = listDataGroupOriginal.stream()
+                .filter(c -> c.toString().contains(mes))
+                .filter(c -> c.toString().contains(ano))
                 .collect(Collectors.toList());
 
 
@@ -151,17 +218,17 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
 
     }
 
+    public void ClearFilter() {
+
+     //   listDataGroup.clear();
+        listDataGroup.addAll(listDataGroupOriginal);
+
+        notifyDataSetChanged();
+
+    }
 
 
-
-
-
-
-
-}
-
-
-
+ */
 
 
 
