@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
 
                     default:
-                        int i =1;
+                        Intent intent3 = new Intent(getBaseContext(),Grafico.class);
+                        startActivity(intent3);
 
                 }
                }

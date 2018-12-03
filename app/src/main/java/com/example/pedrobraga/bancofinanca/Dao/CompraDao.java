@@ -12,6 +12,7 @@ import android.arch.persistence.room.Update;
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +49,28 @@ public interface CompraDao {
 
 
 
+   /* @Transaction
+    @Query("select Compra.data,Compra.codigocompra,\n" +
+            " Local.desclocal, SUM(Item.valor)\n" +
+            "\n" +
+            "from Compra , Local , Item\n" +
+            "\n" +
+            "where \n" +
+            "\tCompra.codigocompra= Item.codigocompra and\t\n" +
+            "\tCompra.codigolocal = Local.codigolocal \n" +
+            "\n" +
+            "group by Compra.codigocompra,\n" +
+            "\t\t Local.desclocal")
+    public LiveData<List<GrupoCompra>> ComprasItens();
+
+
+    static class GrupoCompra() {
+
+         Date data;
+         String local;
+         Float valor;
+
+    }*/
 
 
 
