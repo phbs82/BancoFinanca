@@ -131,47 +131,6 @@ public class ListaCompras extends AppCompatActivity {
 
                 expandableListViewAdapter.getFilter()
                         .filter(SpinnerMesAno.getSelectedItem().toString());
-/*
-                if (SpinnerMesAno.getSelectedItem().toString()!="Todos") {
-
-//                    int mes = Integer.valueOf(SpinnerMesAno.getSelectedItem().toString().trim().substring(0, 2));
-
-
-                    String month = SpinnerMesAno.getSelectedItem().toString().trim().substring(0, 2);
-                    String year = SpinnerMesAno.getSelectedItem().toString().trim().substring(4, 7);
-
-
-
-                int mes = Integer.valueOf(SpinnerMesAno.getSelectedItem().toString().substring(0,1));
-
-
-                String month = "";
-                String year = SpinnerMesAno.getSelectedItem().toString().substring(4,7);
-
-
-                switch(mes) {
-
-                    case 1 :  month ="Jan";
-                    case 2 :  month ="Feb";
-                    case 3 :  month ="Mar";
-                    case 4 :  month ="Apr";
-                    case 5 :  month ="May";
-                    case 6 :  month ="Jun";
-                    case 7 :  month ="Jul";
-                    case 8 :  month ="Aug";
-                    case 9 :  month ="Sep";
-                    case 10 :  month ="Oct";
-                    case 11 :  month ="Nov";
-                    default :  month ="Dec";
-
-                }
-
-
-
-                    expandableListViewAdapter.filterData(month, year);
-
-                }
-*/
             }
 
             @Override
@@ -181,31 +140,12 @@ public class ListaCompras extends AppCompatActivity {
         });
 
 
-/*
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-               expandableListViewAdapter.ClearFilter();
-
-
-            }
-        });
-*/
 
         expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-              //  expandableListViewAdapter.getFilter().filter("Sep");
-              /*  expandableListViewAdapter.filterData("Sep");
 
-                expandableListView.setAdapter(expandableListViewAdapter);
-                expandableListViewAdapter.notifyDataSetChanged();
-
-                */
-                
                 return false;
             }
         });
