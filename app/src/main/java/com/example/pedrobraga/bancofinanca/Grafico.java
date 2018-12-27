@@ -17,8 +17,22 @@ import android.widget.Spinner;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
@@ -31,6 +45,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 import java.util.stream.Collectors;
 
 /*import lecho.lib.hellocharts.model.PieChartData;
@@ -43,7 +58,9 @@ public class Grafico extends AppCompatActivity {
 
     private CompraViewModel compraViewModel;
     private Spinner SpinnerMesAno;
-    private GraphView graph;
+    //    private GraphView graph;
+    private PieChart chart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +80,11 @@ public class Grafico extends AppCompatActivity {
                 Set<String> mesano = new HashSet<>();
 
 
-                for (int i=0; compras.size() >  i; i++ ) {
+                for (int i = 0; compras.size() > i; i++) {
 
                     String datacompra = DateFormat.getDateInstance().format(
                             compras.get(i).compra.getData());
-                    mesano.add(datacompra.substring(0,3) + "/" + datacompra.substring(8,12));
+                    mesano.add(datacompra.substring(0, 3) + "/" + datacompra.substring(8, 12));
 
 
                 }
@@ -101,88 +118,85 @@ public class Grafico extends AppCompatActivity {
             }
         });
 
-        //geraGrafico("t");
-
     }
+
 
 
     private void geraGrafico(String year, String month) {
 
+//        chart.setDrawBarShadow(false);
+      /*  chart.setDrawValueAboveBar(true);
 
-        graph =  (GraphView) findViewById(R.id.graph);
-        graph.removeAllSeries();
+        chart.getDescription().setEnabled(false);
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        chart.setMaxVisibleValueCount(60);
+
+        // scaling can now only be done on x- and y-axis separately
+        chart.setPinchZoom(false);
+
+        chart.setDrawGridBackground(false);
+        // chart.setDrawYLabels(false);*/
+
+       chart = (PieChart) findViewById(R.id.chart1);
+
 
         compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
         compraViewModel.getCompraItens().observe(this, new Observer<List<ComprasItems>>() {
-                    @Override
-                    public void onChanged(@Nullable final List<ComprasItems> compras) {
+            @Override
+            public void onChanged(@Nullable final List<ComprasItems> compras) {
 
 
-                        List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
+                List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
 
-                        comprasitens.addAll(compras.stream()
-                                .filter(c -> c.compra.getData().toString().contains(year.trim()))
-                                .filter(c -> c.compra.getData().toString().contains(month.trim()))
-                                .collect(Collectors.toList())
-                        );
+                comprasitens.addAll(compras.stream()
+                        .filter(c -> c.compra.getData().toString().contains(year.trim()))
+                        .filter(c -> c.compra.getData().toString().contains(month.trim()))
+                        .collect(Collectors.toList())
+                );
 
-
-                        BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
-
+                List<PieEntry> entries = new ArrayList<>();
 
 
-                        for (int i = 0; i < comprasitens.size(); i++) {
+                for (int i = 0; i < comprasitens.size(); i++) {
 
-                            if (i == 10)
-                                break;
+                    if (i == 10)
+                        break;
 
-//                            Calendar calendar = Calendar.getInstance();
-                            Date d1 = comprasitens.get(i).compra.getData();
+                    String local = comprasitens.get(i).local.get(0).getDesclocal();
 
-                            String local = comprasitens.get(i).local.get(0).getDesclocal();
+                    float total = 0;
 
-                            float total = 0;
-
-                            for (int j = 0; j < comprasitens.get(i).itens.size(); j++) {
-                                total += comprasitens.get(i).itens.get(j).getValor();
-
-                            }
-                            series.appendData(new DataPoint(i,total),true,10);
-
-
-                        }
-
-
-                        // styling
-                        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-                            @Override
-                            public int get(DataPoint data) {
-                                return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
-                            }
-                        });
-
-                        series.setSpacing(10);
-
-                        // draw values on top
-                        series.setDrawValuesOnTop(true);
-                        series.setValuesOnTopColor(Color.RED);
-
-                        graph.addSeries(series);
-
-
-
-
+                    for (int j = 0; j < comprasitens.get(i).itens.size(); j++) {
+                        total += comprasitens.get(i).itens.get(j).getValor();
                     }
-         });
+
+                    entries.add(new PieEntry(total,local));
+
+                }
+
+
+                PieDataSet set = new PieDataSet(entries, "Compras no mês");
+                set.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+                PieData data = new PieData(set);
+                chart.setData(data);
+                chart.invalidate(); // refresh
 
 
 
-
-
-
+            }
+        });
 
     }
+
+
+
+
+
+
 
 
 
