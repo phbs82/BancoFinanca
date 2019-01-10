@@ -40,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:hint="Data"
                     android:inputType="date"
-                    android:textColor="@color/cardview_light_background"
+                    android:textColor="@color/cardview_shadow_start_color"
                     android:textColorHighlight="@color/colorAccent"
                     android:textColorHint="@color/colorAccent" />
 
@@ -58,8 +58,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Local"
+
                     android:inputType="textMultiLine"
-                    android:textColor="@color/cardview_light_background" />
+                    android:textColor="@color/cardview_shadow_start_color"
+                    />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
@@ -81,7 +83,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
 
             android:gravity="center"
             android:orientation="vertical">
@@ -96,7 +97,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/txtproduto"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="53dp"
                     android:hint="Produto"
                     android:textAlignment="textStart"
                     android:textColor="@color/cardview_light_background" />
@@ -111,7 +112,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/txtquantidade"
                     android:layout_width="match_parent"
-                    android:layout_height="37dp"
+                    android:layout_height="44dp"
                     android:hint="Quantidade"
                     android:textColor="@color/cardview_light_background"
 
@@ -127,7 +128,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/txtValor"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="49dp"
                     android:hint="Valor"
                     android:textColor="@color/cardview_light_background" />
             </android.support.design.widget.TextInputLayout>
@@ -137,7 +138,7 @@
                 android:id="@+id/fbaddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               android:layout_gravity="right"
+                android:layout_gravity="right"
                 android:background="#28448E"
                 android:clickable="true"
                 app:srcCompat="@android:drawable/ic_input_add"
@@ -152,7 +153,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItens"
         android:layout_width="match_parent"
-        android:layout_height="163dp"
+        android:layout_height="146dp"
         android:layout_gravity="center"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
@@ -165,7 +166,7 @@
 
     <LinearLayout
         android:layout_width="362dp"
-        android:layout_height="49dp"
+        android:layout_height="26dp"
         android:layout_marginLeft="15dp"
         android:orientation="horizontal">
 

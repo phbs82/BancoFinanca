@@ -42,7 +42,6 @@ public class ListaCompras extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_compras);
 
-        Button btn = (Button) findViewById(R.id.button);
 
         // initializing the list of groups
         listDataGroup = new ArrayList<>();
@@ -151,6 +150,9 @@ public class ListaCompras extends AppCompatActivity {
         });
 
     }
+
+
+
 
 
 }

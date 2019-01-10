@@ -227,7 +227,7 @@ public class CompraCRUD extends AppCompatActivity {
                         localViewModel.insert(local2);
 
                         String teste = String.valueOf(locais.size());
-                        Toast toast = Toast.makeText(getApplicationContext(), teste, Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Cadstrado com sucesso", Toast.LENGTH_LONG);
                         toast.show();
 
                     }
@@ -275,6 +275,9 @@ public class CompraCRUD extends AppCompatActivity {
 
 
     } // fim do OnCreate
+
+
+
 
     public void LimpaCampos() {
 

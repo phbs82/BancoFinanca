@@ -8,8 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+
+        <activity android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,22 +23,30 @@
         <activity
             android:name=".CompraCRUD"
             android:label="@string/title_activity_compra_crud"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".recyclerview_items"
             android:label="@string/title_activity_recyclerview_items"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListaCompras" />
+        <activity android:name=".ListaCompras"
+            />
         <activity android:name=".lista_compras_grupo" />
         <activity android:name=".lista_compras_itens" />
         <activity
             android:name=".gridview_items"
             android:label="@string/title_activity_gridview_items"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".Grafico"
             android:label="@string/title_activity_grafico"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
 </manifest>
