@@ -56,8 +56,6 @@ public class CompraCRUD extends AppCompatActivity {
         final CompraViewModel compraModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
         final int codigocompra = compraModel.getCodigo();
-  //      final int codigoproduto = compraModel.getCodigo();
-
         final AutoCompleteTextView textproduto = (AutoCompleteTextView)
                 findViewById(R.id.txtproduto);
 
@@ -67,14 +65,6 @@ public class CompraCRUD extends AppCompatActivity {
 
         final List<Item> itens = new ArrayList<Item>(0);
         final List<Produto> produtos = new ArrayList<Produto>(0);
-
-      /*  final Spinner spinner = (Spinner) findViewById(R.id.spcategoria);
-
-        ArrayAdapter<CharSequence> adaptersp = ArrayAdapter.createFromResource(this,
-                R.array.categorias_array, android.R.layout.simple_spinner_item);
-
-        adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adaptersp);*/
 
         final float[] total = {0};
 
@@ -136,7 +126,6 @@ public class CompraCRUD extends AppCompatActivity {
 
                      item.setCodigoproduto(codigoproduto);
                      item.setDescricao(editDescricao.getText().toString());
-              //       item.setCategoria(spinner.getSelectedItem().toString());
 
                 }
 
@@ -153,7 +142,7 @@ public class CompraCRUD extends AppCompatActivity {
                 itens.add(item);
                 adapter.insertItem(item);
 
-                total[0] = total[0] *   Integer.parseInt(editQuantidade.getText().toString()) +
+                total[0] = total[0] +  Integer.parseInt(editQuantidade.getText().toString()) *
                         Float.parseFloat(String.valueOf(editValor.getText()));
 
                 TextView txttotal = (TextView) findViewById(R.id.txtTotal);
@@ -227,7 +216,7 @@ public class CompraCRUD extends AppCompatActivity {
                         localViewModel.insert(local2);
 
                         String teste = String.valueOf(locais.size());
-                        Toast toast = Toast.makeText(getApplicationContext(), "Cadstrado com sucesso", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Cadastrado com sucesso", Toast.LENGTH_LONG);
                         toast.show();
 
                     }
@@ -257,6 +246,27 @@ public class CompraCRUD extends AppCompatActivity {
                         itemViewModel.insert(itens.get(i));
 
                     }
+
+
+                    edtdata.setText("");
+                    edtlocal.setText("");
+
+                    EditText edtproduto = (EditText) findViewById(R.id.txtproduto);
+                    edtproduto.setText("");
+
+                    EditText edtquantidade = (EditText) findViewById(R.id.txtquantidade);
+                    edtquantidade.setText("");
+
+
+                    EditText edtvalor = (EditText) findViewById(R.id.txtValor);
+                    edtvalor.setText("");
+
+                    itens.clear();
+
+
+
+
+
                 }
 
                 catch (Exception e) {
@@ -280,6 +290,9 @@ public class CompraCRUD extends AppCompatActivity {
 
 
     public void LimpaCampos() {
+
+
+
 
 
 

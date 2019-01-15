@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         GridView androidGridView;
 
         String[] gridViewString = {
-                "Carrinho", "Dinheiro", "Acao",
+                "Cadastro", "Compras", "Gráfico",
 
 
         } ;
@@ -71,24 +71,24 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Intent intent;
 
-                switch (((int) id)) {
+                switch (((int) position)) {
 
                     case 0:
                         intent = new Intent(getApplicationContext(),CompraCRUD.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
 
                     case 1:
 
                        intent2 = new Intent(getApplicationContext(),ListaCompras.class);
-                        intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                     //   intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                        startActivity(intent2);
                        break;
 
                     default:
                         intent3 = new Intent(getApplicationContext(),Grafico.class);
-                        intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                      //  intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
                         break;
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
                             // show alert dialog navigating to Settings
-                            showSettingsDialog();
+                           // showSettingsDialog();
                         }
                     }
 

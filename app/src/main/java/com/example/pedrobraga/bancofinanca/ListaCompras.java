@@ -82,9 +82,7 @@ public class ListaCompras extends AppCompatActivity {
                             comprasitenstotal.get(i).local.get(0).getDesclocal()
                     );
 
-                   // mesano.add(comprasitenstotal.get(i).compra.getMesAno());
-
-                    mesano.add(datacompra.substring(0,3) + "/" + datacompra.substring(8,12));
+                    mesano.add(datacompra.subSequence(0,3) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
 
 
 
@@ -95,8 +93,11 @@ public class ListaCompras extends AppCompatActivity {
                     for (int j = 0; j < comprasitenstotal.get(i).itens.size(); j++) {
 
                         itens.add(comprasitenstotal.get(i).itens.get(j).getDescricao() + " " +
-                                String.valueOf(comprasitenstotal.get(i).itens.get(j).getValor()));
-                        total += comprasitenstotal.get(i).itens.get(j).getValor();
+                                String.valueOf(comprasitenstotal.get(i).itens.get(j).getValor()
+                                * comprasitenstotal.get(i).itens.get(j).getQuantidade())
+
+                        );
+                        total += comprasitenstotal.get(i).itens.get(j).getValor()  * comprasitenstotal.get(i).itens.get(j).getQuantidade() ;
 
                     }
                     itens.add("Total: R$" + String.valueOf(total));

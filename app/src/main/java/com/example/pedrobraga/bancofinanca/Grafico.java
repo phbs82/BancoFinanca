@@ -19,19 +19,26 @@ import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,9 +50,6 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
-/*import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.view.PieChartView;*/
 
 
 
@@ -53,7 +57,6 @@ public class Grafico extends AppCompatActivity {
 
     private CompraViewModel compraViewModel;
     private Spinner SpinnerMesAno;
-    //    private GraphView graph;
     private PieChart chart;
 
 
@@ -79,7 +82,7 @@ public class Grafico extends AppCompatActivity {
 
                     String datacompra = DateFormat.getDateInstance().format(
                             compras.get(i).compra.getData());
-                    mesano.add(datacompra.substring(0, 3) + "/" + datacompra.substring(8, 12));
+                    mesano.add(datacompra.subSequence(0,3) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
 
 
                 }
@@ -119,21 +122,6 @@ public class Grafico extends AppCompatActivity {
 
     private void geraGrafico(String year, String month) {
 
-//        chart.setDrawBarShadow(false);
-      /*  chart.setDrawValueAboveBar(true);
-
-        chart.getDescription().setEnabled(false);
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        chart.setMaxVisibleValueCount(60);
-
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false);
-
-        chart.setDrawGridBackground(false);
-        // chart.setDrawYLabels(false);*/
-
        chart = (PieChart) findViewById(R.id.chart1);
 
 
@@ -146,11 +134,17 @@ public class Grafico extends AppCompatActivity {
 
                 List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
 
-                comprasitens.addAll(compras.stream()
-                        .filter(c -> c.compra.getData().toString().contains(year.trim()))
-                        .filter(c -> c.compra.getData().toString().contains(month.trim()))
-                        .collect(Collectors.toList())
-                );
+                for (int i=0; i < compras.size(); i++) {
+
+                    if (compras.get(i).compra.getData().toString().contains(year.trim())
+                            && compras.get(i).compra.getData().toString().contains(year.trim())) {
+
+                        comprasitens.add(compras.get(i));
+
+                    }
+
+                }
+
 
                 List<PieEntry> entries = new ArrayList<>();
 
@@ -165,7 +159,8 @@ public class Grafico extends AppCompatActivity {
                     float total = 0;
 
                     for (int j = 0; j < comprasitens.get(i).itens.size(); j++) {
-                        total += comprasitens.get(i).itens.get(j).getValor();
+                        total += comprasitens.get(i).itens.get(j).getValor()
+                                * comprasitens.get(i).itens.get(j).getQuantidade();
                     }
 
                     entries.add(new PieEntry(total,local));
@@ -173,11 +168,29 @@ public class Grafico extends AppCompatActivity {
                 }
 
 
-                PieDataSet set = new PieDataSet(entries, "Compras no mês");
+
+                PieDataSet set = new PieDataSet(entries,"");
                 set.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
                 PieData data = new PieData(set);
+
+
+                data.setValueTextColor(Color.MAGENTA);
+                data.setValueTextSize(20);
+
+                data.setValueFormatter(new MyValueFormatter());
+
+                data.setHighlightEnabled(true);
+
+                Legend legend = chart.getLegend();
+                legend.setTextColor(Color.BLACK);
+                legend.setTextSize(16);
+
+
+
                 chart.setData(data);
+
+
                 chart.invalidate(); // refresh
 
 
@@ -190,167 +203,23 @@ public class Grafico extends AppCompatActivity {
     }
 
 
+    public class MyValueFormatter implements IValueFormatter {
+
+        private DecimalFormat mFormat;
+
+        public MyValueFormatter() {
+            mFormat = new DecimalFormat("###,###,##0.0"); // use one decimal
+
+        }
+
+        @Override
+        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            // write your logic here
+            return  "R$ " + mFormat.format(value); // e.g. append a dollar-sign
+        }
+    }
 
 
- /*   private CompraViewModel compraViewModel;
-    private Spinner SpinnerMesAno;
-    private PieChartView pieChartView;
-    private List<SliceValue> pieData = new ArrayList<>();
-   private  PieChartData pieChartData = new PieChartData();       //    private LocalViewModel localViewModel;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grafico);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-      //  pieChartData.setHasCenterCircle(true).setCenterText1("Top 10 Compras no mês").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
-        SpinnerMesAno = (Spinner) findViewById(R.id.spinner2);
-
-        compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
-        compraViewModel.getCompraItens().observe(this, new Observer<List<ComprasItems>>() {
-
-            @Override
-            public void onChanged(@Nullable final List<ComprasItems> compras) {
-
-                 Set<String> mesano = new HashSet<>();
-
-
-                for (int i=0; compras.size() >  i; i++ ) {
-
-                       String datacompra = DateFormat.getDateInstance().format(
-                               compras.get(i).compra.getData());
-                       mesano.add(datacompra.substring(0,3) + "/" + datacompra.substring(8,12));
-
-
-                }
-
-                ArrayAdapter<String> adaptersp = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_spinner_dropdown_item);
-
-                adaptersp.addAll(mesano);
-
-                adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                SpinnerMesAno.setAdapter(adaptersp);
-
-
-            }
-
-        });
-
-        SpinnerMesAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-          @Override
-          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-              geraGrafico(SpinnerMesAno.getSelectedItem().toString().substring(0,3));
-
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> parent) {
-
-          }
-      });
-
-
-
-    } // fim do método Create
-
-
-    public void geraGrafico(String filtro) {
-
-         Set<String> mesano = new HashSet<>();
-
-        pieChartData.setHasLabels(true).setValueLabelTextSize(9);
-
-        pieChartView = findViewById(R.id.chart);
-
-        pieChartView.destroyDrawingCache();
-        pieChartView.setPieChartData(null);
-        pieData.clear();
-        pieChartData.setValues(null);
-
-        
-        SpinnerMesAno = (Spinner) findViewById(R.id.spinner2);
-        compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
-        compraViewModel.getCompraItens().observe(this, new Observer<List<ComprasItems>>() {
-
-            @Override
-            public void onChanged(@Nullable final List<ComprasItems> compras) {
-
-
-                  List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
-
-                comprasitens.addAll(compras.stream()
-                        .filter(c -> c.toString().contains(filtro.trim()))
-                        .collect(Collectors.toList())
-                );
-
-
-
-                for (int i = 0; i < comprasitens.size(); i++) {
-
-                    if (i == 10)
-                        break;
-
-                    String local = comprasitens.get(i).local.get(0).getDesclocal();
-
-                    float total = 0;
-
-                    for (int j = 0; j < comprasitens.get(i).itens.size(); j++) {
-                        total += comprasitens.get(i).itens.get(j).getValor();
-                    }
-
-                    int color = 0;
-
-                    switch (i) {
-
-                        case 0:
-                            color = Color.BLUE;
-                            break;
-                        case 1:
-                            color = Color.RED;
-                            break;
-                        case 2:
-                            color = Color.WHITE;
-                            break;
-                        case 3:
-                            color = Color.CYAN;
-                            break;
-                        case 4:
-                            color = Color.DKGRAY;
-                            break;
-                        case 5:
-                            color = Color.MAGENTA;
-                            break;
-                        case 6:
-                            color = Color.CYAN;
-                            break;
-                        case 7:
-                            color = Color.YELLOW;
-                            break;
-                        case 8:
-                            color = Color.GRAY;
-                            break;
-                        case 9:
-                            color = Color.GREEN;
-                            break;
-
-                    }
-
-                     pieData.add(new SliceValue(total, color).setLabel(local));
-
-                }
-
-
-                pieChartData.setValues(pieData);
-                pieChartView.setPieChartData(pieChartData);
-            }
-
-
-        });
-*/
 
 
 

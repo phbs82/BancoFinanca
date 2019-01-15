@@ -16,6 +16,7 @@ import android.widget.Toast;
  */
 import com.example.pedrobraga.bancofinanca.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,25 +28,26 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
          implements Filterable    {
 
     private Context context;
-
-    // group titles
     private List<String> listDataGroup;
-    private List<String> listDataGroupOriginal;
 
-
-                 // child data
     private HashMap<String, List<String>> listDataChild;
-    private HashMap<String, List<String>> listDataChildOriginal;
     private FiltroCompras filtroCompras;
 
+    private List<String> listDataGroupOriginal;
+
+    private HashMap<String, List<String>> listDataChildOriginal;
 
     public ExpandableListViewAdapter(Context context, List<String> listDataGroup,
                                      HashMap<String, List<String>> listChildData) {
+
+
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataGroupOriginal = listDataGroup;
         this.listDataChild = listChildData;
         this.listDataChildOriginal = listChildData;
+
+
 
 
     }
@@ -77,8 +79,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
                 .findViewById(R.id.textViewChild);
 
         textViewChild.setText(childText);
-
-
 
         return convertView;
     }
@@ -145,10 +145,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
     public class FiltroCompras extends Filter {
 
 
+        private FilterResults results;
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
-            FilterResults results = new FilterResults();
+             results = new FilterResults();
 
 
             if (constraint.toString()!="Todos") {
@@ -156,13 +157,31 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
                 String mes = constraint.toString().split("/")[0];
                 String ano = constraint.toString().split("/")[1];
 
+                List<String> comprasitenstotal = new ArrayList<String>(0);
 
-                List<String> comprasitenstotal;
 
+/*
                 comprasitenstotal = listDataGroupOriginal.stream()
                         .filter(c -> c.toString().contains(mes))
                         .filter(c -> c.toString().contains(ano))
                         .collect(Collectors.toList());
+*/
+
+
+                for (int i=0; i < listDataGroupOriginal.size(); i++ ) {
+
+                    String data;
+                    data = listDataGroupOriginal.get(i).toString();
+                    if (listDataGroupOriginal.get(i).toString().contains(mes) &&
+                            listDataGroupOriginal.get(i).toString().contains(ano)   ) {
+
+                        comprasitenstotal.add(data);
+
+                    }
+
+
+                }
+
 
                 results.values = comprasitenstotal;
                 results.count = comprasitenstotal.size();
