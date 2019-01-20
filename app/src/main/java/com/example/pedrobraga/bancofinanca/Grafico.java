@@ -2,6 +2,7 @@ package com.example.pedrobraga.bancofinanca;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +42,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,14 +79,22 @@ public class Grafico extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<ComprasItems> compras) {
 
+
                 Set<String> mesano = new HashSet<>();
+
+
+                String pattern = "dd-MMM-yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+
+              //  String datacompra = simpleDateFormat.format(comprasitenstotal.get(i).compra.getData());
 
 
                 for (int i = 0; compras.size() > i; i++) {
 
-                    String datacompra = DateFormat.getDateInstance().format(
-                            compras.get(i).compra.getData());
-                    mesano.add(datacompra.subSequence(0,3) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
+                    String datacompra = simpleDateFormat.format(compras.get(i).compra.getData());
+
+                    mesano.add(datacompra.subSequence(3,6) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
 
 
                 }
@@ -220,6 +232,32 @@ public class Grafico extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_listagem_compras, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.cadastro:
+                Intent intent = new Intent(getApplicationContext(),CompraCRUD.class);
+                startActivity(intent);
+                return true;
+            case R.id.listagem:
+                Intent intent2 = new Intent(getApplicationContext(),ListaCompras.class);
+                startActivity(intent2);
+                return true;
+            default:
+                Intent intent3 = new Intent(getApplicationContext(),Grafico.class);
+                startActivity(intent3);
+                return true;
+        }
+
+    }
 
 
 

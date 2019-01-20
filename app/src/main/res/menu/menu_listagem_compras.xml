@@ -1,10 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.pedrobraga.bancofinanca.ListagemCompras">
+    tools:context="com.example.pedrobraga.bancofinanca.CompraCRUD">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/cadastro"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/title_activity_cadastro_compra"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/listagem"
+        android:orderInCategory="101"
+        android:title="@string/title_activity_listagem_compras" />
+    <item
+        android:id="@+id/grafico"
+        android:orderInCategory="102"
+        android:title="@string/title_activity_grafico" />
 </menu>

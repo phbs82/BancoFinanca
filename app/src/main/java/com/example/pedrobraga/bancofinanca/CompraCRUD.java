@@ -3,12 +3,15 @@ package com.example.pedrobraga.bancofinanca;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -72,7 +75,6 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
 
-//                produtosadapter.add(listaprodutos);
                 produtosadapter.addAll(listaprodutos);
                 textproduto.setAdapter(produtosadapter);
 
@@ -262,7 +264,9 @@ public class CompraCRUD extends AppCompatActivity {
                     edtvalor.setText("");
 
                     itens.clear();
+                    produtos.clear();
 
+                   adapter.onDetachedFromRecyclerView(recyclerView);
 
 
 
@@ -284,19 +288,40 @@ public class CompraCRUD extends AppCompatActivity {
 
 
 
+
+
+
     } // fim do OnCreate
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_listagem_compras, menu);
+        return true;
+    }
 
-
-    public void LimpaCampos() {
-
-
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.cadastro:
+                Intent intent = new Intent(getApplicationContext(),CompraCRUD.class);
+                startActivity(intent);
+                return true;
+            case R.id.listagem:
+                Intent intent2 = new Intent(getApplicationContext(),ListaCompras.class);
+                startActivity(intent2);
+                return true;
+            default:
+                Intent intent3 = new Intent(getApplicationContext(),Grafico.class);
+                startActivity(intent3);
+                return true;
+        }
 
     }
+
+
 
 
 }

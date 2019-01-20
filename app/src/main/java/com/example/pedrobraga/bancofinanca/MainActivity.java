@@ -11,6 +11,8 @@ import android.support.multidex.MultiDex;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -50,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         GridView androidGridView;
 
         String[] gridViewString = {
-                "Cadastro", "Compras", "Gráfico",
+                "Cadastro Compras", "Lista Compras", "Gráfico Compras",
 
 
         } ;
         int[] gridViewImageId = {
-                R.drawable.ic_action_carrinho, R.drawable.ic_action_money, R.drawable.ic_action_name,
+                R.drawable.ic_icone_shop, R.drawable.ic_listagem, R.drawable.ic_grafico,
 
         };
 
@@ -75,33 +77,56 @@ public class MainActivity extends AppCompatActivity {
 
                     case 0:
                         intent = new Intent(getApplicationContext(),CompraCRUD.class);
-                    //    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
 
                     case 1:
 
                        intent2 = new Intent(getApplicationContext(),ListaCompras.class);
-                     //   intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                        startActivity(intent2);
                        break;
 
                     default:
                         intent3 = new Intent(getApplicationContext(),Grafico.class);
-                      //  intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent3);
                         break;
 
                 }
                }
 
-
-
-
         });
 
     }
 
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_listagem_compras, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.cadastro:
+                intent = new Intent(getApplicationContext(),CompraCRUD.class);
+                startActivity(intent);
+                return true;
+            case R.id.listagem:
+                intent = new Intent(getApplicationContext(),ListaCompras.class);
+                startActivity(intent);
+                return true;
+            default:
+                intent = new Intent(getApplicationContext(),Grafico.class);
+                startActivity(intent);
+                return true;
+        }
+
+    }
 
     private void requestStoragePermission() {
         Dexter.withActivity(this)
@@ -166,34 +191,6 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = Uri.fromParts("package", getPackageName(), null);
 
     }
-
-
-    public void GridInflate() {
-
-        GridView androidGridView;
-
-        String[] gridViewString = {
-                "Cadastro", "Listagem Compras", "Gráfico",
-
-
-        } ;
-        int[] gridViewImageId = {
-                R.drawable.ic_action_carrinho, R.drawable.ic_action_money, R.drawable.ic_action_name,
-
-        };
-
-        CustomGridViewActivity adapterViewAndroid = new CustomGridViewActivity(this, gridViewString, gridViewImageId);
-        androidGridView=(GridView)findViewById(R.id.grid_view_image_text);
-        androidGridView.setAdapter(adapterViewAndroid);
-
-
-
-
-
-
-
-    }
-
 
 
 }

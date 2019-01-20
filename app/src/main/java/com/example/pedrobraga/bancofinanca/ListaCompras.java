@@ -17,11 +17,13 @@ import com.example.pedrobraga.bancofinanca.Utils.ExpandableListViewAdapter;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class ListaCompras extends AppCompatActivity {
@@ -70,19 +72,27 @@ public class ListaCompras extends AppCompatActivity {
                 comprasitenstotal.addAll(compras);
 
                 final Spinner SpinnerMesAno = (Spinner) findViewById(R.id.spinner);
-                mesano.add("Todos");
 
                 for (int i = 0; i < comprasitenstotal.size(); i++) {
 
-                    String datacompra = DateFormat.getDateInstance().format(
-                            comprasitenstotal.get(i).compra.getData());
+
+
+                    String pattern = "dd-MMM-yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+
+                    String datacompra = simpleDateFormat.format(comprasitenstotal.get(i).compra.getData());
+
+
+
+                   // String datacompra = DateFormat.getDateInstance().format(comprasitenstotal.get(i).compra.getData());
 
 
                     listDataGroup.add(String.valueOf(datacompra) + "  " +
                             comprasitenstotal.get(i).local.get(0).getDesclocal()
                     );
 
-                    mesano.add(datacompra.subSequence(0,3) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
+                    mesano.add(datacompra.subSequence(3,6) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
 
 
 

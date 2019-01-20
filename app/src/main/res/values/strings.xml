@@ -37,10 +37,10 @@
         <item>Produto Higiene</item>
     </string-array>
     <string name="title_activity_gridview_items">gridview_items</string>
-    <string name="title_activity_grafico">Grafico</string>
-    <string name="title_activity_cadastro_compra">CadastroCompra</string>
+    <string name="title_activity_grafico">Grafico Compras</string>
+    <string name="title_activity_cadastro_compra">Cadastro Compras</string>
     <string name="title_activity_recycler_view_grafico_items">recyclerViewGrafico_items</string>
-    <string name="title_activity_listagem_compras">ListagemCompras</string>
+    <string name="title_activity_listagem_compras">Listagem Compras</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
