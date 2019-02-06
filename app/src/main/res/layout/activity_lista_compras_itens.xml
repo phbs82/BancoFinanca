@@ -11,9 +11,9 @@
         android:id="@+id/textViewChild"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/darker_gray"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textColor="@android:color/black"
+        android:textColor="@color/ap_black"
         android:textSize="17dp"
         android:typeface="serif" />
 

@@ -13,19 +13,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/shapes"
 
         >
 
         <TextView
             android:id="@+id/txtDescricao"
-            android:layout_width="128dp"
+            android:layout_width="226dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:lineSpacingExtra="8sp"
             android:shadowColor="#000"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/ap_black"
             android:typeface="sans" />
 
         <TextView
@@ -36,19 +38,20 @@
             android:shadowColor="#000"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@color/ap_black" />
 
 
         <TextView
             android:id="@+id/txtValor"
             android:layout_width="68dp"
             android:layout_height="match_parent"
-            android:inputType="numberDecimal"
             android:layout_weight="2"
+            android:inputType="numberDecimal"
             android:shadowColor="#000"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:textAppearance="@style/TextAppearance.AppCompat.Inverse" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+            android:textColor="@color/ap_black" />
 
 
         <ImageButton

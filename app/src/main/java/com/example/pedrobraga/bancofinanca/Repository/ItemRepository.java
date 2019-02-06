@@ -34,45 +34,6 @@ public class ItemRepository {
         return itemAll;
     }
 
-  /*  public LiveData<Item> getCompraItem(Integer codigocompra) {
-
-        LiveData<Item> itens = new MutableLiveData<Item>();
-
-        try {
-
-            itens = new getCompraItemAsyncTask(itemDao).execute(codigocompra).get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return itens;
-    }
-
-    private static class getCompraItemAsyncTask extends AsyncTask<Integer, Void, LiveData<Item>> {
-
-        private ItemDao asyncItemDao;
-
-        getCompraItemAsyncTask(ItemDao dao) {
-            asyncItemDao = dao;
-        }
-
-        @Override
-        protected LiveData<Item> doInBackground(final Integer... params) {
-            LiveData<Item> itens = new MutableLiveData<Item>();
-            itens =  asyncItemDao.getCompraItem(params[0]);
-            return itens;
-
-        }
-
-
-    }*/
-
-
-
-
     public void insert (Item item) {
         new ItemRepository.insertAsyncTask(itemDao).execute(item);
     }

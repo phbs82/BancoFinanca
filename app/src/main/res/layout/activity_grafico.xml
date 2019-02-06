@@ -5,36 +5,23 @@
     android:id="@+id/coordinatorLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorControlHighlight"
     tools:context="com.example.pedrobraga.bancofinanca.Grafico"
     tools:layout_editor_absoluteY="25dp">
 
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="0dp"
+        android:layout_width="174dp"
         android:layout_height="45dp"
         android:layout_marginBottom="13dp"
         android:layout_marginEnd="23dp"
         android:layout_marginTop="30dp"
-        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/chart1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginBottom="83dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginStart="23dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,6 +37,20 @@
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart1"
+        android:layout_width="323dp"
+        android:layout_height="381dp"
+        android:layout_marginBottom="83dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginStart="23dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
 
 </android.support.constraint.ConstraintLayout>

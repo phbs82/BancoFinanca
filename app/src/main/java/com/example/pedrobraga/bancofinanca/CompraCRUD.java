@@ -37,9 +37,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class CompraCRUD extends AppCompatActivity {
 
@@ -75,7 +77,18 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
 
-                produtosadapter.addAll(listaprodutos);
+                List<String> produtos = new ArrayList<String>(0);
+                Set<String> names = new HashSet<String>(0);
+                for (String name : names) { if (listaprodutos.add(name) == true)
+                { produtos.add(name);} }
+
+
+
+                produtosadapter.addAll(produtos);
+
+
+
+
                 textproduto.setAdapter(produtosadapter);
 
             }
@@ -205,6 +218,8 @@ public class CompraCRUD extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Integer codigolocal=null;
+
                EditText edtlocal = (EditText) findViewById(R.id.txtlocal);
                 try {
 
@@ -215,7 +230,8 @@ public class CompraCRUD extends AppCompatActivity {
                         Local local2 = new Local();
                         local2.setDesclocal(edtlocal.getText().toString());
 
-                        localViewModel.insert(local2);
+                        codigolocal = (int) (long) localViewModel.insert(local2);
+
 
                         String teste = String.valueOf(locais.size());
                         Toast toast = Toast.makeText(getApplicationContext(), "Cadastrado com sucesso", Toast.LENGTH_LONG);
@@ -231,9 +247,9 @@ public class CompraCRUD extends AppCompatActivity {
 
                     compra.setData(df.parse(edtdata.getText().toString()));
 
-                    Integer codigolocal = localViewModel.getCodigo(edtlocal.getText().toString());
-
                     compra.setCodigolocal(codigolocal);
+
+                    String teste = edtlocal.getText().toString();
 
                     Long codcompra = compraViewModel.insert(compra);
 

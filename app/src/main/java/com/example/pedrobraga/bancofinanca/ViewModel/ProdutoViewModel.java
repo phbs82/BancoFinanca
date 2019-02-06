@@ -27,7 +27,6 @@ public class ProdutoViewModel extends AndroidViewModel {
         super(application);
         produtoRepository = new ProdutoRepository(application);
         ProdutoAll = produtoRepository.getProdutoAll();
-    //    codigo = produtoRepository.getCodigo();
 
     }
 

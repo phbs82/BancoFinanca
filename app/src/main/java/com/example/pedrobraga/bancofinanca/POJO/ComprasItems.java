@@ -1,5 +1,6 @@
 package com.example.pedrobraga.bancofinanca.POJO;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Query;
@@ -30,6 +31,8 @@ public class ComprasItems {
 
     @Relation(parentColumn = "codigolocal", entityColumn = "codigolocal", entity = Local.class)
     public List<Local> local;
+
+
 
 
 

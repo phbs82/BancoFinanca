@@ -25,7 +25,7 @@ public interface LocalDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insert(Local... local);
+    public Long insert(Local local);
 
 
     @Update

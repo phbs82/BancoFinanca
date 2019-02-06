@@ -79,35 +79,22 @@ public class Grafico extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<ComprasItems> compras) {
 
-
                 Set<String> mesano = new HashSet<>();
-
-
                 String pattern = "dd-MMM-yyyy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-
-              //  String datacompra = simpleDateFormat.format(comprasitenstotal.get(i).compra.getData());
-
 
                 for (int i = 0; compras.size() > i; i++) {
 
                     String datacompra = simpleDateFormat.format(compras.get(i).compra.getData());
-
                     mesano.add(datacompra.subSequence(3,6) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
-
-
                 }
 
                 ArrayAdapter<String> adaptersp = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_spinner_dropdown_item);
 
                 adaptersp.addAll(mesano);
-
                 adaptersp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 SpinnerMesAno.setAdapter(adaptersp);
-
-
             }
 
         });
@@ -131,11 +118,9 @@ public class Grafico extends AppCompatActivity {
     }
 
 
-
     private void geraGrafico(String year, String month) {
 
        chart = (PieChart) findViewById(R.id.chart1);
-
 
         compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
@@ -143,13 +128,13 @@ public class Grafico extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<ComprasItems> compras) {
 
-
+                chart.clear();
                 List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
 
                 for (int i=0; i < compras.size(); i++) {
 
                     if (compras.get(i).compra.getData().toString().contains(year.trim())
-                            && compras.get(i).compra.getData().toString().contains(year.trim())) {
+                            && compras.get(i).compra.getData().toString().contains(month.trim())) {
 
                         comprasitens.add(compras.get(i));
 
@@ -163,7 +148,7 @@ public class Grafico extends AppCompatActivity {
 
                 for (int i = 0; i < comprasitens.size(); i++) {
 
-                    if (i == 10)
+                    if (i == 5)
                         break;
 
                     String local = comprasitens.get(i).local.get(0).getDesclocal();
@@ -179,16 +164,13 @@ public class Grafico extends AppCompatActivity {
 
                 }
 
-
-
                 PieDataSet set = new PieDataSet(entries,"");
-                set.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                set.setColors(ColorTemplate.MATERIAL_COLORS);
 
                 PieData data = new PieData(set);
 
-
-                data.setValueTextColor(Color.MAGENTA);
-                data.setValueTextSize(20);
+                data.setValueTextColor(Color.BLACK);
+                data.setValueTextSize(8);
 
                 data.setValueFormatter(new MyValueFormatter());
 
@@ -196,14 +178,19 @@ public class Grafico extends AppCompatActivity {
 
                 Legend legend = chart.getLegend();
                 legend.setTextColor(Color.BLACK);
-                legend.setTextSize(16);
-
-
+                legend.setTextSize(12);
 
                 chart.setData(data);
 
-
                 chart.invalidate(); // refresh
+
+
+
+                chart.getRootView().setMinimumHeight(10);
+                chart.getRootView().setScaleX(100);
+                chart.getRootView().setScaleY(100);
+
+
 
 
 

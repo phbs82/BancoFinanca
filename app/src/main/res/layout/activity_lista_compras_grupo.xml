@@ -11,9 +11,9 @@
         android:id="@+id/textViewGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/listshapres"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@color/ap_black"
         android:textSize="17dp" />
 
 

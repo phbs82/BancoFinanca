@@ -116,6 +116,7 @@ public class ProdutoRepository {
         protected Long doInBackground(final Produto... params) {
 
             return asyncProdutoDao.insert(params[0]).longValue();
+
         }
     };
 

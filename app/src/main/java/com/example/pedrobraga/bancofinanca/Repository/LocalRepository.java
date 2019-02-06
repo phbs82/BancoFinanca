@@ -114,28 +114,38 @@ public class LocalRepository {
         }
     }
 
-    public void insert (Local local) {
+    public Long insert (Local local) {
 
-        new insertAsyncTask(localDao).execute(local);
+        Long codigoproduto = null;
+
+        try {
+            codigoproduto = new LocalRepository.insertAsyncTask(localDao).execute(local).get().longValue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return codigoproduto;
+
+
     }
 
-    private static class insertAsyncTask extends AsyncTask<Local, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<Local, Void, Long> {
 
-        private LocalDao asyncLocalDao;
+        private LocalDao localDao;
 
         insertAsyncTask(LocalDao dao) {
-            asyncLocalDao = dao;
+            localDao = dao;
         }
 
         @Override
-        protected Void doInBackground(final Local... params) {
+        protected Long doInBackground(final Local... params) {
 
-            asyncLocalDao.insert(params[0]);
-
-
-            return null;
+            return localDao.insert(params[0]).longValue();
         }
-    }
+    };
+
 
 
     public void update (Local local) {
@@ -224,7 +234,29 @@ public class LocalRepository {
 
 
 
+ /*  public void insert (Local local) {
 
+        new insertAsyncTask(localDao).execute(local);
+    }*/
+
+  /*  private static class insertAsyncTask extends AsyncTask<Local, Void, Void> {
+
+        private LocalDao asyncLocalDao;
+
+        insertAsyncTask(LocalDao dao) {
+            asyncLocalDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Local... params) {
+
+            asyncLocalDao.insert(params[0]);
+
+
+            return null;
+        }
+    }
+*/
 
 
 

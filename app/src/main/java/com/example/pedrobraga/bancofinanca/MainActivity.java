@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                        break;
 
                     default:
-                        intent3 = new Intent(getApplicationContext(),Grafico.class);
+                        intent3 = new Intent(getApplicationContext(),grafico_compras.class);
                         startActivity(intent3);
                         break;
 

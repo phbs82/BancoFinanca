@@ -1,16 +1,13 @@
 package com.example.pedrobraga.bancofinanca.ViewModel;
 
 import android.app.Application;
-import android.arch.core.util.Function;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
 
 import com.example.pedrobraga.bancofinanca.Entity.Local;
 import com.example.pedrobraga.bancofinanca.Repository.LocalRepository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +51,10 @@ public class LocalViewModel     extends AndroidViewModel {
             return  this.localAll;
     }
 
-    public void insert(Local local) {
+    public Long insert(Local local) {
 
-        localRepository.insert(local);
+       return localRepository.insert(local);
+
     }
 
 

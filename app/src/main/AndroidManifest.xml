@@ -46,7 +46,8 @@
         <activity
             android:name=".listagem_compras_recyclerview_items"
             android:label="@string/title_activity_listagem_compras_recyclerview_items"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".grafico_compras"></activity>
     </application>
 
 </manifest>
