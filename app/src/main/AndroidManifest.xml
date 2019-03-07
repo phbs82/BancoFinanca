@@ -31,6 +31,7 @@
         <activity android:name=".ListaCompras" />
         <activity android:name=".lista_compras_grupo" />
         <activity android:name=".lista_compras_itens" />
+        <activity android:name=".grafico_compras" />
         <activity
             android:name=".gridview_items"
             android:label="@string/title_activity_gridview_items"
@@ -47,7 +48,6 @@
             android:name=".listagem_compras_recyclerview_items"
             android:label="@string/title_activity_listagem_compras_recyclerview_items"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".grafico_compras"></activity>
     </application>
 
 </manifest>

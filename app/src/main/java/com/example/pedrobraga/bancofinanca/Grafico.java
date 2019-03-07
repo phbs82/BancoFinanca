@@ -20,24 +20,6 @@ import android.widget.Spinner;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.example.pedrobraga.bancofinanca.ViewModel.LocalViewModel;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
 
 import java.text.DateFormat;
@@ -59,9 +41,9 @@ import java.util.stream.Collectors;
 
 public class Grafico extends AppCompatActivity {
 
-    private CompraViewModel compraViewModel;
+  /*  private CompraViewModel compraViewModel;
     private Spinner SpinnerMesAno;
-    private PieChart chart;
+    private BarChart chart;*/
 
 
     @Override
@@ -70,6 +52,9 @@ public class Grafico extends AppCompatActivity {
         setContentView(R.layout.activity_grafico);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+/*
+
 
         SpinnerMesAno = (Spinner) findViewById(R.id.spinner2);
 
@@ -100,27 +85,40 @@ public class Grafico extends AppCompatActivity {
         });
 
 
-        SpinnerMesAno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                geraGrafico(SpinnerMesAno.getSelectedItem().toString().substring(0,3),
-                         SpinnerMesAno.getSelectedItem().toString().substring(4,8));
 
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        GraphView graph = (GraphView) findViewById(R.id.chart1);
 
-            }
+
+
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
+                new DataPoint(1, 5.5),
+                new DataPoint(2, -3.4),
+                new DataPoint(3, 2)
         });
+
+        series.setSpacing(50); // 50% spacing between bars
+        series.setAnimated(true);
+        graph.addSeries(series);
+
+        // set the viewport wider than the data, to have a nice view
+        graph.getViewport().setMinX(10000d);
+        graph.getViewport().setMaxX(10d);
+        graph.getViewport().setXAxisBoundsManual(true);
+*/
+
+
+
+
+
 
     }
 
-
+/*
     private void geraGrafico(String year, String month) {
 
-       chart = (PieChart) findViewById(R.id.chart1);
+        chart = (BarChart) findViewById(R.id.chart1);
 
         compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
@@ -131,7 +129,7 @@ public class Grafico extends AppCompatActivity {
                 chart.clear();
                 List<ComprasItems> comprasitens = new ArrayList<ComprasItems>(0);
 
-                for (int i=0; i < compras.size(); i++) {
+                for (int i = 0; i < compras.size(); i++) {
 
                     if (compras.get(i).compra.getData().toString().contains(year.trim())
                             && compras.get(i).compra.getData().toString().contains(month.trim())) {
@@ -139,13 +137,9 @@ public class Grafico extends AppCompatActivity {
                         comprasitens.add(compras.get(i));
 
                     }
-
                 }
 
-
-                List<PieEntry> entries = new ArrayList<>();
-
-
+                List<BarEntry> entries = new ArrayList<>();
                 for (int i = 0; i < comprasitens.size(); i++) {
 
                     if (i == 5)
@@ -160,93 +154,47 @@ public class Grafico extends AppCompatActivity {
                                 * comprasitens.get(i).itens.get(j).getQuantidade();
                     }
 
-                    entries.add(new PieEntry(total,local));
+                    entries.add(new BarEntry(total, i));
 
                 }
 
-                PieDataSet set = new PieDataSet(entries,"");
+                BarDataSet set = new BarDataSet(entries, "");
+                set.setBarBorderColor(Color.MAGENTA);
+                set.setBarShadowColor(Color.BLUE);
+                set.setDrawValues(true);
+                set.notifyDataSetChanged();
                 set.setColors(ColorTemplate.MATERIAL_COLORS);
-
-                PieData data = new PieData(set);
-
+                BarData data = new BarData(set);
                 data.setValueTextColor(Color.BLACK);
                 data.setValueTextSize(8);
-
-                data.setValueFormatter(new MyValueFormatter());
-
                 data.setHighlightEnabled(true);
-
                 Legend legend = chart.getLegend();
                 legend.setTextColor(Color.BLACK);
                 legend.setTextSize(12);
-
+                chart.enableScroll();
+                chart.isScaleYEnabled();
+                chart.isScaleXEnabled();
+                chart.setAutoScaleMinMaxEnabled(true);
+                chart.bringToFront();
                 chart.setData(data);
-
                 chart.invalidate(); // refresh
 
-
-
-                chart.getRootView().setMinimumHeight(10);
-                chart.getRootView().setScaleX(100);
-                chart.getRootView().setScaleY(100);
-
-
-
-
-
             }
-        });
+            });
+    }*/
 
 
 
-    }
-
-
-    public class MyValueFormatter implements IValueFormatter {
-
-        private DecimalFormat mFormat;
-
-        public MyValueFormatter() {
-            mFormat = new DecimalFormat("###,###,##0.0"); // use one decimal
-
-        }
-
-        @Override
-        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-            // write your logic here
-            return  "R$ " + mFormat.format(value); // e.g. append a dollar-sign
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_listagem_compras, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.cadastro:
-                Intent intent = new Intent(getApplicationContext(),CompraCRUD.class);
-                startActivity(intent);
-                return true;
-            case R.id.listagem:
-                Intent intent2 = new Intent(getApplicationContext(),ListaCompras.class);
-                startActivity(intent2);
-                return true;
-            default:
-                Intent intent3 = new Intent(getApplicationContext(),Grafico.class);
-                startActivity(intent3);
-                return true;
-        }
-
-    }
 
 
 
 
 }
+
+
+
+
+
+
+
+
