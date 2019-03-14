@@ -1,9 +1,11 @@
 package com.example.pedrobraga.bancofinanca;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -73,22 +76,23 @@ public class CompraCRUD extends AppCompatActivity {
 
         final float[] total = {0};
 
+
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable final List<String> listaprodutos) {
 
                 List<String> produtos = new ArrayList<String>(0);
                 Set<String> names = new HashSet<String>(0);
-                for (String name : names) { if (listaprodutos.add(name) == true)
-                { produtos.add(name);} }
+
+                for (String produto: listaprodutos) {
 
 
+                    if (!produtos.contains(produto))
+                        produtos.add(produto);
+
+                }
 
                 produtosadapter.addAll(produtos);
-
-
-
-
                 textproduto.setAdapter(produtosadapter);
 
             }
@@ -99,7 +103,6 @@ public class CompraCRUD extends AppCompatActivity {
 
         final AutoCompleteTextView txtlocal = (AutoCompleteTextView)
                 findViewById(R.id.txtlocal);
-
 
         localViewModel.getLocalAll().observe(this, new Observer<List<Local>>() {
 
@@ -118,6 +121,7 @@ public class CompraCRUD extends AppCompatActivity {
 
                 localadapter.addAll(listalocal);
                 txtlocal.setAdapter(localadapter);
+
 
             }
         });
@@ -168,7 +172,6 @@ public class CompraCRUD extends AppCompatActivity {
         });
 
 
-
         Button btncadastra = (Button) findViewById(R.id.btnCadastra);
 
        final ItemViewModel itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
@@ -211,8 +214,6 @@ public class CompraCRUD extends AppCompatActivity {
 
             }
         });
-
-
 
         btncadastra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,7 +266,6 @@ public class CompraCRUD extends AppCompatActivity {
 
                     }
 
-
                     edtdata.setText("");
                     edtlocal.setText("");
 
@@ -275,7 +275,6 @@ public class CompraCRUD extends AppCompatActivity {
                     EditText edtquantidade = (EditText) findViewById(R.id.txtquantidade);
                     edtquantidade.setText("");
 
-
                     EditText edtvalor = (EditText) findViewById(R.id.txtValor);
                     edtvalor.setText("");
 
@@ -283,9 +282,6 @@ public class CompraCRUD extends AppCompatActivity {
                     produtos.clear();
 
                    adapter.onDetachedFromRecyclerView(recyclerView);
-
-
-
 
                 }
 
@@ -298,13 +294,6 @@ public class CompraCRUD extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
 
 
     } // fim do OnCreate

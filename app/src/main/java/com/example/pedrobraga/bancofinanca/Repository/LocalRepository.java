@@ -232,34 +232,4 @@ public class LocalRepository {
 
     }
 
-
-
- /*  public void insert (Local local) {
-
-        new insertAsyncTask(localDao).execute(local);
-    }*/
-
-  /*  private static class insertAsyncTask extends AsyncTask<Local, Void, Void> {
-
-        private LocalDao asyncLocalDao;
-
-        insertAsyncTask(LocalDao dao) {
-            asyncLocalDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Local... params) {
-
-            asyncLocalDao.insert(params[0]);
-
-
-            return null;
-        }
-    }
-*/
-
-
-
-
-
 }

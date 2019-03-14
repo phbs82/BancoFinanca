@@ -11,10 +11,12 @@
         android:id="@+id/textViewChild"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_green_light"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textColor="@color/ap_black"
+        android:textAlignment="center"
+        android:textColor="@color/ap_white"
         android:textSize="17dp"
+        android:textStyle="bold|italic"
         android:typeface="serif" />
 
 

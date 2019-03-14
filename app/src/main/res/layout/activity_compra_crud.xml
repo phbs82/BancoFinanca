@@ -15,7 +15,6 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5da9b5"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="35dp">
@@ -59,9 +58,7 @@
                     android:layout_height="match_parent"
                     android:hint="Local"
                     android:textColorHint="@color/ap_black"
-                    android:inputType="textMultiLine"
                     android:textColor="@color/ap_black"
-                    android:textColorHighlight="@color/ap_black"
 
 
                     />

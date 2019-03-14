@@ -26,7 +26,6 @@ public class CompraViewModel  extends AndroidViewModel {
         super(application);
         CompraRepository = new CompraRepository(application);
         this.CompraAll =  new MutableLiveData<List<Compra>>();
-     //   codigo = CompraRepository.getcodigoCompra();
 
     }
 
