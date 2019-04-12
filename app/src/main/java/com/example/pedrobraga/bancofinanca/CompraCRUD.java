@@ -20,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class CompraCRUD extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.rvItens);
         final ItemListAdapter adapter = new ItemListAdapter(this);
         recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         FloatingActionButton btnAdd = (FloatingActionButton) findViewById(R.id.fbaddItem);
@@ -75,7 +77,6 @@ public class CompraCRUD extends AppCompatActivity {
         final List<Produto> produtos = new ArrayList<Produto>(0);
 
         final float[] total = {0};
-
 
         mModel.getProdutoAll().observe(this, new Observer<List<String>>() {
             @Override
@@ -125,6 +126,7 @@ public class CompraCRUD extends AppCompatActivity {
 
             }
         });
+
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {

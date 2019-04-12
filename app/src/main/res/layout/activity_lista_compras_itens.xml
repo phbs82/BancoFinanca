@@ -9,15 +9,20 @@
 
     <TextView
         android:id="@+id/textViewChild"
-        android:layout_width="match_parent"
+        android:layout_width="254dp"
         android:layout_height="28dp"
-        android:background="@android:color/holo_green_light"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/white"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textAlignment="center"
-        android:textColor="@color/ap_white"
-        android:textSize="17dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/ap_charcoal"
+        android:textSize="10sp"
         android:textStyle="bold|italic"
-        android:typeface="serif" />
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="4dp" />
 
 
 </android.support.constraint.ConstraintLayout>

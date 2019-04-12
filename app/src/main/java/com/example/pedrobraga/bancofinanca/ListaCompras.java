@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.Utils.ExpandableListViewAdapter;
@@ -25,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Vector;
 
 public class ListaCompras extends AppCompatActivity {
 
@@ -32,9 +35,10 @@ public class ListaCompras extends AppCompatActivity {
 
     private  ExpandableListViewAdapter expandableListViewAdapter;
 
-    private List<String> listDataGroup;
+    private List<ComprasItems> listDataGroup ;
 
-    private HashMap<String, List<String>> listDataChild;
+
+    private HashMap<ComprasItems, List<String>> listDataChild;
 
     private ComprasItems comprasitems;
     private CompraViewModel compraViewModel;
@@ -46,17 +50,21 @@ public class ListaCompras extends AppCompatActivity {
 
 
         // initializing the list of groups
-        listDataGroup = new ArrayList<>();
+      //  listDataGroup = new ArrayList<>();
+        listDataGroup = new ArrayList<ComprasItems>(0);
 
         // initializing the list of child
         listDataChild = new HashMap<>();
 
         // initializing the adapter object
-        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild,
+               expandableListView);
         expandableListView = findViewById(R.id.expandableListView);
 
         expandableListView.setAdapter(expandableListViewAdapter);
         expandableListViewAdapter.notifyDataSetChanged();
+
+
 
         compraViewModel = ViewModelProviders.of(this).get(CompraViewModel.class);
 
@@ -75,24 +83,23 @@ public class ListaCompras extends AppCompatActivity {
 
                 for (int i = 0; i < comprasitenstotal.size(); i++) {
 
-
-
                     String pattern = "dd-MMM-yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-
                     String datacompra = simpleDateFormat.format(comprasitenstotal.get(i).compra.getData());
 
 
-                    listDataGroup.add(String.valueOf(datacompra) + "  " +
-                            comprasitenstotal.get(i).local.get(0).getDesclocal()
+                    /*listDataGroup.put(compras.get(i).compra.getCodigocompra() ,
+                            compras.get(i).compra.getCodigocompra()  + "  " +
+                            String.valueOf(datacompra + "  " +
+                                    comprasitenstotal.get(i).local.get(0).getDesclocal()));
+                    */
+
+                    listDataGroup.add(comprasitenstotal.get(i));
 
 
-                    );
+
 
                     mesano.add(datacompra.subSequence(3,6) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
-
-
 
                     List<String> itens  = new ArrayList<>(0);
                     float total = 0;
@@ -108,6 +115,7 @@ public class ListaCompras extends AppCompatActivity {
                         total += comprasitenstotal.get(i).itens.get(j).getValor()  * comprasitenstotal.get(i).itens.get(j).getQuantidade() ;
 
                     }
+
                     itens.add("Total: R$" + String.valueOf(total));
                     listDataChild.put(listDataGroup.get(i),itens);
 
@@ -135,8 +143,6 @@ public class ListaCompras extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
-
                 expandableListViewAdapter.getFilter()
                         .filter(SpinnerMesAno.getSelectedItem().toString());
             }
@@ -147,19 +153,7 @@ public class ListaCompras extends AppCompatActivity {
             }
         });
 
-
-
-        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                return false;
-            }
-        });
-
     }
-
 
 
 

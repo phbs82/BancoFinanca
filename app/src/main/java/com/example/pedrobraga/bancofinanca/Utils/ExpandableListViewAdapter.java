@@ -1,44 +1,56 @@
 package com.example.pedrobraga.bancofinanca.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by pedro.braga on 05/08/2018.
  */
+import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter
-         implements Filterable    {
+         implements Filterable , ExpandableListAdapter {
 
     private Context context;
-    private List<String> listDataGroup;
+    private List<ComprasItems> listDataGroup ;
 
-    private HashMap<String, List<String>> listDataChild;
+    private HashMap<ComprasItems, List<String>> listDataChild;
     private FiltroCompras filtroCompras;
 
-    private List<String> listDataGroupOriginal;
+    private List<ComprasItems> listDataGroupOriginal  ;
 
-    private HashMap<String, List<String>> listDataChildOriginal;
+    private HashMap<ComprasItems, List<String>> listDataChildOriginal;
 
-    public ExpandableListViewAdapter(Context context, List<String> listDataGroup,
-                                     HashMap<String, List<String>> listChildData) {
+    private ExpandableListView expandableListView;
+
+    public ExpandableListViewAdapter(Context context,   List<ComprasItems>  listDataGroup,
+                                     HashMap<ComprasItems, List<String>> listChildData,ExpandableListView expandableListView) {
+
 
 
         this.context = context;
@@ -46,9 +58,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         this.listDataGroupOriginal = listDataGroup;
         this.listDataChild = listChildData;
         this.listDataChildOriginal = listChildData;
-
-
-
+        this.expandableListView = expandableListView;
 
     }
 
@@ -57,6 +67,9 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         return this.listDataChild.get(this.listDataGroup.get(groupPosition))
                 .get(childPosititon);
     }
+
+
+
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
@@ -69,7 +82,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
 
         final String childText = (String) getChild(groupPosition, childPosition);
 
-        if (convertView == null) {
+        if (convertView == null ) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.activity_lista_compras_itens, null);
@@ -80,8 +93,12 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
 
         textViewChild.setText(childText);
 
+
+
         return convertView;
     }
+
+
 
     @Override
     public int getChildrenCount(int groupPosition) {
@@ -96,7 +113,16 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
 
     @Override
     public int getGroupCount() {
-        return this.listDataGroup.size();
+
+        if (listDataGroup != null) {
+
+            return listDataGroup.size();
+        }
+        else {
+
+            return 0;
+        }
+
     }
 
     @Override
@@ -107,7 +133,10 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+
+        String headerTitle = listDataGroup.get(groupPosition).local.get(0).getDesclocal().toString();
+
+
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -119,8 +148,33 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         textViewGroup.setTypeface(null, Typeface.BOLD);
         textViewGroup.setText(headerTitle);
 
+
+        ImageView btndel = convertView.findViewById(R.id.imgdelcompra);
+
+
+        btndel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                 CharSequence text = String.valueOf(groupPosition) ;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+
+            }
+        });
+
+
+
+
         return convertView;
     }
+
+
+
+
 
     @Override
     public boolean hasStableIds() {
@@ -132,6 +186,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         return true;
     }
 
+
     @Override
     public Filter getFilter() {
 
@@ -141,6 +196,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         return filtroCompras;
 
     }
+
+
 
     public class FiltroCompras extends Filter {
 
@@ -157,34 +214,33 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
                 String mes = constraint.toString().split("/")[0];
                 String ano = constraint.toString().split("/")[1];
 
-                List<String> comprasitenstotal = new ArrayList<String>(0);
+               // List<String> comprasitenstotal = new ArrayList<String>(0);
 
-
-/*
-                comprasitenstotal = listDataGroupOriginal.stream()
-                        .filter(c -> c.toString().contains(mes))
-                        .filter(c -> c.toString().contains(ano))
-                        .collect(Collectors.toList());
-*/
-
+                List<ComprasItems> itens = new ArrayList<ComprasItems>(0);
 
                 for (int i=0; i < listDataGroupOriginal.size(); i++ ) {
 
                     String data;
-                    data = listDataGroupOriginal.get(i).toString();
-                    if (listDataGroupOriginal.get(i).toString().contains(mes) &&
-                            listDataGroupOriginal.get(i).toString().contains(ano)   ) {
+                    data = listDataGroupOriginal.get(i).compra.getData().toString();
 
-                        comprasitenstotal.add(data);
+/*                    if (data.toLowerCase().contains(mes) &&
+                            data.toLowerCase().contains(ano)   ) {
 
+                        comprasitenstotal.add(listDataGroupOriginal.get(i).local.get(0).getDesclocal() +
+                       "  " + data  );
+
+                    }*/
+
+                    if (data.toLowerCase().contains(mes) &&
+                            data.toLowerCase().contains(ano)   ) {
+
+                        itens.add(listDataGroupOriginal.get(i));
                     }
-
 
                 }
 
-
-                results.values = comprasitenstotal;
-                results.count = comprasitenstotal.size();
+                results.values = itens;
+                results.count = itens.size();
 
 
             } else {
@@ -201,7 +257,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            listDataGroup = (List<String>)results.values;
+            listDataGroup = (List<ComprasItems>) results.values;
             notifyDataSetChanged();
 
         }

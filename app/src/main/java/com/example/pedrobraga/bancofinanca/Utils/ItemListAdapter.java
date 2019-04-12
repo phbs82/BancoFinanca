@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
@@ -20,11 +22,12 @@ import java.util.List;
 public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
 
 
+
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView descricao;
         private final TextView quantidade;
         private final TextView valor;
-
+        public ImageButton btndelete;
 
         private ItemViewHolder(View itemView) {
             super(itemView);
@@ -32,8 +35,9 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
             descricao = itemView.findViewById(R.id.txtDescricao);
             quantidade = itemView.findViewById(R.id.txtQuantidade);
             valor = itemView.findViewById(R.id.txtValor);
-
+            btndelete  = itemView.findViewById(R.id.btndelete);
         }
+
     }
 
     private final LayoutInflater mInflater;
@@ -46,8 +50,6 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.activity_recyclerview_items, parent, false);
-
-
 
         return new ItemViewHolder(itemView);
     }
@@ -73,6 +75,21 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
             holder.valor.setText(0);
 
         }
+
+
+        holder.btndelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                itens.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,itens.size());
+
+
+            }
+        });
+
+
     }
 
     public void insertItem(Item item) {
@@ -80,10 +97,10 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
         notifyItemInserted(getItemCount());
 
 
-
-
-
     }
+
+
+
 
     // getItemCount() is called many times, and when it is first called,
     // mWords has not been updated (means initially, it's null, and we can't return null).
@@ -95,6 +112,10 @@ public class ItemListAdapter  extends RecyclerView.Adapter<ItemListAdapter.ItemV
 
 
     }
+
+
+
+
 
 
 }
