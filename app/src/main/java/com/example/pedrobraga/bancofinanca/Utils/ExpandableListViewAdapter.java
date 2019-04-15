@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -156,7 +157,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
             @Override
             public void onClick(View v) {
 
-                 CharSequence text = String.valueOf(groupPosition) ;
+                 CharSequence text =
+                         listDataGroup.get(groupPosition).local.get(0).getDesclocal();
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
@@ -208,28 +210,21 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
 
              results = new FilterResults();
 
-
             if (constraint.toString()!="Todos") {
 
                 String mes = constraint.toString().split("/")[0];
                 String ano = constraint.toString().split("/")[1];
 
-               // List<String> comprasitenstotal = new ArrayList<String>(0);
-
                 List<ComprasItems> itens = new ArrayList<ComprasItems>(0);
 
                 for (int i=0; i < listDataGroupOriginal.size(); i++ ) {
 
-                    String data;
-                    data = listDataGroupOriginal.get(i).compra.getData().toString();
+                    String pattern = "dd-MMM-yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                    String data = simpleDateFormat.format(listDataGroupOriginal.get(i).compra.getData());
 
-/*                    if (data.toLowerCase().contains(mes) &&
-                            data.toLowerCase().contains(ano)   ) {
-
-                        comprasitenstotal.add(listDataGroupOriginal.get(i).local.get(0).getDesclocal() +
-                       "  " + data  );
-
-                    }*/
+//                    String data;
+//                    data = listDataGroupOriginal.get(i).compra.getData().toString();
 
                     if (data.toLowerCase().contains(mes) &&
                             data.toLowerCase().contains(ano)   ) {

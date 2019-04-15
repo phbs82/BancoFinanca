@@ -86,24 +86,12 @@ public class ListaCompras extends AppCompatActivity {
                     String pattern = "dd-MMM-yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     String datacompra = simpleDateFormat.format(comprasitenstotal.get(i).compra.getData());
-
-
-                    /*listDataGroup.put(compras.get(i).compra.getCodigocompra() ,
-                            compras.get(i).compra.getCodigocompra()  + "  " +
-                            String.valueOf(datacompra + "  " +
-                                    comprasitenstotal.get(i).local.get(0).getDesclocal()));
-                    */
-
                     listDataGroup.add(comprasitenstotal.get(i));
-
-
-
 
                     mesano.add(datacompra.subSequence(3,6) + "/" + datacompra.substring(datacompra.length()-4,datacompra.length()));
 
                     List<String> itens  = new ArrayList<>(0);
                     float total = 0;
-
 
                     for (int j = 0; j < comprasitenstotal.get(i).itens.size(); j++) {
 
