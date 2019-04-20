@@ -12,7 +12,6 @@ import android.arch.persistence.room.Update;
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 
-import java.util.Date;
 import java.util.List;
 
 /**

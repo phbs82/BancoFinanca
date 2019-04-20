@@ -10,7 +10,6 @@ import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 

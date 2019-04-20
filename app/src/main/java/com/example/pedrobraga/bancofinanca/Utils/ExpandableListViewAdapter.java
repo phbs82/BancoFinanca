@@ -1,15 +1,13 @@
 package com.example.pedrobraga.bancofinanca.Utils;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.media.Image;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
@@ -18,9 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by pedro.braga on 05/08/2018.
- */
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
 import com.example.pedrobraga.bancofinanca.R;
 
@@ -28,10 +23,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+/**
+ * Created by pedro.braga on 05/08/2018.
+ */
 
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter
@@ -157,24 +152,44 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
             @Override
             public void onClick(View v) {
 
-                 CharSequence text =
-                         listDataGroup.get(groupPosition).local.get(0).getDesclocal();
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
+                Dialogo(groupPosition);
 
             }
         });
-
-
-
 
         return convertView;
     }
 
 
+    public void Dialogo(int posicao) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Atenção");
+        builder.setMessage("Deseja deletar o item selecionado");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "Registro apagado", Toast.LENGTH_SHORT).show();
+                listDataGroup.remove(posicao);
+                notifyDataSetChanged();
+
+
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(context, "You've changed your mind to delete all records", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.show();
+
+
+
+    }
 
 
 

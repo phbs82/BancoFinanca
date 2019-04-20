@@ -11,76 +11,64 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="134dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="63dp"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="23dp"
         android:text="Filtrar por Data"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/barview"
         app:layout_constraintEnd_toStartOf="@+id/spinner2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner2"
-        android:layout_width="150dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="31dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginTop="17dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/shapes"
-        app:layout_constraintBottom_toTopOf="@+id/vs1"
+        app:layout_constraintBottom_toTopOf="@+id/barview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ViewSwitcher
-        android:id="@+id/vs1"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/barview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="22dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tb2"
+        android:layout_marginBottom="66dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2">
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:visibility="visible" />
-
-
-        <com.github.mikephil.charting.charts.BarChart
-
-            android:id="@+id/barview2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:visibility="visible" />
-
-
-    </ViewSwitcher>
-
-    <ToggleButton
-        android:id="@+id/tb2"
-        style="@style/Widget.AppCompat.ButtonBar.AlertDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
-        android:layout_marginStart="8dp"
-        android:text="ToggleButton"
-        android:textOff="Compras"
-        android:textOn="Produtos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vs1" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
 </android.support.constraint.ConstraintLayout>
+
+
+    <!--   <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:visibility="visible" />
+
+
+            <com.github.mikephil.charting.charts.BarChart
+
+                android:id="@+id/barview2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:visibility="visible" />-->

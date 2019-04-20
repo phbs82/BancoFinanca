@@ -6,12 +6,8 @@ package com.example.pedrobraga.bancofinanca.Entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.widget.EditText;
-
-import com.example.pedrobraga.bancofinanca.Entity.Compra;
 
 @Entity(
         foreignKeys = {

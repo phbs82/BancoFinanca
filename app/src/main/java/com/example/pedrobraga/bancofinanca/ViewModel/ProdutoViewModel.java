@@ -3,13 +3,10 @@ package com.example.pedrobraga.bancofinanca.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-
 
 import com.example.pedrobraga.bancofinanca.Entity.Produto;
 import com.example.pedrobraga.bancofinanca.Repository.ProdutoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

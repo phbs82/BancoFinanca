@@ -1,19 +1,6 @@
 package com.example.pedrobraga.bancofinanca;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-
-import com.example.pedrobraga.bancofinanca.Entity.Local;
-import com.example.pedrobraga.bancofinanca.Repository.LocalRepository;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

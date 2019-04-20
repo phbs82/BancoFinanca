@@ -1,18 +1,12 @@
 package com.example.pedrobraga.bancofinanca.POJO;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Relation;
-import android.arch.persistence.room.TypeConverters;
 
 import com.example.pedrobraga.bancofinanca.Entity.Compra;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.Entity.Local;
-import com.example.pedrobraga.bancofinanca.Utils.DateTypeConverter;
 
-import java.util.Date;
 import java.util.List;
 
 /**

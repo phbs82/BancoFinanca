@@ -2,7 +2,6 @@ package com.example.pedrobraga.bancofinanca.Repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 import com.example.pedrobraga.bancofinanca.Dao.ItemDao;
@@ -10,7 +9,6 @@ import com.example.pedrobraga.bancofinanca.Database.AppDatabase;
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by pedro.braga on 19/04/2018.

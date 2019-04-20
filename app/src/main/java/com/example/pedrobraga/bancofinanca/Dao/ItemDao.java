@@ -9,7 +9,6 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
-import com.example.pedrobraga.bancofinanca.Entity.Local;
 
 import java.util.List;
 
