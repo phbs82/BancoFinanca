@@ -130,8 +130,14 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
 
-        String headerTitle = listDataGroup.get(groupPosition).local.get(0).getDesclocal().toString();
 
+
+        String pattern = "dd-MMM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String datacompra = simpleDateFormat.format(listDataGroup.get(groupPosition).compra.getData());
+
+        String headerTitle = listDataGroup.get(groupPosition).local.get(0).getDesclocal().toString()
+                + datacompra ;
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context

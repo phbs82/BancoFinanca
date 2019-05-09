@@ -88,7 +88,7 @@ public class ListaCompras extends AppCompatActivity {
 
                     for (int j = 0; j < comprasitenstotal.get(i).itens.size(); j++) {
 
-                        itens.add(comprasitenstotal.get(i).itens.get(j).getDescricao() + " " +
+                        itens.add( comprasitenstotal.get(i).itens.get(j).getDescricao() + " R$ " +
                                 String.valueOf(comprasitenstotal.get(i).itens.get(j).getValor()
                                 * comprasitenstotal.get(i).itens.get(j).getQuantidade())
 
