@@ -8,14 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.example.pedrobraga.bancofinanca.Entity.Item;
 import com.example.pedrobraga.bancofinanca.POJO.ComprasItems;
-import com.example.pedrobraga.bancofinanca.Utils.ValueComparator;
 import com.example.pedrobraga.bancofinanca.ViewModel.CompraViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -25,19 +23,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.TreeSet;
-
 
 public class grafico_compras extends AppCompatActivity {
 
@@ -57,6 +49,7 @@ public class grafico_compras extends AppCompatActivity {
         ViewSwitcher vs1 = findViewById(R.id.viewSwitcher);
 
         TextView txtgraficocompra = (TextView) findViewById(R.id.txtvCompra);
+
 
 
         txtgraficocompra.setOnClickListener(new View.OnClickListener() {
@@ -138,10 +131,11 @@ public class grafico_compras extends AppCompatActivity {
         ArrayList localval = new ArrayList();
         ArrayList valoresprodutos = new ArrayList();
 
-
         List<Item> itens = new ArrayList<Item>(0);
+        HashMap<String,Float> products = new HashMap<String,Float>(0);
 
         HashMap<Float,String> produtos = new HashMap<Float,String>(0);
+
 
         for (int i=0; i < listacompras.size(); i++) {
 
@@ -151,6 +145,7 @@ public class grafico_compras extends AppCompatActivity {
                 itens.addAll(listacompras.get(i).itens);
             }
         }
+
 
         for (int i = 0; i < comprasitens.size(); i++) {
             if (i == 10)
@@ -164,6 +159,22 @@ public class grafico_compras extends AppCompatActivity {
                 total += comprasitens.get(i).itens.get(j).getValor()
                         * comprasitens.get(i).itens.get(j).getQuantidade();
 
+
+
+                if (products.keySet().contains(comprasitens.get(i).itens.get(j).getDescricao())) {
+
+                    float totalp = (Float) products.get(comprasitens.get(i).itens.get(j).getDescricao());
+                    totalp = total + totalp;
+                    products.put(comprasitens.get(i).itens.get(j).getDescricao(),
+                            totalp);
+
+                }
+
+                else {
+
+                    products.put(comprasitens.get(i).itens.get(j).getDescricao(),total);
+                }
+
             }
 
             valores.add(i,new Entry(total,i));
@@ -172,10 +183,6 @@ public class grafico_compras extends AppCompatActivity {
 
         }
 
-        for (int i =0; i < itens.size(); i++) {
-
-            produtos.put(itens.get(i).getValor(),itens.get(i).getDescricao());
-        }
 
         PieDataSet dataSet = new PieDataSet(valores, "10 maiores gastos no mês");
 
@@ -186,10 +193,23 @@ public class grafico_compras extends AppCompatActivity {
 
         // Montagem do Gráfico dos Produtos
 
-        Map<Float,String> sortprodutos = new TreeMap<Float,String>(produtos);
+        for (int i =0; i < itens.size(); i++) {
+
+            produtos.put(itens.get(i).getValor(),itens.get(i).getDescricao());
+        }
+
+        Map<String,Double> sortp = new HashMap<String,Double>();
+
+//        Map<Float,String> sortprodutos = new TreeMap<Float,String>(Collections.reverseOrder());
+
+        Map<String,Float> sortprodutos = new TreeMap<String,Float>(Collections.reverseOrder());
+
+        sortprodutos.putAll(products);
         ArrayList descprodutos = new ArrayList();
+
+
         int j = 0;
-        for (String desc: sortprodutos.values()) {
+        for (String desc: sortprodutos.keySet()) {
 
             descprodutos.add(j,desc);
             j++;
@@ -201,10 +221,12 @@ public class grafico_compras extends AppCompatActivity {
 
 
         ArrayList valprodutos = new ArrayList();
-        Set<Float> totalp = sortprodutos.keySet();
+     //   Set<Float> totalp = sortprodutos.values().;
+        List<Float> totalp = new ArrayList<Float>();
+        totalp.addAll(sortprodutos.values());
 
         int i =0;
-        for (Float t: sortprodutos.keySet()) {
+        for (Float t: sortprodutos.values()) {
 
             valprodutos.add(i,new Entry(t,i));
 
@@ -213,6 +235,13 @@ public class grafico_compras extends AppCompatActivity {
                 break;
 
         }
+
+
+
+
+
+
+
 
         PieChart pieChart2 = findViewById(R.id.barview2);
         PieDataSet dataSet2 = new PieDataSet(valprodutos, "Produtos");
@@ -225,6 +254,7 @@ public class grafico_compras extends AppCompatActivity {
 
 
     }
+
 
 
 

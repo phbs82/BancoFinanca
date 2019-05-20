@@ -137,7 +137,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter
         String datacompra = simpleDateFormat.format(listDataGroup.get(groupPosition).compra.getData());
 
         String headerTitle = listDataGroup.get(groupPosition).local.get(0).getDesclocal().toString()
-                + datacompra ;
+                + "   " + datacompra ;
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
